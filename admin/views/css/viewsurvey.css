@@ -1,0 +1,529 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+}
+
+body, html {
+    background: #f7f7f7;
+}
+
+.sidebar {
+    width: 250px;
+    background-color: #E8AF30;
+    color: white;
+    /* box-shadow: 5px 5px 5px rgba(1, 1, 1, 0.537); */
+    box-shadow: 5px 4px 8px rgba(0, 0, 0, 0.1);
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    padding-top: 20px;
+}
+
+
+.sidebar .logo-container {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.logo-container h1{
+    font-weight: 700;
+}
+
+.sidebar .logo {
+    max-width: 80px;
+    margin-bottom: 10px;
+}
+
+.sidebar a, .sidebar button {
+    color: #162F65;
+    text-decoration: none;
+    padding: 12px;
+    text-align: left; 
+    display: flex; 
+    align-items: center; 
+    font-size: 1.1em;
+    margin: 5px 0;
+}
+
+.header-nav a:hover {
+    background-color: rgba(255, 255, 255, 0.558);
+    color: #E8AF30;
+}
+
+.header-nav a.active {
+    font-weight: 700;
+    color: white;
+}
+
+.header-nav a img {
+    width: 20px;  /* Adjust icon size */
+    height: 20px;
+    margin-right: 10px;  /* Space between image and text */
+    transition: opacity 0.3s ease; /* Smooth opacity change */
+}
+.header-nav a.active:hover {
+    color: #E8AF30;
+}
+
+.header-nav button.logout-button {
+    color: #162F65;
+    text-decoration: none;
+    padding: 12px;
+    text-align: left;
+    display: block;
+    font-size: 1.1em;
+    margin: 5px 0;
+    background: none;
+    /* border: 2px solid white; */
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+    width: 250px;
+}
+
+.header-nav button.logout-button:hover {
+    background-color: rgba(255, 255, 255, 0.558);
+    color: red;
+}
+.nav-icon {
+    flex-shrink: 0; 
+    margin-right: 10px; 
+}
+
+.logout-button img {
+    flex-shrink: 0; 
+    margin-right: 10px; 
+}
+/* Default image for Home */
+.nav-link.home img {
+    content: url('../res/pictures/home1.png');
+}
+
+/* Change image on hover for Home */
+.nav-link.home:hover img {
+    content: url('../res/pictures/home2.png');  /* Replace with hover image */
+}
+
+/* Active state image for Home */
+.nav-link.home.active img {
+    content: url('../res/pictures/home3.png');  /* Replace with active image */
+}
+
+/* Repeat for other nav links */
+.nav-link.addsurvey img {
+    content: url('../res/pictures/addsurvey1.png');
+}
+
+.nav-link.addsurvey:hover img {
+    content: url('../res/pictures/addsurvey2.png');
+}
+
+.nav-link.addsurvey.active img {
+    content: url('../res/pictures/addsurvey3.png');
+}
+
+.nav-link.results img {
+    content: url('../res/pictures/results1.png');
+}
+
+.nav-link.results:hover img {
+    content: url('../res/pictures/results2.png');
+}
+
+.nav-link.results.active img {
+    content: url('../res/pictures/results3.png');
+}
+
+.nav-link.profile img {
+    content: url('../res/pictures/profile1.png');
+}
+
+.nav-link.profile:hover img {
+    content: url('../res/pictures/profile2.png');
+}
+
+.nav-link.profile.active img {
+    content: url('../res/pictures/profile3.png');
+}
+
+.logout-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 12px;
+    font-size: 1.1em;
+    margin: 5px 0;
+    width: 250px;
+    display: flex;
+    align-items: center;
+}
+
+.logout-button img {
+    width: 20px;
+    height: 20px;
+    margin-right: 10px;
+}
+
+/* Default image when not hovered or active */
+.logout-button img.default {
+    content: url('../res/pictures/logout1.png'); /* Replace with your default logout image */
+}
+
+/* Image when hovered */
+.logout-button:hover img {
+    content: url('../res/pictures/logout2.png'); /* Replace with your hover logout image */
+}
+
+/* Button hover effect */
+.logout-button:hover {
+    background-color: rgba(255, 255, 255, 0.558);
+    color: red;
+}
+
+main {
+    margin-left: 250px;
+    padding: 20px;
+}
+
+label {
+    display: block;
+    font-weight: bold;
+    margin-top: 15px;
+    color: #E8AF30;
+}
+
+select {
+    width: 150px; /* Set a consistent width for all dropdowns */
+    border-radius: 5px;
+    padding: 5px;
+    background-color: #E8AF30;
+    color: black;
+    border: 1px solid #ccc;
+}
+
+hr {
+    margin: 20px 0;
+    border: none;
+    border-top: 1px solid #ccc;
+}
+
+select, input[type="text"], textarea {
+    font-size: 14px;
+    padding: 8px;
+    width: 100%;
+    margin-top: 5px;
+}
+
+button {
+    margin-top: 15px;
+    padding: 10px 15px;
+    border: none;
+    background-color: #162F65;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.options-container {
+    position: relative;
+    display: inline-block;
+}
+
+.options-button:hover {
+    background-color: transparent;
+}
+
+.options-button {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    padding: 5px;
+    color: #162F65;
+}
+
+.options-menu {
+    display: none;
+    position: absolute;
+    right: 0;
+    top: 100%;
+    background-color: white;
+    border: 1px solid #ddd;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+    border-radius: 20px;
+}
+
+.options-menu a {
+    color: black;
+    padding: 8px 12px;
+    display: block;
+    text-decoration: none;
+}
+
+.options-menu a:hover {
+    background-color: #e8ae308b;
+    border-radius: 25px;
+}
+
+.search-form {
+    display: flex;
+    align-items: center;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.search-input {
+    width: 100%; 
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 25px;
+}
+
+.image-buttons {
+    display: flex;
+    align-items: center;
+}
+
+
+.logout-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 12px;
+    font-size: 1.1em;
+    margin: 5px 0;
+    width: 250px;
+    display: flex;
+    align-items: center;
+}
+
+.logout-button img {
+    width: 20px;
+    height: 20px;
+    margin-right: 10px;
+}
+.survey-container h1 {
+    color: #E8AF30;
+    font-size: 24px;
+    font-weight: bold;
+    font-size: 2em;
+    text-align: center;
+    margin-top: 10px;
+    margin-bottom: 15px;
+}
+
+.question-container {
+    color: black;
+    background: white;
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.question-container h1 {
+    font-size: 20px;
+    color: black;
+    margin-bottom: 15px;
+}
+/* 
+.options-part {
+    width: 50px;
+} */
+
+.upper-part {
+    width: 100%;
+    display: flex;
+    gap: 12px; 
+    align-items: center; 
+    justify-content: space-between;
+    border-bottom: 3px solid #E8AF30;
+    padding-bottom: 10px;
+}
+
+.essay-part {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    gap: 12px; 
+    align-items: flex-start; 
+    margin-top: 5px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid black;
+}
+
+.rating-part {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    gap: 12px; 
+    align-items: flex-start; 
+    margin-top: 5px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid black;
+}
+
+.checkbox-part {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    gap: 12px; 
+    align-items: flex-start; 
+    margin-top: 5px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid black;
+}
+
+.question {
+    flex: 1; 
+    width: 800px;
+}
+
+.drop-container {
+    display: flex;
+    flex-direction: column; 
+}
+
+.drop-option1 {
+    width: 150px;
+    border-radius: 10px;
+    color: black;
+    background-color: transparent;
+    border: 1px solid black;
+    padding: 5px;
+}
+
+.drop-option2 {
+    width: 150px;
+    border-radius: 10px;
+    color: black;
+    background-color: transparent;
+    border: 1px solid black;
+    padding: 5px;
+}
+
+.drop-option3 {
+    width: 180px;
+    border-radius: 10px;
+    color: black;
+    background-color: transparent;
+    border: 1px solid black;
+    padding: 5px;
+}
+
+textarea {
+    width: 100%;
+    min-height: 100px;
+    max-height: 300px;
+    border-radius: 10px;
+    border: 1px solid black;
+    padding: 5px;
+    resize: vertical;
+}
+
+#rating-options textarea {
+    width: 100%;
+    min-height: 40px;  /* You can adjust the min-height as needed */
+    max-height: 300px;  /* Optional: Set the maximum height if needed */
+    border-radius: 10px;
+    border: 1px solid black;
+    padding: 5px;
+    resize: vertical; /* Enables vertical resizing only */
+    margin-bottom: 10px;  /* Optional: Space between textareas */
+}
+
+#checkbox-options textarea {
+    width: 100%;
+    min-height: 40px;  /* You can adjust the min-height as needed */
+    max-height: 300px;  /* Optional: Set the maximum height if needed */
+    border-radius: 10px;
+    border: 1px solid black;
+    padding: 5px;
+    resize: vertical; /* Enables vertical resizing only */
+    margin-bottom: 10px;  /* Optional: Space between textareas */
+}
+
+
+#rating-options {
+    width: 200px;
+}
+
+#rating-options input {
+    border: 1px solid black;
+    border-radius: 10px;
+    border-color: black;
+    resize: vertical;
+}
+
+#checkbox-options {
+    width: 200px;
+}
+
+#checkbox-options input {
+    /* width: 200px; */
+    border: 1px solid black;
+    border-radius: 10px;
+    border-color: black;
+}
+
+/* Search Form */
+.search-form {
+    display: flex;
+    align-items: center;
+    margin-left: 10px;
+}
+
+/* Search input field styling */
+.search-input {
+    width: 100%; /* Occupy full available width */
+    /* padding: 8px; */
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 25px;
+}
+
+/* Container for image buttons */
+.image-buttons {
+    display: flex;
+    align-items: center;
+}
+
+.search-btn, .refresh-btn {
+    width: 40px;
+    height: auto;
+    cursor: pointer;
+    position: relative;
+    background-size: contain; 
+    background-repeat: no-repeat;
+    background-position: center; 
+    padding: 0;
+    margin: 0;
+}
+
+.question-list-container {
+        border: 1px solid #ccc;
+        padding: 10px;
+        margin: 10px 0;
+        border-radius: 5px;
+        background-color: #f9f9f9;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.question-list-container p strong{
+    color: #E8AF30;
+}
+    
+.question-list-container p {
+        margin: 5px 0;
+        font-size: 14px;
+        color: #333;
+    }
+    .hidden {
+        display: none;
+    }

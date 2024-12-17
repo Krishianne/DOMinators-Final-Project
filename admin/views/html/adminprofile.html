@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Update Profile</title>
+  <link rel="stylesheet" href="../css/adminprofile.css">
+</head>
+<body>
+<header></header>
+
+<div class="sidebar">
+  <div class="logo-container">
+      <img href="adminhome.html" class="logo"  src="../res/pictures/admin-logo.png" alt="logo">
+      <h1>AlmaMeter</h1>
+  </div>
+  <div class="header-nav"> 
+      <a href="adminhome.html" class="nav-link home">
+          <img src="../res/pictures/home1.png" class="nav-icon" alt="Home">Home
+      </a>
+      <a href="addsurvey.html" class="nav-link addsurvey">
+          <img src="../res/pictures/addsurvey1.png" class="nav-icon" alt="Add Survey">Add Survey
+      </a>
+      <a href="adminresults.html" class="nav-link results">
+          <img src="../res/pictures/results1.png" class="nav-icon" alt="Results">Results
+      </a>
+      <a href="adminprofile.html" class="nav-link profile active">
+          <img src="../res/pictures/profile1.png" class="nav-icon" alt="Profile">Profile
+      </a>
+      <button class="logout-button" id="logoutButton">
+          <img src="../res/pictures/logout1.png" class="logout-icon" alt="Log out">Log out
+      </button>        
+  </div>
+</div>
+
+<main>
+<div class="update-profile">
+  <form id="update-profile-form" enctype="multipart/form-data">
+    <div id="user-image-container">
+      <img id="user-image" src="../res/profile-images/default-avatar.jpg" alt="User Image">
+    </div>
+
+    <div id="message-container"></div>
+
+    <div class="flex">
+      <div class="inputBox">
+        <span>First Name:</span>
+        <input type="text" id="update_firstname" name="update_firstname" class="box">
+        <span>Last Name:</span>
+        <input type="text" id="update_lastname" name="update_lastname" class="box">
+        <span>Email:</span>
+        <input type="email" id="update_email" name="update_email" class="box">
+        <span>Update Your Pic:</span>
+        <input type="file" id="update_image" name="update_image" accept="image/jpg, image/jpeg, image/png" class="box">
+      </div>
+
+      <div class="inputBox">
+        <span>Current Password:</span>
+        <input type="password" value="**********" readonly class="box">
+        <span>New Password:</span>
+        <input type="password" id="new_pass" name="new_pass" placeholder="Enter new password" class="box">
+        <span>Confirm Password:</span>
+        <input type="password" id="confirm_pass" name="confirm_pass" placeholder="Confirm new password" class="box">
+      </div>
+    </div>
+
+    <button type="submit" id="update-button" class="btn">Update Profile</button>
+    <button type="button" class="refresh-btn1" onclick="window.location.reload();">Refresh</button>
+  </form>
+</div>
+</main>
+<script src="../js/adminprofile.js"> </script>
+</body>
+</html>

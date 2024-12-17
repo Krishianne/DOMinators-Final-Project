@@ -1,0 +1,188 @@
+/* Base Styling */
+* {
+    font-family: 'Century Gothic', sans-serif;
+    box-sizing: border-box;
+}
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f9f9f9;
+    margin: 0;
+    padding: 0;
+}
+header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 0px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 99;
+    background-color: white;
+}
+
+.logo-container {
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0;
+    padding: 0;
+}
+
+.logo-container h1 {
+    margin-left: 10px;
+}
+
+.logo {
+    max-width: 70px;
+    height: auto;
+    margin: 0;
+}
+
+.burger {
+    display: none;
+}
+
+.nav-bar {
+    display: flex;
+    align-items: center;
+    border-bottom: 5px black;
+}
+
+.nav-bar a {
+    position: relative;
+    font-size: 1.1em;
+    font-weight: 500;
+    text-decoration: none;
+    margin-left: 20px;
+    padding: 8px 15px;  
+    color: black;
+    border: 2px solid transparent;  /* Initially no border */
+    border-radius: 25px;  /* For rounded corners */
+    transition: background 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
+
+/* Background and border effect on hover */
+.nav-bar a:hover {
+    background: #E8AF30;  /* Background color change */
+    color: black;  /* Text color */
+    border-color: #162F65;  /* Border color */
+}
+
+/* Highlight active link */
+.nav-bar a.active {
+    font-weight: 700;
+    color: #E8AF30; /* Active color */
+}
+
+.nav-bar a.active:hover {
+    color: #162F65;  /* Change the text color to blue on hover */
+}
+
+/* Logout Button */
+.logout-button {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    /* width: 90px; */
+    /* height: 47px; */
+    cursor: pointer;
+    font-size: 1em;
+    font-weight: 500;
+    background: transparent;
+    border: 2px solid transparent;
+    border-radius: 25px;
+    transition: background 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
+
+.logout-button:hover {
+    background: #162F65;
+    color: white;
+    border-color: #E8AF30;
+}
+
+
+.prompt-section {
+    position: sticky;
+    top: 55px; 
+    z-index: 98; 
+    background-color: #fff;
+    padding-top: 5px;
+   
+}
+.prompt-section h1 {
+    background-color: #162F65;
+    color: white;
+    padding: 12px;
+    justify-content: center;
+    text-align: center;
+}
+main {
+    padding: 20px;
+    max-width: 800px;
+    margin: 100px auto;
+    background-color: #fff;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 1);
+    border-radius: 8px;
+}
+.results-container {
+    margin-bottom: 20px;
+}
+.result-entry {
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+}
+.result-entry h3 {
+    font-size: 18px;
+    color: #333;
+}
+.result-entry p {
+    font-size: 16px;
+    color: #666;
+}
+.navigation {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+.nav-button {
+    width: 120px;
+    padding: 10px;
+    font-size: 16px;
+    font-weight: bold;
+    border-radius: 25px;
+    cursor: pointer;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+}
+
+.prev-button {
+    margin-top: 10px;
+    margin-bottom: 100px;
+    background-color: #E8AF30;
+    border: 2px solid #162F65;
+    color: #162F65;
+}
+
+.prev-button:hover{
+    /* border: 2px solid #E8AF30; */
+    background-color: #162F65;
+    color: #fff;
+}
+.submit-button {
+    width: 150px;
+    margin-top: 10px;
+    margin-bottom: 100px;
+    background-color: #162F65;
+    /* border: 2px solid #E8AF30; */
+    color: #fff;
+    
+}
+
+.submit-button:hover{
+    border: 2px solid #162F65;
+    background-color: #E8AF30;
+    color: #162F65;
+}

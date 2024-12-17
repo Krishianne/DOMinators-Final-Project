@@ -1,0 +1,375 @@
+* {
+    font-family: 'Century Gothic', sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 20px 100px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 99;
+}
+
+body {
+    margin-top: 5%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: min-content;
+    
+}
+
+h2, label, .button, .message {
+    font-family: 'Century Gothic', sans-serif;
+}
+
+.message-container {
+    position: absolute;
+    left: 0;
+    margin-top: 7px;
+    margin-bottom: 7px;
+    width: 100%;
+    height: 20px;
+    /* background: black; */
+    text-align: center;
+}
+
+.message {
+    color: red;
+    font-size: 14px;
+    padding: 5px;
+    margin: 0 auto;
+    width: fit-content;
+}
+
+.countdown-message {
+    color: red;
+    /* background: black; */
+    height: 20px;
+    width: 100%;
+    text-align: center;
+    font-size: 14px;
+    padding: 5px;
+    margin: 0 auto;
+    /* width: fit-content; */
+}
+
+.background-image {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw; 
+    height: 100vh; 
+    background-size: cover;
+    background-position: center;
+    animation: slideBackground 60s infinite;
+}
+
+@keyframes slideBackground {
+    0% {
+        background-image: url("../res/pictures/main1.png");
+    }
+    8.33% {
+        background-image: url("../res/pictures/main2.png");
+    }
+    16.66% {
+        background-image: url("../res/pictures/main3.png");
+    }
+    25% {
+        background-image: url("../res/pictures/main4.png");
+    }
+    33.33% {
+        background-image: url("../res/pictures/main5.png");
+    }
+    41.66% {
+        background-image: url("../res/pictures/main6.png");
+    }
+    50% {
+        background-image: url("../res/pictures/mh1.png");
+    }
+    58.33% {
+        background-image: url("../res/pictures/mh2.png");
+    }
+    66.66% {
+        background-image: url("../res/pictures/mh3.png");
+    }
+    75% {
+        background-image: url("../res/pictures/mh4.png");
+    }
+    83.33% {
+        background-image: url("../res/pictures/mh5.png");
+    }
+    91.66% {
+        background-image: url("../res/pictures/mh6.png");
+    }
+    100% {
+        background-image: url("../res/pictures/main1.png"); 
+    }
+}
+
+.loginForm {
+    position: relative;
+    width: 400px;
+    height: 520px;
+    background: rgba(255, 255, 255, 0.515);
+    /* border: 2px solid rgba(255,255,255,.5); */
+    border-radius: 20px;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 0 10px rgba(0, 0, 0, .5) ;
+    display: flex;
+    justify-content: center;
+    overflow: hidden;
+}
+
+
+.loginForm .form {
+    width: 100%;
+    padding: 40px; 
+    padding-top: 15px;
+}
+
+.loginForm .form.login-box {
+    /* background: black; */
+    transition: none;
+    transform: none;
+}
+
+.loginForm.active .form.login-box {
+    transition: none;
+    transform: translateX(0);
+}
+.loginForm .form.register-box {
+    position: absolute;
+    transition: none;
+    transform: none;
+}
+.loginForm.active .form.register-box {
+    transition: transform 0.18s ease;
+    transform: translateX(0);
+    
+}
+
+/* Style for logo */
+.logo {
+    display: block;
+    margin: 0 auto 10px; /* Center the logo and add space below */
+    width: 150px; /* Adjust the size as needed */
+    height: auto;
+
+    
+}
+
+.form h2 {
+    margin-top: 0;
+    font-size: 2em;
+    color: black;
+    text-align: center;
+}
+
+.input {
+    /* background: #162f657b; */
+    /* border-radius: 6px; */
+    position: relative;
+    width: 100%;
+    height: 50px;
+    border-bottom: 2px solid grey;
+    margin-top: 30px;
+}
+
+.input label {
+    position: absolute;
+    top:50%;
+    left: 5px;
+    transform: translateY(-50%);
+    font-size: 1em;
+    font-weight: 500;
+    pointer-events: none;
+    transition: 0.5s;
+}
+.input input:focus~label, .input input:valid~label {
+    top:-5px;
+}
+.input input {
+    width: 100%;
+    height: 100%;
+    background: transparent;
+    border: none;
+    outline: none;
+    font-size: 1em;
+    color: black;
+    font-weight: 600;
+    padding: 0 35px 0 5px;
+}
+.input .icon {
+    position: absolute;
+    right: 8px;
+    top: 15px;
+    color: black;
+    line-height: 57px;
+}
+
+.remember-forgot {
+    font-size: 1em;
+    color: black;
+    font-weight: 500;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 5px;
+    margin-top: 5px;
+}
+.remember-forgot label input {
+    accent-color: black;
+    margin-right: 3px;
+}
+
+.remember-forgot a {
+    margin-left: 100px;
+    color: black;
+    text-decoration: none;
+}
+.remember-forgot a:hover {
+    text-decoration: underline;
+}
+
+.button {
+    width: 100%;
+    height: 45px;
+    background: #162f65ac;
+    border: none;
+    outline: none;
+    border-radius: 25px;
+    cursor: pointer;
+    font-size: 1em;
+    color: white;
+    font-weight: 500;
+    transition: 0.5s;
+    margin-top: 30px;
+}
+
+.button:disabled {
+    background-color: #cccccc; /* Light grey background to indicate disabled */
+    color: #666666; /* Dark grey text color */
+    cursor: not-allowed; /* Changes cursor to indicate button is unclickable */
+    opacity: 0.6; /* Reduces opacity to make it appear faded */
+}
+
+.button:not(:disabled):hover {
+    background: #E8AF30;
+    border: 2px solid #162F65;
+    color: #162F65;
+    font-weight: 600;
+}
+
+.input .toggle-password {
+    position: absolute;
+    right: 40px;
+    top: 55%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    font-size: 1.2em;
+    color: black;
+}
+@media (max-width:650px) {
+    .loginForm {
+        position: relative;
+        width: 300px;
+        height: 350px;
+        
+    }
+    .loginForm .form {
+        width: 100%;
+        padding: 20px; 
+    }
+    
+    .loginForm .form.login-box {
+        margin-top: 30px;
+        transition: none;
+        transform: none;
+    }
+    
+    
+    .form h2{
+        font-size: 1.5em;
+        color: black;
+        text-align: center;
+    }
+    .input {
+        position: relative;
+        width: 100%;
+        height: 50px;
+        border-bottom: 2px solid grey;
+        margin: 30px 0;
+    }
+    
+    .input label {
+        position: absolute;
+        top:50%;
+        left: 5px;
+        transform: translateY(-50%);
+        font-size: 0.9em;
+        font-weight: 500;
+        pointer-events: none;
+        transition: 0.5s;
+    }
+    
+    .input input {
+        width: 100%;
+        height: 100%;
+        background: transparent;
+        border: none;
+        outline: none;
+        font-size: 0.9em;
+        color: black;
+        font-weight: 600;
+        padding: 0 35px 0 5px;
+    }
+    .input .icon {
+        position: absolute;
+        right: 8px;
+        font-size: 1em;
+        color: black;
+        line-height: 57px;
+    }
+    
+    .remember-forgot {
+        font-size: 0.8em;
+        color: black;
+        font-weight: 500;
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 5px;
+    }
+    .remember-forgot label input {
+        accent-color: black;
+        margin-right: 3px;
+    }
+    
+    .remember-forgot a {
+        margin-top: 5px;
+        margin-left: 85px;
+        color: black;
+        text-decoration: none;
+    }
+    .remember-forgot a:hover {
+        text-decoration: underline;
+    }
+    .button {
+        width: 100%;
+        height: 35px;
+        
+    }
+   
+    .login-register {
+        font-size: 0.7em;
+        color: black;
+        text-align: center;
+        font-weight:  500;
+        margin: 10px 0 10px;
+    }
+}

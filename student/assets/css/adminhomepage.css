@@ -1,0 +1,321 @@
+.admin-dashboard {
+    background-color: #ffffff;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    width: 100%;
+  }
+  
+  .admin-dashboard .div {
+    background-color: #ffffff;
+    height: 1024px;
+    position: relative;
+    width: 1440px;
+  }
+  
+  .admin-dashboard .dashboard-section {
+    background-color: #e8af30;
+    box-shadow: 0px 4px 4px #00000080;
+    height: 133px;
+    left: 0;
+    position: absolute;
+    top: 80px;
+    width: 1440px;
+  }
+  
+  .admin-dashboard .text-wrapper {
+    color: #ffffff;
+    font-family: "Archivo-Bold", Helvetica;
+    font-size: 40px;
+    font-weight: 700;
+    left: 253px;
+    letter-spacing: 0;
+    line-height: normal;
+    position: absolute;
+    top: 43px;
+    white-space: nowrap;
+  }
+  
+  .admin-dashboard .top-bar {
+    background-color: #ffffff;
+    box-shadow: 0px 0px 6px #0000001f;
+    height: 80px;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 1440px;
+  }
+  
+  .admin-dashboard .frame {
+    align-items: center;
+    display: flex;
+    gap: 40px;
+    left: 20px;
+    position: absolute;
+    top: 21px;
+    width: 340px;
+  }
+  
+  .admin-dashboard .q-modified {
+    height: 39px;
+    object-fit: cover;
+    position: relative;
+    width: 45px;
+  }
+  
+  .admin-dashboard .title {
+    color: #000000;
+    font-family: "Roboto-Medium", Helvetica;
+    font-size: 28px;
+    font-weight: 500;
+    letter-spacing: 0;
+    line-height: 36px;
+    position: relative;
+    white-space: nowrap;
+    width: fit-content;
+  }
+  
+  .admin-dashboard .navbar {
+    align-items: center;
+    background-color: #ffffff;
+    display: flex;
+    gap: 40px;
+    justify-content: center;
+    left: 681px;
+    position: absolute;
+    top: 22px;
+    width: 634px;
+  }
+  
+  .admin-dashboard .tab {
+    color: #000000;
+    font-family: "Roboto-Regular", Helvetica;
+    font-size: 16px;
+    font-weight: 400;
+    letter-spacing: 0;
+    line-height: 24px;
+    position: relative;
+    white-space: nowrap;
+    width: fit-content;
+  }
+  
+  .admin-dashboard .search-bar {
+    align-items: center;
+    border: 1px solid;
+    border-color: #0000001a;
+    border-radius: 6px;
+    display: flex;
+    gap: 4px;
+    justify-content: flex-end;
+    padding: 8px;
+    position: relative;
+    width: 200px;
+  }
+  
+  .admin-dashboard .search-bar-2 {
+    color: #00000080;
+    flex: 1;
+    font-family: "Roboto-Regular", Helvetica;
+    font-size: 14px;
+    font-weight: 400;
+    letter-spacing: 0;
+    line-height: 20px;
+    margin-top: -1.00px;
+    position: relative;
+  }
+  
+  .admin-dashboard .ic-search {
+    height: 20px;
+    position: relative;
+    width: 20px;
+  }
+  
+  .admin-dashboard .line {
+    height: 2px;
+    left: 758px;
+    position: absolute;
+    top: 58px;
+    width: 58px;
+  }
+  
+  .admin-dashboard .survey-questionnaire {
+    height: 192px;
+    left: 69px;
+    position: absolute;
+    top: 562px;
+    width: 1300px;
+  }
+  
+  .admin-dashboard .overlap-group {
+    background-color: #f2f2f2;
+    border-radius: 20px;
+    box-shadow: 0px 4px 20px #00000080;
+    height: 192px;
+    position: relative;
+    width: 1294px;
+  }
+  
+  .admin-dashboard .image {
+    height: 100px;
+    left: 57px;
+    object-fit: cover;
+    position: absolute;
+    top: 46px;
+    width: 100px;
+  }
+  
+  .admin-dashboard .text-wrapper-2 {
+    color: #000000;
+    font-family: "Inter-Bold", Helvetica;
+    font-size: 40px;
+    font-weight: 700;
+    left: 208px;
+    letter-spacing: 0;
+    line-height: 20px;
+    position: absolute;
+    top: 46px;
+    white-space: nowrap;
+  }
+  
+  .admin-dashboard .this-survey-seeks-to {
+    color: #000000;
+    font-family: "Inter-Regular", Helvetica;
+    font-size: 20px;
+    font-weight: 400;
+    left: 211px;
+    letter-spacing: 0;
+    line-height: 20px;
+    position: absolute;
+    top: 86px;
+  }
+  
+  .admin-dashboard .for-year-graduates {
+    color: #000000;
+    font-family: "Inter-Regular", Helvetica;
+    font-size: 20px;
+    font-weight: 400;
+    left: 906px;
+    letter-spacing: 0;
+    line-height: 20px;
+    opacity: 0.5;
+    position: absolute;
+    top: 146px;
+    white-space: nowrap;
+  }
+  
+  .admin-dashboard .initiate-survey-txt {
+    align-items: center;
+    display: inline-flex;
+    gap: 29px;
+    left: 84px;
+    position: absolute;
+    top: 249px;
+  }
+  
+  .admin-dashboard .checkmark-logo {
+    height: 47.59px;
+    object-fit: cover;
+    position: relative;
+    width: 50px;
+  }
+  
+  .admin-dashboard .text-wrapper-3 {
+    color: #000000;
+    font-family: "Inter-Bold", Helvetica;
+    font-size: 40px;
+    font-weight: 700;
+    letter-spacing: 0;
+    line-height: 20px;
+    position: relative;
+    white-space: nowrap;
+    width: fit-content;
+  }
+  
+  .admin-dashboard .full-history-button {
+    align-items: center;
+    background-color: #e8af30;
+    border-radius: 20px;
+    display: flex;
+    gap: 10px;
+    height: 90px;
+    justify-content: center;
+    left: 380px;
+    padding: 35px 92px;
+    margin-top: 20px;
+    
+    position: absolute;
+    top: 876px;
+    width: 468px;
+
+    /*text*/
+    color: #FFF;
+    font-family: Inter;
+    font-size: 25px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 20px; /* 80% */
+  }
+  
+  .admin-dashboard .create-new-survey {
+    flex: 0 0 auto;
+    margin-bottom: -4.11px;
+    position: relative;
+    
+  }
+  
+  .admin-dashboard .overlap-wrapper {
+    height: 192px;
+    left: 69px;
+    position: absolute;
+    top: 333px;
+    width: 1300px;
+  }
+  
+  .admin-dashboard .text-wrapper-4 {
+    color: #000000;
+    font-family: "Inter-Bold", Helvetica;
+    font-size: 40px;
+    font-weight: 700;
+    left: 203px;
+    letter-spacing: 0;
+    line-height: 20px;
+    position: absolute;
+    top: 36px;
+    white-space: nowrap;
+  }
+  
+  .admin-dashboard .overlap-group-2 {
+    height: 87px;
+    left: 225px;
+    position: absolute;
+    top: 79px;
+    width: 1026px;
+  }
+  
+  .admin-dashboard .this-survey-is {
+    color: #000000;
+    font-family: "Inter-Regular", Helvetica;
+    font-size: 20px;
+    font-weight: 400;
+    left: 0;
+    letter-spacing: 0;
+    line-height: 20px;
+    position: absolute;
+    top: 0;
+    width: 1021px;
+  }
+  
+  .admin-dashboard .p {
+    color: #000000;
+    font-family: "Inter-Regular", Helvetica;
+    font-size: 20px;
+    font-weight: 400;
+    left: 681px;
+    letter-spacing: 0;
+    line-height: 20px;
+    opacity: 0.5;
+    position: absolute;
+    top: 67px;
+    white-space: nowrap;
+  }
+  

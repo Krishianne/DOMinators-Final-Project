@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Survey</title>
+    <link rel="stylesheet" href="../css/addsurvey.css">
+</head>
+<body>
+<header></header>
+
+
+<div class="sidebar">
+    <div class="logo-container">
+        <img class="logo" src="../res/pictures/admin-logo.png" alt="logo">
+        <h1>AlmaMeter</h1>
+    </div>
+    <form action="/" method="GET" class="search-form" id="searchForm">
+        <input type="text" name="query" id="searchQuery" placeholder="Search...">
+    </form>
+    <div class="header-nav">
+        <a href="adminhome.html" class="nav-link home">
+            <img src="../res/pictures/home1.png" class="nav-icon" alt="Home">Home
+        </a>
+        <a href="addsurvey.html" class="nav-link addsurvey active">
+            <img src="../res/pictures/addsurvey1.png" class="nav-icon" alt="Add Survey">Add Survey
+        </a>
+        <a href="adminresults.html" class="nav-link results">
+            <img src="../res/pictures/results1.png" class="nav-icon" alt="Results">Results
+        </a>
+        <a href="adminprofile.html" class="nav-link profile">
+            <img src="../res/pictures/profile1.png" class="nav-icon" alt="Profile">Profile
+        </a>
+        <button class="logout-button" id="logoutButton">
+            <img src="../res/pictures/logout1.png" class="logout-icon" alt="Log out">Log out
+        </button>
+    </div>
+</div>
+
+
+<main>
+    <div class="survey-container">
+        <h1>Add New Survey</h1>
+        <form action="/api/surveyadd/questions" method="POST" >
+            <div class="question-container">
+                <div class="upper-part">
+                    <div class="drop-container">
+                        <label for="course">Course</label>
+                        <input type="text" name="course" id="course" class="drop-option1" placeholder="Enter Course" required>
+                    </div>
+
+
+                    <div class="drop-container">
+                        <label for="semester">Semester</label>
+                        <select name="sem" id="semester" class="drop-option2" required>
+                            <option value="" disabled selected>Select Semester</option>
+                            <option value="1st">1st</option>
+                            <option value="2nd">2nd</option>
+                            <option value="short-term">Short-term</option>
+                        </select>
+                    </div>
+
+
+                    <div class="drop-container">
+                        <label for="ay">Academic Year</label>
+                        <input type="text" name="ay" id="ay" class="drop-option3" placeholder="Enter Academic Year" required>
+                    </div>
+                </div>
+
+
+                <div class="lower-part">
+                    <div class="question">
+                        <label class="text-box" for="question_text">Question Text</label>
+                        <textarea name="question_text" id="question_text"></textarea>
+                    </div>
+
+
+                    <div class="drop-container">
+                        <label for="questionType">Question Type</label>
+                        <select name="type" id="questionType" class="drop-option2" required>
+                            <option value="" disabled selected>Select Type</option>
+                            <option value="Essay">Essay</option>
+                            <option value="Checkbox">Checkbox</option>
+                            <option value="Rating">Rating</option>
+                        </select>
+                    </div>
+
+
+                    <div class="drop-container">
+                        <label for="category">Category</label>
+                        <select name="cat" id="category" class="drop-option2" required>
+                            <option value="" disabled selected>Select Category</option>
+                            <option value="Major">Major</option>
+                            <option value="Minor">Minor</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+
+            <div id="options-container" style="display: none;">
+                <!-- Rating Options -->
+                <div id="rating-options" style="display: none;">
+                    <label>Rating Options</label>
+                    <div id="rating-options-list">
+                        <div class="rate-input">
+                            <input type="text" name="rate1" placeholder="Rate 1">
+                            <button type="button" class="remove-btn" onclick="removeOption(this)">Remove</button>
+                        </div>
+                    </div>
+                    <button type="button" id="add-rating-option" onclick="addRatingOption()">Add Rating Option</button>
+                </div>
+
+                <!-- Checkbox Options -->
+                <div id="checkbox-options" style="display: none;">
+                    <label>Checkbox Options</label>
+                    <div id="checkbox-options-list">
+                        <div class="checkbox-input">
+                            <input type="text" name="choice1" placeholder="Choice 1">
+                            <button type="button" class="remove-btn" onclick="removeOption(this)">Remove</button>
+                        </div>
+                    </div>
+                    <button type="button" id="add-checkbox-option" onclick="addCheckboxOption()">Add Checkbox Option</button>
+                </div>
+            </div>
+
+
+            <div class="lower-btn">
+                <button type="button" class="save-btn">Add Question</button>
+                <button type="button" class="add-btn">Save Survey</button>
+            </div>
+        </form>
+    </div>
+</main>
+<script src="../js/addsurvey.js"></script>
+</body>
+</html>

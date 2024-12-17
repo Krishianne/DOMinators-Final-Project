@@ -1,0 +1,203 @@
+* {
+    font-family: 'Century Gothic', sans-serif;
+    box-sizing: border-box;
+}
+
+body, html {
+    background: white;
+    margin: 0;
+    padding: 0;
+}
+
+header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 0px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 99;
+    background-color: white;
+}
+
+.logo-container {
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0;
+    padding: 0;
+}
+
+.logo-container h1 {
+    margin-left: 10px;
+}
+
+.logo {
+    max-width: 70px;
+    height: auto;
+    margin: 0;
+}
+
+.burger {
+    display: none;
+}
+
+.nav-bar {
+    display: flex;
+    align-items: center;
+    border-bottom: 5px black;
+}
+
+.nav-bar a {
+    position: relative;
+    font-size: 1.1em;
+    font-weight: 500;
+    text-decoration: none;
+    margin-left: 20px;
+    padding: 8px 15px;  
+    color: black;
+    border: 2px solid transparent;  /* Initially no border */
+    border-radius: 25px;  /* For rounded corners */
+    transition: background 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
+
+/* Background and border effect on hover */
+.nav-bar a:hover {
+    background: #E8AF30;  /* Background color change */
+    color: black;  /* Text color */
+    border-color: #162F65;  /* Border color */
+}
+
+/* Highlight active link */
+.nav-bar a.active {
+    font-weight: 700;
+    color: #E8AF30; /* Active color */
+}
+
+.nav-bar a.active:hover {
+    color: #162F65;  /* Change the text color to blue on hover */
+}
+
+.welcome-section {
+    margin-top: 80px;
+}
+
+.welcome-section h1 {
+    background-color: #162F65;
+    color: white;
+    padding: 15px;
+}
+
+.ready-survey {
+    font-size: 25px;
+    margin-left: 50px;
+}
+
+.survey-card {
+    background-color: #d3d3d3;
+    margin: 20px;
+    border-radius: 20px;
+    padding: 20px;
+    display: flex;
+    align-items: center;
+}
+
+.survey-card img.survey-icon {
+    max-width: 70px;
+    margin-right: 20px;
+    height: auto;
+}
+
+.survey-info {
+    flex: 1;
+    margin-left: 0;
+}
+
+.survey-link {
+    text-decoration: none;
+    color: black;
+}
+
+.survey-footer {
+    text-align: right;
+}
+
+.history-button {
+    margin-left: 620px;
+    padding: 10px;
+    color: black;
+    background-color: #E8AF30;
+    border-radius: 10px;
+}
+
+/* Logout Button */
+.logout-button {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    /* width: 90px; */
+    /* height: 47px; */
+    cursor: pointer;
+    font-size: 1em;
+    font-weight: 500;
+    background: transparent;
+    border: 2px solid transparent;
+    border-radius: 25px;
+    transition: background 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
+
+.logout-button:hover {
+    background: #162F65;
+    color: white;
+    border-color: #E8AF30;
+}
+
+/* Media Queries for Mobile */
+@media (max-width: 600px) {
+    header {
+        padding: 15px;
+        flex-direction: column;
+    }
+
+    .logo {
+        font-size: 1.5em;
+    }
+
+    .search-form input {
+        width: 150px;
+    }
+
+    .nav-bar {
+        flex-direction: column;
+        align-items: center;
+        padding: 20px;
+    }
+
+    .logout-button {
+        width: 100px;
+        margin: 20px 0;
+    }
+
+    /* Burger Menu for Mobile */
+    .burger {
+        display: block;
+        width: 35px;
+        height: 31px;
+        cursor: pointer;
+    }
+
+    .burger div {
+        width: 100%;
+        height: 3px;
+        background-color: black;
+        transition: all 0.3s ease;
+    }
+
+    .nav-bar.nav-active {
+        transform: translateX(0%);
+    }
+}

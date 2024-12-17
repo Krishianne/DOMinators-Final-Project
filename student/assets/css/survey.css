@@ -1,0 +1,352 @@
+
+* {
+    font-family: 'Century Gothic', sans-serif;
+    box-sizing: border-box;
+}
+
+body, html {
+    background: white;
+    margin: 0;
+    padding: 0; 
+}
+  
+header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 0px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 99;
+    background-color: white;
+    
+}
+
+.logo-container {
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0;
+    padding: 0;
+}
+
+.logo-container h1 {
+    margin-left: 10px;
+}
+
+.logo {
+    max-width: 70px;
+    height: auto;
+    margin: 0;
+}
+
+.burger {
+    display: none;
+}
+
+.nav-bar {
+    display: flex;
+    align-items: center;
+    border-bottom: 5px black;
+}
+
+.nav-bar a {
+    position: relative;
+    font-size: 1.1em;
+    font-weight: 500;
+    text-decoration: none;
+    margin-left: 20px;
+    padding: 8px 15px;  
+    color: black;
+    border: 2px solid transparent;  /* Initially no border */
+    border-radius: 25px;  /* For rounded corners */
+    transition: background 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
+
+/* Background and border effect on hover */
+.nav-bar a:hover {
+    background: #E8AF30;  /* Background color change */
+    color: black;  /* Text color */
+    border-color: #162F65;  /* Border color */
+}
+
+/* Highlight active link */
+.nav-bar a.active {
+    font-weight: 700;
+    color: #E8AF30; /* Active color */
+}
+
+.nav-bar a.active:hover {
+    color: #162F65;  /* Change the text color to blue on hover */
+}
+
+/* Logout Button */
+.logout-button {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    /* width: 90px; */
+    /* height: 47px; */
+    cursor: pointer;
+    font-size: 1em;
+    font-weight: 500;
+    background: transparent;
+    border: 2px solid transparent;
+    border-radius: 25px;
+    transition: background 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
+
+.logout-button:hover {
+    background: #162F65;
+    color: white;
+    border-color: #E8AF30;
+}
+
+
+.prompt-section {
+    position: sticky;
+    top: 55px; 
+    z-index: 98; 
+    background-color: #fff;
+    padding-top: 5px;
+   
+}
+.prompt-section h1 {
+    background-color: #162F65;
+    color: white;
+    padding: 12px;
+}
+
+  /* Container Styling */
+.container {
+    max-width: 1200px; 
+    margin: 80px auto 20px;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 1);
+    
+}
+
+.progress {
+   
+   text-align: left;
+   
+}
+
+
+/* Progress Bar */
+.rating-section {
+    margin-top: 20px ;
+    margin-bottom: 20px;
+}
+
+.rating-question {
+    font-size: 18px;
+    font-weight: 500;
+    color: #555;
+    text-align: left;
+
+}
+
+.rating-options {
+    display: flex;
+    gap: 20px; 
+    justify-content: center; 
+    align-items: center;
+}
+
+.rating-option {
+    margin-top: 10px;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    font-size: 14px;
+    gap: 10px;
+}
+
+
+.rating-option input[type="radio"] {
+    display: none; 
+}
+
+/* Custom radio button styling */
+.rating-option input[type="radio"] + span::before {
+    content: "";
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    background-color: #d9d9d9; 
+    border-radius: 50%;
+    margin-right: 5px;
+}
+
+/* Change color when the radio button is checked */
+.rating-option input[type="radio"]:checked + span::before {
+    background-color: #000; /* Active color */
+}
+
+/* Line Separator */
+.line-separator {
+    color: #000;
+    height: 10px;
+    background-size: cover;
+    margin: 15px 0;
+
+}
+.question-text {
+    margin-top: 0;
+}
+.question-section{
+    margin-top: 0;
+}
+.rating-answers {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px; /* Controls the spacing between checkboxes */
+    justify-content: left;
+    align-items: left;
+}
+
+.answer {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start; /* Align checkboxes to the left */
+    cursor: pointer;
+    font-size: 16px;
+    margin-top: 10px;
+    gap: 10px;
+    justify-content: center;
+}
+
+.answer input[type="checkbox"] {
+    display: none; /* Hide the default checkbox appearance */
+}
+
+.answer input[type="checkbox"] + span::before {
+    content: "";
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    background-color: #d9d9d9;
+    border-radius: 4px;
+    margin-right: 8px;
+    position: relative;
+    top: 0;
+    left: 0;
+}
+
+/* Checkmark styling */
+.answer input[type="checkbox"]:checked + span::before {
+    background-color: #000;
+    margin-left: 2px;
+    content: "✓";
+    color: white;
+}
+
+
+
+/* Text Answer Section Styling */
+.text-answer-section {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+.text-answer {
+    width: 100%;
+    height: 100px;
+    padding: 10px;
+    font-size: 14px;
+    color: #333;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    resize: vertical; 
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.text-answer:focus {
+    border-color: #000;
+    outline: none;
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.2);
+}
+
+textarea {
+    resize: vertical; 
+    border-radius: 8px;
+}
+.essay-answer {
+    margin-top: 10px;
+    border: #f9f9f9;
+    
+}
+/* Navigation Buttons */
+.navigation {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+.navigation1 {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 20px;
+}
+.nav-button {
+    width: 120px;
+    padding: 10px;
+    font-size: 16px;
+    font-weight: bold;
+    border-radius: 25px;
+    cursor: pointer;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+}
+
+.prev-button {
+    margin-top: 10px;
+    margin-bottom: 100px;
+    background-color: #E8AF30;
+    border: 2px solid #162F65;
+    color: #162F65;
+}
+
+.prev-button:hover{
+    /* border: 2px solid #E8AF30; */
+    background-color: #162F65;
+    color: #fff;
+}
+
+.next-button {
+    margin-top: 10px;
+    margin-bottom: 100px;
+    background-color: #162F65;
+    /* border: 2px solid #E8AF30; */
+    color: #fff;
+}
+
+.next-button:hover{
+    border: 2px solid #162F65;
+    background-color: #E8AF30;
+    color: #162F65;
+}
+
+.submit-button {
+    width: 150px;
+    margin-top: 10px;
+    margin-bottom: 100px;
+    background-color: #162F65;
+    /* border: 2px solid #E8AF30; */
+    color: #fff;
+    
+}
+
+.submit-button:hover{
+    border: 2px solid #162F65;
+    background-color: #E8AF30;
+    color: #162F65;
+}
+  

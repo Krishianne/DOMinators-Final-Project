@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Questions</title>
+    <link rel="stylesheet" href="../css/adminresults.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+</head>
+<body>
+    <header></header>
+    <div class="sidebar">
+        <div class="logo-container">
+            <img class="logo" src="../res/pictures/admin-logo.png" alt="logo">
+            <h1>AlmaMeter</h1>
+        </div>
+        <form action="/" method="GET" class="search-form" id="searchForm">
+            <input type="text" name="query" id="searchQuery" placeholder="Search...">
+        </form>
+        <div class="header-nav"> 
+            <a href="adminhome.html" class="nav-link home">
+                <img src="../res/pictures/home1.png" class="nav-icon" alt="Home">Home
+            </a>
+            <a href="addsurvey.html" class="nav-link addsurvey">
+                <img src="../res/pictures/addsurvey1.png" class="nav-icon" alt="Add Survey">Add Survey
+            </a>
+            <a href="adminresults.html" class="nav-link results active">
+                <img src="../res/pictures/results1.png" class="nav-icon" alt="Results">Results
+            </a>
+            <a href="adminprofile.html" class="nav-link profile">
+                <img src="../res/pictures/profile1.png" class="nav-icon" alt="Profile">Profile
+            </a>
+            <button class="logout-button" id="logoutButton">
+                <img src="../res/pictures/logout1.png" class="logout-icon" alt="Log out">Log out
+            </button>        
+        </div>
+    </div>
+    <main>
+        <div class="results-container">
+            <h1>Survey Results Statistics</h1>
+            <div class="chart-container">
+                <div class="chart-box">
+                    <canvas id="pieChart"></canvas>
+                </div>
+                <div class="chart-box">
+                    <canvas id="barChart"></canvas>
+                </div>
+            </div>
+
+            <canvas id="majorChart" width="400" height="200"></canvas>
+            <canvas id="minorChart" width="400" height="200"></canvas>
+
+            <h2>INCLUDED PROGRAMS</h2>
+            <div class="inner-container">
+                <button class="button" onclick="showUsersForSurvey('Bachelor of Science in Computer Science')">Bachelor of Science in Computer Science</button>
+                <button class="button" onclick="showUsersForSurvey('Bachelor of Science in Information Technology')">Bachelor of Science in Information Technology</button>
+                <button class="button" onclick="showUsersForSurvey('Bachelor of Science in Medical Technology')">Bachelor of Science in Medical Technology</button>
+                <button class="button" onclick="showUsersForSurvey('Bachelor of Science in Civil Engineering')">Bachelor of Science in Civil Engineering</button>
+                <button class="button" onclick="showUsersForSurvey('Bachelor of Science in Tourism and Management')">Bachelor of Science in Tourism and Management</button>
+            </div>
+            <!-- Button to download PDF and CSV -->
+            <button id="downloadPDFButton">Download PDF</button>
+            <button id="downloadCSVButton">Download CSV</button>
+            
+        </div>
+    </main>
+    <script src="../js/adminresults.js"></script>
+</body>
+</html>

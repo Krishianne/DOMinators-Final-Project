@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="../css/login.css">
+</head>
+<body>
+    <div class="background-image"></div>
+    <div class="loginForm">
+        <div class="form login-box">
+            <img class="logo" src="../res/pictures/white-logo.png" alt="Logo">
+            <h2>Login</h2>
+            <form id="loginForm">
+                <div class="input">
+                    <img class="icon" src="../res/pictures/email.png" alt="Email logo">
+                    <input type="email" name="email" id="email"  required>
+                    <label for="email">Email</label>
+                </div>
+                <div class="input">
+                    <img class="icon" src="../res/pictures/lock.png" alt="lock logo">
+                    <input type="password" name="password" id="password"  required>
+                    <label for="password">Password</label>
+                    <img class="toggle-password" src="../res/pictures/watch.png" alt="eye" id="togglePasswordIcon" style="display: none;">
+                </div>
+                <div class="message-container">
+                    <!-- Error message will be displayed here -->
+                    <div id="errorMessage" style="color: red; display: none;"></div>
+                </div>
+                <button type="submit" name="submit" class="button" id="loginButton">Login</button>
+                <div class="remember-forgot">
+                    <a href="#" id="forgot-password" onclick="alert('Please remember your password.')">Forgot Password?</a>
+                </div>
+                <div id="countdownContainer" style="display: none;">
+                    Locked out. Please wait <span id="countdown"></span> seconds.
+                </div>
+            </form>
+
+        </div>
+    </div>
+
+    <script src="../js/login.js"></script>
+</body>
+</html>

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <link rel="stylesheet" href="../css/adminhome.css">
+</head>
+<body>
+<header></header>
+
+<div class="sidebar">
+    <div class="logo-container">
+        <img class="logo"  src="../res/pictures/admin-logo.png" alt="logo">
+        <h1>AlmaMeter</h1>
+    </div>
+    <form action="/" method="GET" class="search-form" id="searchForm">
+        <input type="text" name="query" id="searchQuery" placeholder="Search..."> 
+    </form>
+    <div class="header-nav"> 
+        <a href="adminhome.html" class="nav-link home active">
+            <img src="../res/pictures/home1.png" class="nav-icon" alt="Home">Home
+        </a>
+        <a href="addsurvey.html" class="nav-link addsurvey">
+            <img src="../res/pictures/addsurvey1.png" class="nav-icon" alt="Add Survey">Add Survey
+        </a>
+        <a href="adminresults.html" class="nav-link results">
+            <img src="../res/pictures/results1.png" class="nav-icon" alt="Results">Results
+        </a>
+        <a href="adminprofile.html" class="nav-link profile">
+            <img src="../res/pictures/profile1.png" class="nav-icon" alt="Profile">Profile
+        </a>
+        <button class="logout-button" id="logoutButton">
+            <img src="../res/pictures/logout1.png" class="logout-icon" alt="Log out">Log out
+        </button>        
+    </div>
+</div>
+
+<main>
+    <div class="survey-container" id="surveyContainer">
+        <!-- Survey list will be populated here by JavaScript -->
+    </div>
+</main>
+<script src="../js/adminhome.js" ></script>
+</body>
+</html>
