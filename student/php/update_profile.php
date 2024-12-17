@@ -1,10 +1,10 @@
 <?php
-include 'config.php';
+include '../core/config.php';
 session_start();
 
 // Ensure the user is logged in
 if (!isset($_SESSION['user_id'])) {
-    header('location:login.php');
+    header('location:../auth/login.php');
     exit;
 }
 
@@ -117,19 +117,19 @@ if (isset($_POST['update_profile'])) {
    <meta http-equiv="X-UA-Compatible" content="IE=edge">
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
    <title>Update Profile</title>
-   <link rel="stylesheet" href="styles/update_profile.css">
+   <link rel="stylesheet" href="../assets/css/update_profile.css">
 </head>
 <body>
 <header>
     <div class="logo-container">
-        <img class="logo" src="pictures/white-logo.png" alt="logo">
+        <img class="logo" src="../assets/images/white-logo.png" alt="logo">
         <h1>AlmaMeter</h1>
     </div>
     <nav class="nav-bar">
         <a href="home.php">Home</a>
         <a href="surveyresults.php">Survey Results</a>
         <a href="update_profile.php" class="active">Profile</a>
-        <a href="logout.php" class="logout-button">Log out</a>
+        <a href="../auth/logout.php" class="logout-button">Log out</a>
     </nav>
 </header>
 

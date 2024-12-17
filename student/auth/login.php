@@ -1,5 +1,5 @@
 <?php
-include 'config.php';
+include '../core/config.php';
 session_start();
 
 if (!$conn) {
@@ -92,25 +92,25 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit'])) {
    <meta charset="UTF-8">
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
    <title>Login</title>
-   <link rel="stylesheet" href="styles/login.css">
+   <link rel="stylesheet" href="../assets/css/login.css">
 </head>
 <body>
 <div class="background-image"></div>
 <div class="loginForm">
    <div class="form login-box">
-        <img class="logo" src="pictures/white-logo.png" alt="Logo">
+        <img class="logo" src="../assets/images/white-logo.png" alt="Logo">
         <h2>Login</h2>
         <form action="" method="post">
         <div class="input">
-            <img class="icon" src="pictures/email.png" alt="Email logo">
+            <img class="icon" src="../assets/images/email.png" alt="Email logo">
             <input type="email" name="email" id="email" required <?php if ($disable_form) echo 'disabled'; ?>>
             <label>Email</label>
         </div>
         <div class="input">
-            <img class="icon" src="pictures/lock.png" alt="lock logo">
+            <img class="icon" src="../assets/images/lock.png" alt="lock logo">
             <input type="password" name="password" id="password" required <?php if ($disable_form) echo 'disabled'; ?>>
             <label>Password</label>
-            <img class="toggle-password" src="pictures/watch.png" alt="eye" id="togglePasswordIcon" style="display: none;">
+            <img class="toggle-password" src="../assets/images/watch.png" alt="eye" id="togglePasswordIcon" style="display: none;">
         </div>
         <div class="message-container">
             <?php
@@ -151,7 +151,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit'])) {
     togglePasswordIcon.addEventListener('click', function () {
         const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
         passwordInput.setAttribute('type', type);
-        togglePasswordIcon.src = type === 'password' ? 'pictures/watch.png' : 'pictures/unwatch.png';
+        togglePasswordIcon.src = type === 'password' ? '../assets/images/watch.png' : '../assets/images/unwatch.png';
     });
 
     // Countdown timer for lockout period

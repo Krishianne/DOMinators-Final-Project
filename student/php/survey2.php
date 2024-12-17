@@ -1,10 +1,10 @@
 <?php
 session_start();
-include 'config.php';
+include '../core/config.php';
 
 // Check if the user is logged in
 if (!isset($_SESSION['user_id'])) {
-    header("Location: login.php");
+    header("Location: ../auth/login.php");
     exit;
 }
 // Get the user ID from the session
@@ -137,19 +137,19 @@ echo '</pre>';*/
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Survey - Page 2/6</title>
-    <link rel="stylesheet" href="styles/survey.css">
+    <link rel="stylesheet" href="../assets/css/survey.css">
 </head>
 <body>
 <header>
     <div class="logo-container">
-        <img class="logo" src="pictures/white-logo.png" alt="logo">
+        <img class="logo" src="../assets/images/white-logo.png" alt="logo">
         <h1>AlmaMeter</h1>
     </div>
     <nav class="nav-bar">
         <a href="home.php" >Home</a>
         <a href="surveyresults.php">Survey Results</a>
         <a href="update_profile.php">Profile</a>
-        <a href="logout.php" class="logout-button">Log out</a>
+        <a href="../auth/logout.php" class="logout-button">Log out</a>
     </nav>
 </header>
 <main>

@@ -1,10 +1,10 @@
 <?php
-include 'config.php';
+include '../core/config.php';
 session_start();
 
 // Redirect to login page if the user is not logged in
 if (!isset($_SESSION['user_id'])) {
-    header('location:login.php');
+    header('location:../auth/login.php');
     exit;
 }
 
@@ -46,19 +46,19 @@ while ($row = mysqli_fetch_assoc($class_query)) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home</title>
-    <link rel="stylesheet" href="styles/home.css">
+    <link rel="stylesheet" href="../assets/css/home.css">
 </head>
 <body>
 <header>
     <div class="logo-container">
-        <img class="logo" src="pictures/white-logo.png" alt="logo">
+        <img class="logo" src="../assets/images/white-logo.png" alt="logo">
         <h1>AlmaMeter</h1>
     </div>
     <nav class="nav-bar">
         <a href="home.php" class="active">Home</a>
         <a href="surveyresults.php">Survey Results</a>
         <a href="update_profile.php">Profile</a>
-        <a href="logout.php" class="logout-button">Log out</a>
+        <a href="../auth/logout.php" class="logout-button">Log out</a>
     </nav>
 </header>
 
@@ -73,7 +73,7 @@ while ($row = mysqli_fetch_assoc($class_query)) {
         <!-- Survey Cards for each class -->
         <?php foreach ($class_data as $class): ?>
             <div class="survey-card">
-                <img src="pictures/survey-logo.png" alt="Survey Icon" class="survey-icon">
+                <img src="../assets/images/survey-logo.png" alt="Survey Icon" class="survey-icon">
                 <div class="survey-info">
                     <?php if ($class['survey_status'] === 'submitted'): ?>
                         <p><strong>You have already completed the survey for this class.</strong></p>

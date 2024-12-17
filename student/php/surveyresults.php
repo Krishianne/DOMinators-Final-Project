@@ -1,10 +1,10 @@
 <?php
-include 'config.php';
+include '../core/config.php';
 session_start();
 
 // Check if the user is logged in
 if (!isset($_SESSION['user_id'])) {
-    header('Location: login.php');
+    header('Location: ../auth/login.php');
     exit;
 }
 
@@ -125,19 +125,19 @@ if ($class_id) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Survey Results</title>
-    <link rel="stylesheet" href="styles/results.css">
+    <link rel="stylesheet" href="../assets/css/results.css">
 </head>
 <body>
 <header>
     <div class="logo-container">
-        <img class="logo" src="pictures/white-logo.png" alt="logo">
+        <img class="logo" src="../assets/images/white-logo.png" alt="logo">
         <h1>AlmaMeter</h1>
     </div>
     <nav class="nav-bar">
         <a href="home.php">Home</a>
         <a href="surveyresults.php" class="active">Survey Results</a>
         <a href="update_profile.php">Profile</a>
-        <a href="logout.php" class="logout-button">Log out</a>
+        <a href="../auth/logout.php" class="logout-button">Log out</a>
     </nav>
 </header>
 <div class="prompt-section">
