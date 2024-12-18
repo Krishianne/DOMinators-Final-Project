@@ -393,7 +393,7 @@ hr {
 }
 
 .filter-dropdown {
-    position: fixed; 
+    position: absolute; 
     top: 5px; 
     right: 40px; 
     z-index: 1000;
