@@ -571,6 +571,7 @@ textarea {
 }
 
 .filter-dropdown {
+    
     position: relative;
     z-index: 1000;
     margin-bottom: 5px;
