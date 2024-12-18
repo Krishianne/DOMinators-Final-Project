@@ -192,14 +192,16 @@ router.post('/save', async (req, res) => {
                 );
 
                 if (question_type === 'rating' && options) {
+                   const rateId = uuidv4();
                     await db.query(
-                        `INSERT INTO rate (question_id, \`1\`, \`2\`, \`3\`, \`4\`, \`5\`) VALUES (?, ?, ?, ?, ?, ?)`,
-                        [question_id, options[0], options[1], options[2], options[3], options[4]]
+                        `INSERT INTO rate (rate_id, question_id, \`1\`, \`2\`, \`3\`, \`4\`, \`5\`) VALUES (?, ?, ?, ?, ?, ?, ?)`,
+                        [rateId, question_id, options[0], options[1], options[2], options[3], options[4]]
                     );
                 } else if (question_type === 'checkbox' && options) {
+                    const checkboxId = uuidv4();
                     await db.query(
-                        `INSERT INTO checkbox (question_id, choice1, choice2, choice3, choice4, choice5) VALUES (?, ?, ?, ?, ?, ?)`,
-                        [question_id, options[0], options[1], options[2], options[3], options[4]]
+                        `INSERT INTO checkbox (checkbox_id, question_id, choice1, choice2, choice3, choice4, choice5) VALUES (?, ?, ?, ?, ?, ?, ?)`,
+                        [checkboxId, question_id, options[0], options[1], options[2], options[3], options[4]]
                     );
                 }
             }

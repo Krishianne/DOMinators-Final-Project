@@ -1,6 +1,7 @@
 document.addEventListener("DOMContentLoaded", async () => {
     // Get the surveyId from localStorage
-    const surveyId = localStorage.getItem('surveyId');
+    const urlParams = new URLSearchParams(window.location.search);
+    const surveyId = urlParams.get('survey_id');
     console.log(surveyId);  // Log the surveyId for debugging
 
     // Check if surveyId exists in localStorage

@@ -5,9 +5,8 @@ const db = require('./db');
 
 
 // Route to handle survey submission
-router.post('/surveyadd/questions', async (req, res) => {
-    const { course, semester, ay, questions } = req.body;
-    const userId = req.userId;
+router.post('/questions', async (req, res) => {
+    const { userId, course, semester, ay, questions } = req.body;
 
 
 
@@ -20,13 +19,10 @@ router.post('/surveyadd/questions', async (req, res) => {
 
         const surveyId = uuidv4();
 
-
-
         await db.query(
-            `INSERT INTO surveys (survey_id, user_id, course, semester, ay) VALUES (?, ?, ?, ?, ?)`,
-            [surveyId, userId, course, semester, ay]
+            `INSERT INTO survey (survey_id, user_id, course, semester, ay, survey_status) VALUES (?, ?, ?, ?, ?, ?)`,
+            [surveyId, userId, course, semester, ay, "unpublished"]
         );
-
 
         // Insert questions
         for (const question of questions) {
@@ -44,15 +40,17 @@ router.post('/surveyadd/questions', async (req, res) => {
             // Insert options based on question type
             if (question_type === 'Rating' && options) {
                 const optionValues = [options.rate1, options.rate2, options.rate3, options.rate4, options.rate5];
+                const rateId = uuidv4();
                 await db.query(
-                    `INSERT INTO rate (question_id, 1, 2, 3, 4, 5) VALUES (?, ?, ?, ?, ?, ?)`,
-                    [questionId, ...optionValues]
+                    `INSERT INTO rate (rate_id, question_id, \`1\`, \`2\`, \`3\`, \`4\`, \`5\`) VALUES (?, ?, ?, ?, ?, ?, ?)`,
+                    [rateId, questionId, ...optionValues]
                 );
             } else if (question_type === 'Checkbox' && options) {
                 const optionValues = [options.choice1, options.choice2, options.choice3, options.choice4, options.choice5];
+                const checkboxId = uuidv4();
                 await db.query(
-                    `INSERT INTO checkbox (question_id, choice1, choice2, choice3, choice4, choice5) VALUES (?, ?, ?, ?, ?, ?)`,
-                    [questionId, ...optionValues]
+                    `INSERT INTO checkbox (checkbox_id, question_id, choice1, choice2, choice3, choice4, choice5) VALUES (?, ?, ?, ?, ?, ?, ?)`,
+                    [checkboxId, questionId, ...optionValues]
                 );
             }
         }

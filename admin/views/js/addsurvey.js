@@ -221,10 +221,11 @@ document.addEventListener('DOMContentLoaded', () => {
     // Handle form submission with Save Button
     const saveSurveyBtn = document.querySelector('.add-btn');
     saveSurveyBtn.addEventListener('click', async () => {
-        const course = document.querySelector('select[name="course"]').value.trim();
-        const semester = document.querySelector('select[name="sem"]').value.trim();
-        const ay = document.querySelector('select[name="ay"]').value.trim();
-
+        const course = document.getElementById('course').value.trim();
+        const semester = document.getElementById('semester').value.trim();
+        const startYearDropdown = document.getElementById('start-year');
+        const endYearDropdown = document.getElementById('end-year');
+        const ay = `${startYearDropdown.value}-${endYearDropdown.value}`;
 
         if (!course || !semester || !ay || questions.length === 0) {
             alert('Please fill out all fields and add at least one question.');
@@ -232,7 +233,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
 
-        const data = { course, semester, ay, questions };
+        const data = { userId, course, semester, ay, questions };
 
 
         try {

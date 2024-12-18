@@ -110,11 +110,10 @@ function createSurveyCard(survey) {
     viewButton.alt = 'View';
     viewButton.className = 'action-button';
     viewButton.onclick = () => {
-        // Store the surveyId in localStorage when the user clicks the view button
-        localStorage.setItem('surveyId', survey.survey_id);
-    
+       
+
         // Redirect to the view survey page
-        window.location.href = `viewsurvey.html`;
+        window.location.href = `viewsurvey.html?survey_id=${survey.survey_id}`;
     };
 
     // Hover and click effects for View button
