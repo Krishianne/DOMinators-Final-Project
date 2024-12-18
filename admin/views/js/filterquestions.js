@@ -1,13 +1,34 @@
 document.addEventListener("DOMContentLoaded", () => {
-    const questionTypeDropdown = document.getElementById("questionTypeDropdown");
-    const categoryDropdown = document.getElementById("categoryDropdown");
+    const typeDropdownButton = document.querySelector(".dropdown-button1");
+    const typeDropdownMenu = typeDropdownButton.nextElementSibling;
 
-    questionTypeDropdown.addEventListener("change", filterQuestions);
-    categoryDropdown.addEventListener("change", filterQuestions);
+    const categoryDropdownButton = document.querySelector(".dropdown-button");
+    const categoryDropdownMenu = categoryDropdownButton.nextElementSibling;
+
+    let selectedType = "all";
+    let selectedCategory = "all";
+
+   
+    typeDropdownMenu.querySelectorAll("a").forEach((link) => {
+        link.addEventListener("click", (event) => {
+            event.preventDefault();
+            selectedType = link.dataset.value;
+            typeDropdownButton.textContent = link.textContent;
+            filterQuestions();
+        });
+    });
+
+    
+    categoryDropdownMenu.querySelectorAll("a").forEach((link) => {
+        link.addEventListener("click", (event) => {
+            event.preventDefault();
+            selectedCategory = link.dataset.value;
+            categoryDropdownButton.textContent = link.textContent;
+            filterQuestions();
+        });
+    });
 
     function filterQuestions() {
-        const selectedType = questionTypeDropdown.value;
-        const selectedCategory = categoryDropdown.value;
         const questions = document.querySelectorAll(".essay-part");
 
         questions.forEach((question) => {
@@ -25,6 +46,6 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-   
+ 
     filterQuestions();
 });
