@@ -293,7 +293,7 @@ button {
 }
 
 button:hover {
-    background-color: rgb(23, 23, 105);
+    background-color: rgb(133, 133, 160);
 }
 
 hr {
@@ -390,4 +390,73 @@ hr {
 .button-container {
     display: flex;
     gap: 5px;
+}
+
+.filter-dropdown {
+    position: fixed; 
+    top: 5px; 
+    right: 40px; 
+    z-index: 1000;
+    margin-bottom: 5px;
+}
+
+
+.dropdown-button {
+    width: 150px; 
+    text-align: center;
+    background-color: #E8AF30;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+
+.dropdown-menu {
+    display: none; 
+    position: absolute;
+    left: 0;
+    background-color: white; 
+    border: 1px solid #ddd;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    z-index: 1000; 
+    border-radius: 8px;
+    margin-top: 5px;
+    width: 180px; 
+}
+
+
+.dropdown-menu a {
+    color: #E8AF30; 
+    padding: 5px 10px; 
+    text-decoration: none; 
+    display: block; 
+    font-weight: small;
+    font-size: medium; 
+}
+
+.dropdown-menu a:hover {
+    background-color: rgba(232, 175, 48, 0.8); 
+    color: white; 
+    border-radius: 4px;
+}
+
+
+.filter-dropdown:hover .dropdown-menu {
+    display: block;
+}
+
+
+.dropdown-menu {
+    animation: fadeIn 0.5s ease;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }

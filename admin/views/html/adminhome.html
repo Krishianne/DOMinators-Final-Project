@@ -37,10 +37,19 @@
 </div>
 
 <main>
+    <div class="filter-dropdown">
+        <button class="filter-button dropdown-button">Filter Surveys</button>
+        <div class="dropdown-menu">
+            <a href="#" id="mixedSurveys">All Surveys</a>
+            <a href="#" id="publishedSurveys">Published Surveys</a>
+            <a href="#" id="unpublishedSurveys">Unpublished Surveys</a>
+        </div>
+    </div>
     <div class="survey-container" id="surveyContainer">
         <!-- Survey list will be populated here by JavaScript -->
     </div>
 </main>
 <script src="../js/adminhome.js" ></script>
+<script src="../js/filtersurvey.js" ></script>
 </body>
 </html>

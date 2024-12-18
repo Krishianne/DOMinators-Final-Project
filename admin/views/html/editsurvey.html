@@ -37,10 +37,31 @@
 </div>
 
 <main>
+    
     <div class="survey-container">
         <!-- Dynamic survey title -->
+         
         <h1 id="surveyTitle"></h1>
+        <div class="filter-container">
+            <div class="filter-dropdown">
+                <div class="dropdown-button1">Question Type</div>
+                <div class="dropdown-menu">
+                    <a href="#" data-value="all">All</a>
+                    <a href="#" data-value="essay">Essay</a>
+                    <a href="#" data-value="checkbox">Checkbox</a>
+                    <a href="#" data-value="rating">Rating</a>
+                </div>
+            </div>
         
+            <div class="filter-dropdown">
+                <div class="dropdown-button">Category</div>
+                <div class="dropdown-menu">
+                    <a href="#" data-value="all">All</a>
+                    <a href="#" data-value="major">Major</a>
+                    <a href="#" data-value="minor">Minor</a>
+                </div>
+            </div>
+        </div>
         <!-- Survey form -->
         <form method="POST">
             <div class="question-container">
@@ -58,7 +79,7 @@
                         <label for="ay">Academic Year</label>
                         <input type="text" name="ay" id="aySelect">
                     </div>
-                </div>
+                </div>         
             </div>
         </form>
     </div>
@@ -70,5 +91,6 @@
 <script src="../js/editsurvey.js"></script>
 <script src="../js/addQuestion.js"></script>
 <script src="../js/saveSurvey.js"></script>
+<script src="../js/filterQuestions.js"></script>
 </body>
 </html>

@@ -563,3 +563,82 @@ textarea {
 }
 
     
+.filter-container {
+    display: flex;
+    gap: 20px;
+    margin-top: 20px;
+    justify-content: end;
+}
+
+.filter-dropdown {
+    position: relative;
+    z-index: 1000;
+    margin-bottom: 5px;
+}
+
+.dropdown-button1 {
+    width: 150px;
+    text-align: center;
+    background-color: #E8AF30;
+    color: white;
+    padding: 10px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+.dropdown-button {
+    width: 120px;
+    text-align: center;
+    background-color: #E8AF30;
+    color: white;
+    padding: 10px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.dropdown-menu {
+    display: none;
+    position: absolute;
+    left: 0;
+    background-color: white;
+    border: 1px solid #ddd;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+    border-radius: 8px;
+    margin-top: 5px;
+    width: 180px;
+}
+
+.dropdown-menu a {
+    color: #E8AF30;
+    padding: 8px 12px;
+    text-decoration: none;
+    display: block;
+    font-size: medium;
+}
+
+.dropdown-menu a:hover {
+    background-color: rgba(232, 175, 48, 0.8);
+    color: white;
+    border-radius: 4px;
+}
+
+.filter-dropdown:hover .dropdown-menu {
+    display: block;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.dropdown-menu {
+    animation: fadeIn 0.5s ease;
+}
