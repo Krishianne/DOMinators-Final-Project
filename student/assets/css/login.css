@@ -73,43 +73,43 @@ h2, label, .button, .message {
 
 @keyframes slideBackground {
     0% {
-        background-image: url("../pictures/main1.png");
+        background-image: url("../images/main1.png");
     }
     8.33% {
-        background-image: url("../pictures/main2.png");
+        background-image: url("../images/main2.png");
     }
     16.66% {
-        background-image: url("../pictures/main3.png");
+        background-image: url("../images/main3.png");
     }
     25% {
-        background-image: url("../pictures/main4.png");
+        background-image: url("../images/main4.png");
     }
     33.33% {
-        background-image: url("../pictures/main5.png");
+        background-image: url("../images/main5.png");
     }
     41.66% {
-        background-image: url("../pictures/main6.png");
+        background-image: url("../images/main6.png");
     }
     50% {
-        background-image: url("../pictures/mh1.png");
+        background-image: url("../images/mh1.png");
     }
     58.33% {
-        background-image: url("../pictures/mh2.png");
+        background-image: url("../images/mh2.png");
     }
     66.66% {
-        background-image: url("../pictures/mh3.png");
+        background-image: url("../images/mh3.png");
     }
     75% {
-        background-image: url("../pictures/mh4.png");
+        background-image: url("../images/mh4.png");
     }
     83.33% {
-        background-image: url("../pictures/mh5.png");
+        background-image: url("../images/mh5.png");
     }
     91.66% {
-        background-image: url("../pictures/mh6.png");
+        background-image: url("../images/mh6.png");
     }
     100% {
-        background-image: url("../pictures/main1.png"); 
+        background-image: url("../images/main1.png"); 
     }
 }
 
