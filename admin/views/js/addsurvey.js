@@ -3,7 +3,32 @@ const userId = localStorage.getItem('userId');
 const firstname = localStorage.getItem('firstname');
 
 
+document.addEventListener('DOMContentLoaded', () => {
+    const startYearDropdown = document.getElementById('start-year');
+    const endYearDropdown = document.getElementById('end-year');
 
+    const validateAcademicYear = () => {
+        const startYear = parseInt(startYearDropdown.value, 10);
+        const endYear = parseInt(endYearDropdown.value, 10);
+
+        if (isNaN(startYear) || isNaN(endYear)) {
+            return; 
+        }
+
+        if (endYear !== startYear + 1) {
+            alert('Academic year must have a one-year gap (e.g., 2021-2022).');
+            endYearDropdown.value = ''; 
+        }
+    };
+
+    startYearDropdown.addEventListener('change', () => {
+        validateAcademicYear();
+    });
+
+    endYearDropdown.addEventListener('change', () => {
+        validateAcademicYear();
+    });
+}); 
 
 function updatePlaceholders(container, inputClass, placeholderText) {
     const inputs = container.getElementsByClassName(inputClass);
@@ -12,9 +37,6 @@ function updatePlaceholders(container, inputClass, placeholderText) {
         inputs[i].querySelector('input').setAttribute('name', `${placeholderText.toLowerCase()}${i + 1}`);
     }
 }
-
-
-
 
 function addRatingOption() {
     const container = document.getElementById("rating-options-list");
@@ -33,13 +55,8 @@ function addRatingOption() {
     updatePlaceholders(container, 'rate-input', 'Rate');
 }
 
-
-
-
 function addCheckboxOption() {
     const container = document.getElementById("checkbox-options-list");
-
-
     const newOption = document.createElement("div");
     newOption.classList.add("checkbox-input");
     newOption.innerHTML = `
@@ -47,27 +64,14 @@ function addCheckboxOption() {
         <button type="button" class="remove-btn" onclick="removeOption(this, 'checkbox-input', 'Choice')">Remove</button>
     `;
     container.appendChild(newOption);
-
-
-
     updatePlaceholders(container, 'checkbox-input', 'Choice');
 }
-
-
-
 
 function removeOption(button, inputClass, placeholderText) {
     const container = button.parentElement.parentElement;
     button.parentElement.remove();
-
-
-
     updatePlaceholders(container, inputClass, placeholderText);
 }
-
-
-
-
 document.addEventListener('DOMContentLoaded', () => {
 
 

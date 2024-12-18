@@ -384,11 +384,12 @@ button {
     flex: 1; 
     width: 800px;
 }
-
 .drop-container {
     display: flex;
     flex-direction: column; 
 }
+
+
 
 .drop-option1 {
     width: 150px;
@@ -409,13 +410,21 @@ button {
 }
 
 .drop-option3 {
-    width: 180px;
+    width: 120px;
     border-radius: 10px;
     color: black;
     background-color: transparent;
     border: 1px solid black;
     padding: 5px;
 }
+.year-dash {
+    display: inline-block;
+    font-size: 18px;
+    font-weight: bold;
+    vertical-align: middle;
+    margin: 0 5px;
+}
+
 textarea {
     width: 100%;
     min-height: 100px;
