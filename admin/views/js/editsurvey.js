@@ -28,62 +28,9 @@ document.addEventListener("DOMContentLoaded", async () => {
         showAlert("An error occurred while fetching the survey details.");
     }
 
-    // Add event listener to the update button
-    document.getElementById('updateSurveyBtn').addEventListener('click', updateSurvey);
+
 });
 
-/**
- * Update survey data in the database.
- */
-async function updateSurvey() {
-    const surveyId = localStorage.getItem('surveyId');
-    const questions = [];
-
-    const questionElements = document.querySelectorAll(".essay-part");
-    questionElements.forEach(questionElement => {
-        const questionText = questionElement.querySelector('textarea[name="question_text"]').value;
-        const questionType = questionElement.querySelector('select[name="type"]').value;
-        const category = questionElement.querySelector('select[name="cat"]').value;
-
-        const options = [];
-        const optionElements = questionElement.querySelectorAll('textarea');
-        optionElements.forEach(optionElement => {
-            options.push(optionElement.value);
-        });
-
-        questions.push({
-            question_text: questionText,
-            question_type: questionType,
-            category: category,
-            options: options
-        });
-    });
-
-    // Send the updated questions to the server
-    try {
-        const response = await fetch(`/api/survey/update?survey_id=${surveyId}`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                survey_id: surveyId,
-                questions: questions
-            })
-        });
-
-        if (response.ok) {
-            const data = await response.json();
-            showAlert(data.message || "Survey updated successfully.");
-        } else {
-            const data = await response.json();
-            showAlert(data.message || "Failed to update survey.");
-        }
-    } catch (error) {
-        console.error("Error updating survey:", error);
-        showAlert("An error occurred while updating the survey.");
-    }
-}
 
 function populateSurveyDetails(survey) {
     document.getElementById("surveyTitle").innerText = `Edit ${survey.course} - ${survey.semester} Semester AY:${survey.ay} Survey Details`;
@@ -98,7 +45,7 @@ function populateQuestions(questions) {
 
     questions.forEach((question) => {
         const questionHTML = `
-            <div class="essay-part">
+            <div class="essay-part" data-question-id="${question.question_id}">
                 <div class="question">
                     <label class="text-box" for="question_text">Question Text</label>
                     <textarea name="question_text">${question.question_text}</textarea>
@@ -121,6 +68,7 @@ function populateQuestions(questions) {
                     </div>
                 </div>
                 ${getQuestionTypeOptions(question)}
+                <button type="button" class="delete-question-btn" onclick="deleteQuestion('${question.question_id}')">Delete</button>
             </div>
         `;
         questionContainer.insertAdjacentHTML("beforeend", questionHTML);
@@ -198,4 +146,31 @@ function getQuestionTypeOptions(question) {
 
 function showAlert(message) {
     alert(message);
+}
+
+async function deleteQuestion(questionId) {
+    if (!confirm("Are you sure you want to delete this question?")) {
+        return;
+    }
+
+    try {
+        const response = await fetch(`/api/survey/deleteQuestion`, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ question_id: questionId })
+        });
+
+        const data = await response.json();
+        if (response.ok) {
+            alert(data.message || 'Question deleted successfully.');
+            location.reload(); // Reload the page to reflect changes
+        } else {
+            alert(data.message || 'Failed to delete question.');
+        }
+    } catch (error) {
+        console.error('Error deleting question:', error);
+        alert('An error occurred while deleting the question.');
+    }
 }

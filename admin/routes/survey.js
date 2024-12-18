@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const db = require('./db'); // Assuming db.js handles database connections
+const { v4: uuidv4 } = require('uuid');
 
 // Route to get surveys based on userId (POST method)
 router.post('/surveycards', async (req, res) => {
@@ -153,5 +154,80 @@ router.patch('/editdetails', async (req, res) => {
     }
 });
 
+router.post('/save', async (req, res) => {
+    const { survey_id, questions } = req.body;
+
+    if (!Array.isArray(questions) || questions.length === 0) {
+        return res.status(400).json({ message: 'Invalid input data.' });
+    }
+
+    try {
+        // Process each question
+        for (const question of questions) {
+            let { question_id, question_text, question_type, category, options } = question;
+
+            if (question_id) {
+                // Update existing question
+                await db.query(
+                    `UPDATE questions SET question_text = ?, question_type = ?, category = ? WHERE question_id = ? AND survey_id = ?`,
+                    [question_text, question_type, category, question_id, survey_id]
+                );
+
+                if (question_type === 'rating' && options) {
+                    await db.query(
+                        `UPDATE rate SET \`1\` = ?, \`2\` = ?, \`3\` = ?, \`4\` = ?, \`5\` = ? WHERE question_id = ?`,
+                        [options[0], options[1], options[2], options[3], options[4], question_id]
+                    );
+                } else if (question_type === 'checkbox' && options) {
+                    await db.query(
+                        `UPDATE checkbox SET choice1 = ?, choice2 = ?, choice3 = ?, choice4 = ?, choice5 = ? WHERE question_id = ?`,
+                        [options[0], options[1], options[2], options[3], options[4], question_id]
+                    );
+                }
+            } else {
+                question_id = uuidv4();
+                await db.query(
+                    `INSERT INTO questions (question_id, survey_id, category, question_text, question_type) VALUES (?, ?, ?, ?, ?)`,
+                    [question_id, survey_id, category, question_text, question_type]
+                );
+
+                if (question_type === 'rating' && options) {
+                    await db.query(
+                        `INSERT INTO rate (question_id, \`1\`, \`2\`, \`3\`, \`4\`, \`5\`) VALUES (?, ?, ?, ?, ?, ?)`,
+                        [question_id, options[0], options[1], options[2], options[3], options[4]]
+                    );
+                } else if (question_type === 'checkbox' && options) {
+                    await db.query(
+                        `INSERT INTO checkbox (question_id, choice1, choice2, choice3, choice4, choice5) VALUES (?, ?, ?, ?, ?, ?)`,
+                        [question_id, options[0], options[1], options[2], options[3], options[4]]
+                    );
+                }
+            }
+        }
+
+        res.status(200).json({ message: 'Survey saved successfully!' });
+    } catch (error) {
+        console.error('Error saving survey:', error);
+        res.status(500).json({ message: 'An error occurred while saving the survey.' });
+    }
+});
+
+router.delete('/deleteQuestion', async (req, res) => {
+    const { question_id } = req.body;
+
+    if (!question_id) {
+        return res.status(400).json({ message: 'Invalid input data.' });
+    }
+
+    try {
+        await db.query(`DELETE FROM questions WHERE question_id = ?`, [question_id]);
+        await db.query(`DELETE FROM rate WHERE question_id = ?`, [question_id]);
+        await db.query(`DELETE FROM checkbox WHERE question_id = ?`, [question_id]);
+        res.status(200).json({ message: 'Question deleted successfully!' });
+    } catch (error) {
+        console.error('Error deleting question:', error);
+        res.status(500).json({ message: 'An error occurred while deleting the question.' });
+    }
+});
 
 module.exports = router;
