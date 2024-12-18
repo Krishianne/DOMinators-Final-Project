@@ -87,7 +87,33 @@ function createSurveyCard(survey) {
     link.className = 'survey-link';
 
     const title = document.createElement('h2');
-    title.textContent = `${survey.course} Learning Outcomes`;
+    title.textContent = `${survey.course} Learning Outcomes `;
+
+    // Create a span for survey_status
+    const statusSpan = document.createElement('span');
+    statusSpan.textContent = `(${survey.survey_status})`;
+    statusSpan.style.fontSize = '15px';
+
+    // Set the color based on the survey_status
+    switch (survey.survey_status) {
+        case 'published':
+            statusSpan.style.color = 'green';
+            break;
+        case 'unpublished':
+            statusSpan.style.color = 'red';
+            break;
+        case 'saved':
+            statusSpan.style.color = 'blue';
+            break;
+        default:
+            statusSpan.style.color = 'black'; // Default color if no match
+    }
+
+    // Append the span to the title
+    title.appendChild(statusSpan);
+
+    // Append the title to your desired container
+    document.body.appendChild(title); // Change `document.body` to your specific container
 
     // Footer and description
     const footer = document.createElement('p');
