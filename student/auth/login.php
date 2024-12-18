@@ -42,27 +42,35 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit'])) {
 
             if (mysqli_num_rows($result) > 0) {
                 $row = mysqli_fetch_assoc($result);
-                if ($password === $row['password']) {
-                    // Successful login: reset attempts and redirect
-                    $_SESSION['user_id'] = $row['user_id'];
-                    $_SESSION['user_type'] = $row['user_type'];
-                    $_SESSION['firstname'] = $row['firstname'];
-                    $_SESSION['lastname'] = $row['lastname'];
-
-                    unset($_SESSION['login_attempts']);
-                    unset($_SESSION['login_timeout']);
-                    unset($_SESSION['error_message']);
-
-                    // Redirect based on user type
-                    header('Location: ../php/home.php');
-                    exit;
+                
+                
+                if ($row['user_type'] === 'student') { 
+                    if ($password === $row['password']) {
+                        // Successful login
+                        $_SESSION['user_id'] = $row['user_id'];
+                        $_SESSION['user_type'] = $row['user_type'];
+                        $_SESSION['firstname'] = $row['firstname'];
+                        $_SESSION['lastname'] = $row['lastname'];
+            
+                        unset($_SESSION['login_attempts']);
+                        unset($_SESSION['login_timeout']);
+                        unset($_SESSION['error_message']);
+            
+                    
+                        header('Location: ../php/home.php');
+                        exit;
+                    } else {
+                        $_SESSION['error_message'] = 'Incorrect email or password!';
+                        $_SESSION['login_attempts']++;
+                    }
                 } else {
+                    
+                    $_SESSION['error_message'] = 'Access denied for this account type!';
                     $_SESSION['login_attempts']++;
-                    $_SESSION['error_message'] = 'Incorrect email or password!';
                 }
             } else {
-                $_SESSION['login_attempts']++;
                 $_SESSION['error_message'] = 'Incorrect email or password!';
+                $_SESSION['login_attempts']++;
             }
 
             // If 3 attempts have been made, start timeout

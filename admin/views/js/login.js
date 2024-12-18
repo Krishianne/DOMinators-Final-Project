@@ -29,6 +29,12 @@ document.getElementById('loginForm').addEventListener('submit', function (event)
         })
         .then(data => {
             console.log(data);
+            // Check user type
+            const expectedUserType = "admin"; // Replace with the user type allowed to log in
+            if (data.userType !== expectedUserType) {
+                alert(`Access denied. Only ${expectedUserType} users can log in here.`);
+                throw new Error('Unauthorized user type');
+            }
             failedAttempts = 0;
             localStorage.setItem('userId', data.userId);
             localStorage.setItem('firstname', data.firstname);
