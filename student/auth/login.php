@@ -54,7 +54,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit'])) {
                     unset($_SESSION['error_message']);
 
                     // Redirect based on user type
-                    header('Location: ' . ($row['user_type'] == 'admin' ? 'admin/adminhome.php' : 'home.php'));
+                    header('Location: ../php/home.php');
                     exit;
                 } else {
                     $_SESSION['login_attempts']++;
