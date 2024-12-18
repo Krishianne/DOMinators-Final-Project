@@ -547,5 +547,19 @@ textarea {
         display: none;
     }
 
-    
+.delete-question-btn{
+    display: flex; /* Use Flexbox */
+    justify-content: flex-end;
+    background-color: #c0392b;
+    color: black;
+    border: 1px solid #162F65;
+    border-radius: 25px;
+    margin-left: auto;
+}
+.delete-question-btn:hover {
+    background-color: #640a00;
+    color: white;
+    border-radius: 25px;
+}
+
     
