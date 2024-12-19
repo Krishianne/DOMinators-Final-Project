@@ -191,74 +191,74 @@ router.post('/login', async (req, res) => {
     }
 });
 
+//ADMINRESULTS - fetching the database for the results section of the admin
 router.post('/respondents', async (req, res) => {
+    const { userId } = req.body;
+
     try {
-        // Step 1: Get user_ids of students
-        const students = await db.query(
-            "SELECT DISTINCT user_id FROM users WHERE user_type = 'student'"
+        // Step 1: Check if the user is an admin by comparing userId with database
+        const adminUsers = await db.query(
+            "SELECT user_id, user_type FROM users WHERE user_id = ? AND user_type = 'admin'", 
+            [userId]
         );
 
-        if (students.length === 0) {
-            return res.status(404).json({ message: 'No students found.' });
+        // If no admin user is found
+        if (adminUsers.length === 0) {
+            return res.status(404).json({ message: 'No admin users found or user is not an admin.' });
         }
 
-        // Extract user_ids
-        const userIds = students.map(student => student.user_id);
+        const adminUserId = adminUsers[0].user_id;
+        console.log('Admin User ID:', adminUserId);  // Debugging the admin user_id
 
-        // Step 2: Get class_ids and courses linked to these user_ids
-        const classes = await db.query(
-            "SELECT DISTINCT class_id, course FROM class WHERE user_id IN (?)",
-            [userIds]
+        // Step 2: Get courses associated with the admin from the survey table
+        const surveyRecords = await db.query(
+            "SELECT DISTINCT course FROM survey WHERE user_id = ?",
+            [adminUserId]
         );
 
-        if (classes.length === 0) {
-            return res.status(404).json({ message: 'No classes found for the students.' });
+        // Debugging to ensure we get the courses
+        console.log('Survey Records:', surveyRecords);  // Debugging survey data
+
+        if (surveyRecords.length === 0) {
+            return res.status(404).json({ message: 'No courses found for the admin in the survey table.' });
         }
 
-        // Step 3: Count the total number of submitted statuses per class_id
-        const classIds = classes.map(cls => cls.class_id);
-        const statusCounts = await db.query(
-            "SELECT class_id, COUNT(*) AS submitted_count FROM status WHERE answer_status = 'submitted' AND class_id IN (?) GROUP BY class_id",
+        const courses = surveyRecords.map(record => record.course);
+        console.log('Courses associated with the admin:', courses);  // Debugging course data
+
+        // Step 3: Get class_ids associated with these courses
+        const classRecords = await db.query(
+            "SELECT DISTINCT class_id FROM class WHERE course IN (?)",
+            [courses]
+        );
+
+        // Debugging to ensure we get the class data
+        console.log('Class Records:', classRecords);  // Debugging class data
+
+        if (classRecords.length === 0) {
+            return res.status(404).json({ message: 'No classes found for the admin\'s courses.' });
+        }
+
+        const classIds = classRecords.map(cls => cls.class_id);
+        console.log('Class IDs associated with the admin\'s courses:', classIds);  // Debugging class IDs
+
+        // Step 4: Count the total number of users in these classes
+        const userCount = await db.query(
+            "SELECT COUNT(DISTINCT user_id) AS total_users FROM class WHERE class_id IN (?)",
             [classIds]
         );
 
-        // Step 4: Map the results to their corresponding courses
-        const results = classes.map(cls => {
-            const submittedCount = statusCounts.find(status => status.class_id === cls.class_id)?.submitted_count || 0;
-            return {
-                class_id: cls.class_id,
-                course: cls.course,
-                submitted_count: submittedCount,
-            };
-        });
+        const totalUsers = userCount[0]?.total_users || 0;
+        console.log('Total users in classes with matching courses:', totalUsers);  // Debugging total user count
 
         // Step 5: Return the results
-        res.json({ data: results });
+        res.json({ admin_user_id: adminUserId, courses, total_users: totalUsers });
     } catch (error) {
-        console.error(error);
+        console.error('Error processing request:', error);
         res.status(500).json({ message: 'Internal server error.' });
     }
 });
 
-router.post('/respondents', async (req, res) => {
-    try {
-        const course = req.body.course;  // Get the course from the request
-        const sqlQuery = `
-            SELECT user_id, firstname, lastname, email 
-            FROM USERS
-            JOIN CLASS ON USERS.user_id = CLASS.user_id
-            WHERE CLASS.course = $1
-        `;
-
-        const result = await db.query(sqlQuery, [course]);
-
-        const data = result.rows;
-        res.json({ data });
-    } catch (err) {
-        console.error('Error fetching respondents data:', err);
-        res.status(500).send('Internal server error');
-    }
-});
 
 router.post('/majorminor', async (req, res) => {
     try {
@@ -337,6 +337,5 @@ router.post('/majorminor', async (req, res) => {
         res.status(500).json({ message: 'Internal server error' });
     }
 });
-
 
 module.exports = router;
