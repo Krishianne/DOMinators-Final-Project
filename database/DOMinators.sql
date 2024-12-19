@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Nov 27, 2024 at 04:27 AM
+-- Generation Time: Dec 19, 2024 at 05:41 AM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -2333,14 +2333,14 @@ INSERT INTO `survey` (`survey_id`, `user_id`, `course`, `semester`, `ay`, `surve
 ('S22', 'U63', 'BSCE', '1st', '2023-2024', 'unpublished'),
 ('S23', 'U63', 'BSCE', '2nd', '2023-2024', 'unpublished'),
 ('S24', 'U63', 'BSCE', 'short-term', '2023-2024', 'published'),
-('S25', 'U63', 'BSMLS', '1st', '2022-2023', 'saved'),
-('S26', 'U63', 'BSMLS', '2nd', '2022-2023', 'saved'),
+('S25', 'U63', 'BSMLS', '1st', '2022-2023', 'archived'),
+('S26', 'U63', 'BSMLS', '2nd', '2022-2023', 'archived'),
 ('S27', 'U63', 'BSMLS', 'short-term', '2022-2023', 'unpublished'),
 ('S28', 'U63', 'BSMLS', '1st', '2023-2024', 'unpublished'),
 ('S29', 'U63', 'BSMLS', '2nd', '2023-2024', 'unpublished'),
 ('S3', 'U61', 'BSCS', '1st', '2019-2020', 'published'),
 ('S30', 'U63', 'BSMLS', 'short-term', '2023-2024', 'unpublished'),
-('S31', 'U61', 'BSTM', '1st', '2022-2023', 'saved'),
+('S31', 'U61', 'BSTM', '1st', '2022-2023', 'archived'),
 ('S32', 'U61', 'BSTM', '2nd', '2022-2023', 'unpublished'),
 ('S33', 'U61', 'BSTM', 'short-term', '2022-2023', 'unpublished'),
 ('S34', 'U61', 'BSTM', '1st', '2023-2024', 'unpublished'),
