@@ -22,6 +22,7 @@ body, html {
     padding-top: 20px;
 }
 
+
 .sidebar .logo-container {
     text-align: center;
     margin-bottom: 20px;
@@ -187,89 +188,26 @@ main {
     padding: 20px;
 }
 
-.survey-container h1 {
-    color: #E8AF30;
-    font-size: 24px;
-    font-weight: bold;
-    font-size: 2em;
-    text-align: center;
-}
-
-.survey-card {
-    position: relative; /* Required for button positioning */
-    padding: 20px;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    margin: 15px 0;
-    background-color: #fff;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-}
-
-.button-container {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    display: flex;
-    gap: 5px;
-}
-
-.edit-button,
-.delete-button {
-    padding: 5px 10px;
-    font-size: 14px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-}
-
-.edit-button {
-    background-color: #4CAF50;
-    color: white;
-}
-
-.delete-button {
-    background-color: #f44336;
-    color: white;
-}
-
-.edit-button:hover {
-    background-color: #45a049;
-}
-
-.delete-button:hover {
-    background-color: #d32f2f;
-}
-
-.survey-card img.survey-icon {
-    max-width: 70px;
-    margin-right: 20px;
-    height: auto;
-}
-
-.survey-info {
-    flex: 1;
-    margin-left: 0;
-}
-
-.survey-info h2 {
-    color: #E8AF30;
-}
-
-.survey-link {
-    text-decoration: none;
-    color: black;
-}
-
-.survey-footer {
-    text-align: right;
-    color: #E8AF30;
-}
-
 label {
     display: block;
     font-weight: bold;
     margin-top: 15px;
-    color: #555;
+    color: #E8AF30;
+}
+
+select {
+    width: 150px; /* Set a consistent width for all dropdowns */
+    border-radius: 5px;
+    padding: 5px;
+    background-color: #E8AF30;
+    color: black;
+    border: 1px solid #ccc;
+}
+
+hr {
+    margin: 20px 0;
+    border: none;
+    border-top: 1px solid #ccc;
 }
 
 select, input[type="text"], textarea {
@@ -291,16 +229,6 @@ button {
     transition: background-color 0.3s ease;
 }
 
-button:hover {
-    background-color: rgb(23, 23, 105);
-}
-
-hr {
-    margin: 20px 0;
-    border: none;
-    border-top: 1px solid #ccc;
-}
-
 .options-container {
     position: relative;
     display: inline-block;
@@ -316,7 +244,7 @@ hr {
     font-size: 1.5rem;
     cursor: pointer;
     padding: 5px;
-    color: #E8AF30;
+    color: #162F65;
 }
 
 .options-menu {
@@ -343,13 +271,231 @@ hr {
     border-radius: 25px;
 }
 
-/* Search Form */
 .search-form {
-    border-radius: 25px;
     display: flex;
     align-items: center;
     margin-left: 10px;
     margin-right: 10px;
+}
+
+.search-input {
+    width: 100%; 
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 25px;
+}
+
+.image-buttons {
+    display: flex;
+    align-items: center;
+}
+
+.search-btn, .refresh-btn {
+    width: 40px;
+    height: auto;
+    cursor: pointer;
+    position: relative;
+    background-size: contain; 
+    background-repeat: no-repeat;
+    background-position: center; 
+    padding: 0;
+    margin: 0;
+}
+
+.search-btn {
+    background-image: url('../pictures/search1.png');
+}
+
+.refresh-btn {
+    background-image: url('../pictures/refresh1.png');
+}
+
+.search-btn:hover {
+    background-image: url('../pictures/search2.png');
+}
+
+.refresh-btn:hover {
+    background-image: url('../pictures/refresh2.png');
+}
+
+.logout-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 12px;
+    font-size: 1.1em;
+    margin: 5px 0;
+    width: 250px;
+    display: flex;
+    align-items: center;
+}
+
+.logout-button img {
+    width: 20px;
+    height: 20px;
+    margin-right: 10px;
+}
+.survey-container h1 {
+    color: #E8AF30;
+    font-size: 24px;
+    font-weight: bold;
+    font-size: 2em;
+    text-align: center;
+    margin-top: 10px;
+    margin-bottom: 15px;
+}
+
+.question-container {
+    color: black;
+    background: white;
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.question-container h1 {
+    font-size: 20px;
+    color: black;
+    margin-bottom: 15px;
+}
+
+
+.upper-part {
+    width: 100%;
+    display: flex;
+    gap: 12px; 
+    align-items: center; 
+    justify-content: space-between;
+    border-bottom: 2px solid #E8AF30;
+    padding-bottom: 10px;
+}
+
+.lower-part {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    gap: 12px; 
+    align-items: flex-start; 
+    margin-top: 5px;
+}
+
+.question {
+    flex: 1; 
+    width: 800px;
+}
+.drop-container {
+    display: flex;
+    flex-direction: column; 
+}
+
+
+
+.drop-option1 {
+    width: 150px;
+    border-radius: 10px;
+    color: black;
+    background-color: transparent;
+    border: 1px solid black;
+    padding: 5px;
+}
+
+.drop-option2 {
+    width: 150px;
+    border-radius: 10px;
+    color: black;
+    background-color: transparent;
+    border: 1px solid black;
+    padding: 5px;
+}
+
+.drop-option3 {
+    width: 120px;
+    border-radius: 10px;
+    color: black;
+    background-color: transparent;
+    border: 1px solid black;
+    padding: 5px;
+}
+.year-dash {
+    display: inline-block;
+    font-size: 18px;
+    font-weight: bold;
+    vertical-align: middle;
+    margin: 0 5px;
+}
+
+textarea {
+    width: 100%;
+    min-height: 100px;
+    max-height: 300px;
+    border-radius: 10px;
+    border: 1px solid black;
+    padding: 5px;
+    resize: vertical;
+}
+
+.add-btn {
+    display: flex; /* Use Flexbox */
+    justify-content: flex-end;
+    background-color: #E8AF30;
+    color: black;
+    border: 1px solid #162F65;
+    border-radius: 25px;
+    margin-left: auto;
+}
+
+.save-btn {
+    display: flex; /* Use Flexbox */
+    justify-content: flex-end;
+    background-color: rgb(0, 172, 0);
+    color: black;
+    border: 1px solid #162F65;
+    border-radius: 25px;
+    margin-left: auto;
+}
+
+.delete-btn {
+    display: flex; /* Use Flexbox */
+    justify-content: flex-end;
+    background-color: #c0392b;
+    color: black;
+    border: 1px solid #162F65;
+    border-radius: 25px;
+    margin-left: auto;
+}
+
+#rating-options input {
+    border-radius: 10px;
+    border-color: black;
+}
+#checkbox-options input {
+    border-radius: 10px;
+    border-color: black;
+}
+.add-btn:hover {
+    background-color: #162F65;
+    color: white;
+    border-radius: 25px;
+}
+
+.save-btn:hover {
+    background-color: darkgreen;
+    color: white;
+    border-radius: 25px;
+}
+
+.delete-btn:hover {
+    background-color: #640a00;
+    color: white;
+    border-radius: 25px;
+}
+
+/* Search Form */
+.search-form {
+    display: flex;
+    align-items: center;
+    margin-left: 10px;
 }
 
 /* Search input field styling */
@@ -367,7 +513,7 @@ hr {
     align-items: center;
 }
 
-.refresh-btn {
+.search-btn, .refresh-btn {
     width: 40px;
     height: auto;
     cursor: pointer;
@@ -379,92 +525,39 @@ hr {
     margin: 0;
 }
 
-.action-button {
-    width: 35px; /* Adjust size */
-    height: auto;
-    cursor: pointer;
-    /* margin: 5px; */
+.search-btn {
+    background-image: url("../res/pictures/search1.png");
 }
 
-.button-container {
-    display: flex;
-    gap: 5px;
+.refresh-btn {
+    background-image: url("../res/pictures/refresh1.png");
+}
+
+.search-btn:hover {
+    background-image: url("../res/pictures/search2.png");
+}
+
+.refresh-btn:hover {
+    background-image: url("../res/pictures/refresh2.png");
 }
 
 .results-container {
-    color:black;
     background-color: white;
-    border-radius: 10px;
     padding: 20px;
-    width: 90%; 
-    margin: 20px 0;
-    margin-left: auto; 
-    margin-right: 5%; 
+    border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-
-.results-container h1 {
-    text-align: center;
-}
-
-.results-container h2 {
-    text-align: center;
-    margin-bottom: 20px;
-}
-
-.inner-container {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
     margin-top: 20px;
 }
 
-.box {
-    flex: 1;
-    background-color: #f4f4f4;
-    border-radius: 10px;
-    padding: 20px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    text-align: center;
+#adminInfo {
+    margin-top: 15px;
 }
 
-.button-box {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-}
-.button {
-    padding: 15px;
-    background-color:#e0e0e0;
-    color: black;
-    text-align: center;
-    border-radius: 5px;
-    border: none;
-    cursor: pointer;
-    font-size: 16px;
-    transition: background-color 0.3s ease;
-}
-    
-.button:hover {
-    background-color: gray;
-    color: white;
+#adminInfo p {
+    font-size: 1.1em;
+    margin-bottom: 10px;
 }
 
-.box:hover {
-    background-color: #e0e0e0;
-}
-
-.chart-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 20px;
-    margin: 20px;
-}
-.chart-box {
-    width: 45%;
-}
-canvas {
-    max-width: 100%;
-    height: auto;
+#adminInfo span {
+    font-weight: bold;
 }
