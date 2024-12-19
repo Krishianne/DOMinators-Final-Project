@@ -135,9 +135,8 @@ function createSurveyCard(survey) {
     viewButton.src = '../res/pictures/view1.png'; // Default view icon
     viewButton.alt = 'View';
     viewButton.className = 'action-button';
+    viewButton.title = 'View Survey';
     viewButton.onclick = () => {
-       
-
         // Redirect to the view survey page
         window.location.href = `viewsurvey.html?survey_id=${survey.survey_id}`;
     };
@@ -159,6 +158,7 @@ function createSurveyCard(survey) {
         editButton.src = '../res/pictures/edit1.png'; // Default edit icon
         editButton.alt = 'Edit';
         editButton.className = 'action-button';
+        editButton.title = 'Edit Survey';
         editButton.onclick = () => {
             window.location.href = `editsurvey.html?survey_id=${survey.survey_id}`;
         };
@@ -176,6 +176,7 @@ function createSurveyCard(survey) {
         deleteButton.src = '../res/pictures/delete1.png'; // Default delete icon
         deleteButton.alt = 'Delete';
         deleteButton.className = 'action-button';
+        deleteButton.title = 'Delete Survey';
         deleteButton.onclick = () => {
             if (confirm('Are you sure you want to delete this survey?')) {
                 deleteSurvey(survey.survey_id);
@@ -194,6 +195,54 @@ function createSurveyCard(survey) {
         buttonContainer.appendChild(deleteButton);
     }
 
+    if (survey.survey_status == 'archived') {
+        // Unarchive button
+        const unarchiveButton = document.createElement('img');
+        unarchiveButton.src = '../res/pictures/archived2.png'; // Default delete icon
+        unarchiveButton.alt = 'Unarchive';
+        unarchiveButton.className = 'action-button';
+        unarchiveButton.title = 'Unarchive Survey';
+        unarchiveButton.onclick = () => {
+            if (confirm('Are you sure you want to unarchive this survey?')) {
+                unarchiveSurvey(survey.survey_id);
+            }
+        };
+
+        // Hover and click effect for Delete button
+        unarchiveButton.addEventListener('mouseover', () => {
+            unarchiveButton.src = '../res/pictures/archived1.png'; // Hover state
+        });
+        unarchiveButton.addEventListener('mouseout', () => {
+            unarchiveButton.src = '../res/pictures/archived2.png'; // Reset to default
+        });
+
+        buttonContainer.appendChild(unarchiveButton);
+    }
+
+    if (survey.survey_status !== 'archived') {
+        // Archive button
+        const archiveButton = document.createElement('img');
+        archiveButton.src = '../res/pictures/archived1.png'; // Default delete icon
+        archiveButton.alt = 'Archive';
+        archiveButton.className = 'action-button';
+        archiveButton.title = 'Archive Survey';
+        archiveButton.onclick = () => {
+            if (confirm('Are you sure you want to archive this survey?')) {
+                archiveSurvey(survey.survey_id);
+            }
+        };
+
+        // Hover and click effect for Delete button
+        archiveButton.addEventListener('mouseover', () => {
+            archiveButton.src = '../res/pictures/archived2.png'; // Hover state
+        });
+        archiveButton.addEventListener('mouseout', () => {
+            archiveButton.src = '../res/pictures/archived1.png'; // Reset to default
+        });
+
+        buttonContainer.appendChild(archiveButton);
+    }
+
     surveyCard.appendChild(buttonContainer);
 
     // Assemble survey card
@@ -206,8 +255,6 @@ function createSurveyCard(survey) {
 
     return surveyCard;
 }
-
-
 
 
 // Function to delete a survey
