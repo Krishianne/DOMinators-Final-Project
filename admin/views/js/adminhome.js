@@ -152,7 +152,7 @@ function createSurveyCard(survey) {
     buttonContainer.appendChild(viewButton);
 
     // Add Edit and Delete buttons if the survey is unpublished
-    if (survey.survey_status !== 'published') {
+    if (survey.survey_status == 'unpublished') {
         // Edit button
         const editButton = document.createElement('img');
         editButton.src = '../res/pictures/edit1.png'; // Default edit icon
@@ -191,8 +191,53 @@ function createSurveyCard(survey) {
             deleteButton.src = '../res/pictures/delete1.png'; // Reset to default
         });
 
+        // Publish button
+        const publishButton = document.createElement('img');
+        publishButton.src = '../res/pictures/publish1.png'; 
+        publishButton.alt = 'Publish';
+        publishButton.className = 'action-button';
+        publishButton.title = 'Publish Survey';
+        publishButton.onclick = () => {
+            if (confirm('Are you sure you want to publish this survey?')) {
+                publishSurvey(survey.survey_id);
+            }
+        };
+
+        // Hover and click effect for Delete button
+        publishButton.addEventListener('mouseover', () => {
+            publishButton.src = '../res/pictures/publish2.png'; // Hover state
+        });
+        publishButton.addEventListener('mouseout', () => {
+            publishButton.src = '../res/pictures/publish1.png'; // Reset to default
+        });
+
         buttonContainer.appendChild(editButton);
         buttonContainer.appendChild(deleteButton);
+        buttonContainer.appendChild(publishButton);
+    }
+
+    if (survey.survey_status == 'published') {
+        // Unpublish button
+        const unpublishButton = document.createElement('img');
+        unpublishButton.src = '../res/pictures/publish2.png'; 
+        unpublishButton.alt = 'Unpublish';
+        unpublishButton.className = 'action-button';
+        unpublishButton.title = 'Unpublish Survey';
+        unpublishButton.onclick = () => {
+            if (confirm('Are you sure you want to unpublish this survey?')) {
+                unpublishSurvey(survey.survey_id);
+            }
+        };
+
+        // Hover and click effect for Delete button
+        unpublishButton.addEventListener('mouseover', () => {
+            unpublishButton.src = '../res/pictures/publish1.png'; // Hover state
+        });
+        unpublishButton.addEventListener('mouseout', () => {
+            unpublishButton.src = '../res/pictures/publish2.png'; // Reset to default
+        });
+
+        buttonContainer.appendChild(unpublishButton);
     }
 
     if (survey.survey_status == 'archived') {
