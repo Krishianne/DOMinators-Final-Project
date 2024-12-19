@@ -260,7 +260,6 @@ router.post('/respondents', async (req, res) => {
 });
 
 
-
 router.post('/majorminor', async (req, res) => {
     try {
         const { userId } = req.body; // Get userId from the request
@@ -338,6 +337,5 @@ router.post('/majorminor', async (req, res) => {
         res.status(500).json({ message: 'Internal server error' });
     }
 });
-
 
 module.exports = router;
