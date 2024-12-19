@@ -22,7 +22,6 @@ body, html {
     padding-top: 20px;
 }
 
-
 .sidebar .logo-container {
     text-align: center;
     margin-bottom: 20px;
@@ -360,7 +359,6 @@ button {
     margin-bottom: 15px;
 }
 
-
 .upper-part {
     width: 100%;
     display: flex;
@@ -388,7 +386,6 @@ button {
     display: flex;
     flex-direction: column; 
 }
-
 
 
 .drop-option1 {
@@ -542,22 +539,50 @@ textarea {
 }
 
 .results-container {
-    background-color: white;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     margin-top: 20px;
+    padding: 20px;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-#adminInfo {
-    margin-top: 15px;
+#total-users-count-container {
+    margin-top: 20px;
+    padding: 15px;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    font-size: 18px;
 }
 
-#adminInfo p {
-    font-size: 1.1em;
-    margin-bottom: 10px;
+.course-record {
+    background-color: #f9f9f9;
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
-#adminInfo span {
-    font-weight: bold;
+#bar-chart-container {
+    margin-top: 30px;
+    padding: 20px;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
 }
+
+#barChart {
+    max-width: 100%;
+    width: 900px;  
+    height: 700px; 
+    margin: 0 auto;
+}
+
+
+
+
+
+
+
+

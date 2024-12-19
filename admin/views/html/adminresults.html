@@ -4,14 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home</title>
-    <link rel="stylesheet" href="../css/adminresults.css">
+    <link rel="stylesheet" href="../css/adminresults.css"> 
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
-<header></header>
+<header>SURVEY RESULTS</header>
 
 <div class="sidebar">
     <div class="logo-container">
-        <img class="logo"  src="../res/pictures/admin-logo.png" alt="logo">
+        <img class="logo" src="../res/pictures/admin-logo.png" alt="logo">
         <h1>AlmaMeter</h1>
     </div>
     <div class="search-filter-container">
@@ -40,16 +41,23 @@
 </div>
 
 <main>
-    <div class="results-container">
-        <h1>Survey Results</h1>
-        <div id="adminInfo">
-            <p><strong>Admin User ID:</strong> <span id="adminUserId"></span></p>
-            <p><strong>Courses:</strong> <span id="coursesList"></span></p>
-            <p><strong>Total Users in Classes:</strong> <span id="totalUsers"></span></p>
-        </div>
+    <div id="course-results" class="results-container">
+        <h2>Course User Counts</h2>
+    </div>
+
+    <div id="total-users-count-container">
+        <h3>Total Users Across All Courses:</h3>
+        <p id="total-users-count"></p>
+    </div>
+
+    <div id="bar-chart-container">
+        <h2>Total Users per Course</h2>
+        <canvas id="barChart"></canvas>
     </div>
 </main>
 
-<script src="../js/adminresults.js" ></script>
+
+<script src="../js/adminresults.js"></script>
+
 </body>
 </html>

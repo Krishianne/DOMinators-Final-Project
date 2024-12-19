@@ -1,37 +1,80 @@
 const userId = localStorage.getItem('userId');
 
-document.addEventListener('DOMContentLoaded', async () => {
+document.addEventListener('DOMContentLoaded', () => {
+    if (!userId) {
+        alert('No user ID found.');
+        return;
+    }
 
-    try {
-        const response = await fetch('/api/users/respondents', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ userId }),
+    fetch('/api/users/respondents', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ userId })
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.message) {
+            alert(data.message);
+            return;
+        }
+
+        const resultsContainer = document.getElementById('course-results');
+        const totalUsersContainer = document.getElementById('total-users-count');
+        const courses = [];
+        const userCounts = [];
+
+        data.user_counts.forEach(record => {
+            const courseDiv = document.createElement('div');
+            courseDiv.classList.add('course-record');
+            courseDiv.innerHTML = `<strong>Course:</strong> ${record.course} | <strong>Total Users:</strong> ${record.total_users}`;
+            resultsContainer.appendChild(courseDiv);
+
+            courses.push(record.course);
+            userCounts.push(record.total_users);
         });
 
-        const data = await response.json();
+        totalUsersContainer.textContent = data.total_users;
 
-        if (response.ok) {
-            // Populate the data in the HTML
-            document.getElementById('adminUserId').innerText = data.admin_user_id;
-            document.getElementById('coursesList').innerText = data.courses.join(', ') || 'No courses available';
-            document.getElementById('totalUsers').innerText = data.total_users || 0;
-        } else {
-            // Handle errors (e.g., no admin users, no courses)
-            document.getElementById('adminInfo').innerHTML = `<p>Error: ${data.message}</p>`;
-        }
-    } catch (error) {
-        console.error('Error fetching data:', error);
-        document.getElementById('adminInfo').innerHTML = '<p>Error fetching data. Please try again later.</p>';
-    }
-});
+        const ctx = document.getElementById('barChart').getContext('2d');
 
+        const gradient = ctx.createLinearGradient(0, 0, 0, 400);
+        gradient.addColorStop(0, 'rgba(87, 182, 255, 0.8)');
+        gradient.addColorStop(1, 'rgba(36, 137, 255, 0.8)');  
 
-const logoutButton = document.getElementById('logoutButton');
+        new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: courses,
+                datasets: [{
+                    data: userCounts,
+                    backgroundColor: gradient,
+                    borderColor: 'rgba(0, 53, 143, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        display: false  // Removed the legend label
+                    }
+                },
+                scales: {
+                    x: { beginAtZero: true },
+                    y: { beginAtZero: true }
+                }
+            }
+        });
+    })
+    .catch(error => {
+        console.error('Error fetching the data:', error);
+        alert('Error fetching the data.');
+    });
+
+    const logoutButton = document.getElementById('logoutButton');
     if (logoutButton) {
         logoutButton.addEventListener('click', () => {
             window.location.href = '../html/login.html';
         });
     }
+});

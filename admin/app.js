@@ -6,7 +6,7 @@ const surveyRoutes = require('./routes/survey');
 const path = require('path');
 const respondentsRoute = require('./routes/users');
 const addSurveyRoute = require('./routes/surveyadd')
-const adminResultsRoute = require('./routes/users');
+
 
 const app = express();
 const PORT = process.env.PORT || 8000;
@@ -27,7 +27,6 @@ app.use(session({
 app.use('/api', userRoutes);
 app.use('/api/survey', surveyRoutes);
 app.use('/api/users', respondentsRoute);
-app.use('/api/users', adminResultsRoute);
 app.use('/api/surveyadd', addSurveyRoute);
 
 // Route Login

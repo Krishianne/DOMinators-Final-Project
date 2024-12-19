@@ -191,73 +191,81 @@ router.post('/login', async (req, res) => {
     }
 });
 
-//ADMINRESULTS - fetching the database for the results section of the admin
+
+//ADMINRESULTS 1 - fetching the database for the GENERAL results section of the admin
 router.post('/respondents', async (req, res) => {
     const { userId } = req.body;
 
     try {
-        // Step 1: Check if the user is an admin by comparing userId with database
+        // Step 1: Check if the user is an admin by comparing userId with the database
         const adminUsers = await db.query(
-            "SELECT user_id, user_type FROM users WHERE user_id = ? AND user_type = 'admin'", 
+            "SELECT user_id, user_type FROM users WHERE user_id = ? AND user_type = 'admin'",
             [userId]
         );
-
+    
         // If no admin user is found
         if (adminUsers.length === 0) {
             return res.status(404).json({ message: 'No admin users found or user is not an admin.' });
         }
-
+    
+        // Extract the admin user_id
         const adminUserId = adminUsers[0].user_id;
-        console.log('Admin User ID:', adminUserId);  // Debugging the admin user_id
-
-        // Step 2: Get courses associated with the admin from the survey table
+        console.log('Verified Admin User ID:', adminUserId);
+    
+        // Step 2: Track the admin's user_id in the survey table and get courses
         const surveyRecords = await db.query(
             "SELECT DISTINCT course FROM survey WHERE user_id = ?",
             [adminUserId]
         );
-
-        // Debugging to ensure we get the courses
-        console.log('Survey Records:', surveyRecords);  // Debugging survey data
-
+    
         if (surveyRecords.length === 0) {
             return res.status(404).json({ message: 'No courses found for the admin in the survey table.' });
         }
-
+    
+        // Extract courses
         const courses = surveyRecords.map(record => record.course);
-        console.log('Courses associated with the admin:', courses);  // Debugging course data
-
-        // Step 3: Get class_ids associated with these courses
-        const classRecords = await db.query(
-            "SELECT DISTINCT class_id FROM class WHERE course IN (?)",
+        console.log('Courses associated with the admin:', courses);
+    
+        // Step 3: Track the courses in the class table and calculate total users per course
+        const userCounts = await db.query(
+            `
+            SELECT course, COUNT(DISTINCT user_id) AS total_users
+            FROM class
+            WHERE course IN (?)
+            GROUP BY course
+            `,
             [courses]
         );
-
-        // Debugging to ensure we get the class data
-        console.log('Class Records:', classRecords);  // Debugging class data
-
-        if (classRecords.length === 0) {
-            return res.status(404).json({ message: 'No classes found for the admin\'s courses.' });
+    
+        if (userCounts.length === 0) {
+            return res.status(404).json({ message: 'No user data found for the admin\'s courses in the class table.' });
         }
-
-        const classIds = classRecords.map(cls => cls.class_id);
-        console.log('Class IDs associated with the admin\'s courses:', classIds);  // Debugging class IDs
-
-        // Step 4: Count the total number of users in these classes
-        const userCount = await db.query(
-            "SELECT COUNT(DISTINCT user_id) AS total_users FROM class WHERE class_id IN (?)",
-            [classIds]
-        );
-
-        const totalUsers = userCount[0]?.total_users || 0;
-        console.log('Total users in classes with matching courses:', totalUsers);  // Debugging total user count
-
+    
+        // Display the total users per course
+        console.log('Total users per course:', userCounts);
+    
+        // Step 4: Calculate the total number of users across all courses
+        const totalUsers = userCounts.reduce((sum, record) => sum + record.total_users, 0);
+        console.log('Total users across all courses:', totalUsers);
+    
         // Step 5: Return the results
-        res.json({ admin_user_id: adminUserId, courses, total_users: totalUsers });
+        res.json({
+            admin_user_id: adminUserId,
+            user_counts: userCounts,
+            total_users: totalUsers
+        });
     } catch (error) {
-        console.error('Error processing request:', error);
+        console.error('Error calculating total users:', error);
         res.status(500).json({ message: 'Internal server error.' });
-    }
+    }  
 });
+
+
+//ADMINRESULTS 2 - data for the answers per question depending on the course
+router.post('/results'), async (req, res) => {
+    const { userId } = req.body; 
+
+    
 
 
 router.post('/majorminor', async (req, res) => {
