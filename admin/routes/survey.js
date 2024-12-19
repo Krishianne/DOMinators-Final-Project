@@ -215,7 +215,149 @@ router.post('/save', async (req, res) => {
     }
 });
 
+router.delete('/deletesurvey', async (req, res) => {
+    const { surveyId } = req.body;
+    console.log('Survey ID to delete:', surveyId);
+
+    if (!surveyId) {
+        return res.status(400).json({ message: 'Invalid input data. Survey ID is required.' });
+    }
+
+    try {
+        // Fetch all question_ids for the given survey_id
+        const questionIdsResult = await db.query(`SELECT question_id FROM questions WHERE survey_id = ?`, [surveyId]);
+        const questionIds = questionIdsResult.map(row => row.question_id);
+
+        if (!surveyId) {
+            console.error('Survey ID is missing');
+            return res.status(400).json({ message: 'Invalid input data.' });
+        }
+
+        // Check if any of the question_ids have responses in rating_response, checkbox_response, or essay_response
+        const responseCheckQueries = [
+            `SELECT COUNT(*) AS count FROM rating_response WHERE question_id IN (?)`,
+            `SELECT COUNT(*) AS count FROM checkbox_response WHERE question_id IN (?)`,
+            `SELECT COUNT(*) AS count FROM essay_response WHERE question_id IN (?)`
+        ];
+
+        for (const query of responseCheckQueries) {
+            const responseCheckResult = await db.query(query, [questionIds]);
+            if (responseCheckResult[0].count > 0) {
+                return res.status(400).json({ 
+                    message: 'This survey cannot be deleted because it has been answered by students.' 
+                });
+            }
+        }
+
+        // If no responses exist, delete related data and the survey
+        await db.query(`DELETE FROM rate WHERE question_id IN (?)`, [questionIds]);
+        await db.query(`DELETE FROM checkbox WHERE question_id IN (?)`, [questionIds]);
+        await db.query(`DELETE FROM questions WHERE survey_id = ?`, [surveyId]);
+        await db.query(`DELETE FROM survey WHERE survey_id = ?`, [surveyId]);
+
+        return res.status(200).json({ message: 'Survey and related data deleted successfully!' });
+    } catch (error) {
+        console.error('Error deleting survey:', error);
+        return res.status(500).json({ message: 'An error occurred while deleting the survey.' });
+    }
+});
+
+
+router.put('/publishsurvey', async (req, res) => {
+    const { surveyId } = req.body; // Extract surveyId from the request body
+    console.log('Survey ID to update:', surveyId);
+
+    // Validate input
+    if (!surveyId) {
+        return res.status(400).json({ message: 'Invalid input data. Survey ID is required.' });
+    }
+
+    try {
+        // Execute the SQL query to update the survey_status column
+        await db.query(
+            `UPDATE survey SET survey_status = 'published' WHERE survey_id = ?`, 
+            [surveyId]
+        );
+
+        return res.status(200).json({ message: 'Survey status updated to "published" successfully!' });
+    } catch (error) {
+        console.error('Error updating survey status:', error);
+        return res.status(500).json({ message: 'An error occurred while updating the survey status.' });
+    }
+});
+
+router.put('/unpublishsurvey', async (req, res) => {
+    const { surveyId } = req.body; // Extract surveyId from the request body
+    console.log('Survey ID to update:', surveyId);
+
+    // Validate input
+    if (!surveyId) {
+        return res.status(400).json({ message: 'Invalid input data. Survey ID is required.' });
+    }
+
+    try {
+        // Execute the SQL query to update the survey_status column
+        await db.query(
+            `UPDATE survey SET survey_status = 'unpublished' WHERE survey_id = ?`, 
+            [surveyId]
+        );
+
+        return res.status(200).json({ message: 'Survey status updated to "unpublished" successfully!' });
+    } catch (error) {
+        console.error('Error updating survey status:', error);
+        return res.status(500).json({ message: 'An error occurred while updating the survey status.' });
+    }
+});
+
+router.put('/archivesurvey', async (req, res) => {
+    const { surveyId } = req.body; // Extract surveyId from the request body
+    console.log('Survey ID to update:', surveyId);
+
+    // Validate input
+    if (!surveyId) {
+        return res.status(400).json({ message: 'Invalid input data. Survey ID is required.' });
+    }
+
+    try {
+        // Execute the SQL query to update the survey_status column
+        await db.query(
+            `UPDATE survey SET survey_status = 'archived' WHERE survey_id = ?`, 
+            [surveyId]
+        );
+
+        return res.status(200).json({ message: 'Survey status updated to "unpublished" successfully!' });
+    } catch (error) {
+        console.error('Error updating survey status:', error);
+        return res.status(500).json({ message: 'An error occurred while updating the survey status.' });
+    }
+});
+
+router.put('/unarchivesurvey', async (req, res) => {
+    const { surveyId } = req.body; // Extract surveyId from the request body
+    console.log('Survey ID to update:', surveyId);
+
+    // Validate input
+    if (!surveyId) {
+        return res.status(400).json({ message: 'Invalid input data. Survey ID is required.' });
+    }
+
+    try {
+        // Execute the SQL query to update the survey_status column
+        await db.query(
+            `UPDATE survey SET survey_status = 'unpublished' WHERE survey_id = ?`, 
+            [surveyId]
+        );
+
+        return res.status(200).json({ message: 'Survey status updated to "unpublished" successfully!' });
+    } catch (error) {
+        console.error('Error updating survey status:', error);
+        return res.status(500).json({ message: 'An error occurred while updating the survey status.' });
+    }
+});
+
+
 router.delete('/deleteQuestion', async (req, res) => {
+    console.log(req.body);
     const { question_id } = req.body;
 
     if (!question_id) {

@@ -289,22 +289,137 @@ function createSurveyCard(survey) {
 }
 
 function deleteSurvey(surveyId) {
-    fetch(`/api/deletesurvey`, {
-        method: 'POST',
+    console.log('Attempting to delete Survey with ID:', surveyId); // Log the survey ID being deleted
+
+    fetch(`/api/survey/deletesurvey`, {
+        method: 'DELETE',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ surveyId }),
     })
-        .then(response => {
+        .then(async response => {
             if (response.ok) {
                 alert('Survey deleted successfully.');
-                populateSurveys(); 
+                populateSurveys(); // Refresh the survey list
             } else {
-                alert('Failed to delete the survey.');
+                // Handle non-2xx responses
+                const errorDetails = await response.json().catch(() => null); // Try parsing the error response
+                console.error('Failed to delete survey. Status Code:', response.status);
+                console.error('Error Details:', errorDetails || 'No additional error details provided by server.');
+                alert(`Failed to delete the survey. Error: ${errorDetails?.message || 'Unknown error occurred.'}`);
             }
         })
         .catch(error => {
-            console.error('Error deleting survey:', error);
-            alert('An error occurred while deleting the survey.');
+            // Handle network errors or other unexpected issues
+            console.error('Network or server error occurred:', error);
+            alert('An unexpected error occurred while deleting the survey. Check console for details.');
+        });
+}
+
+function publishSurvey(surveyId) {
+    console.log('Attempting to publish Survey with ID:', surveyId); 
+
+    fetch(`/api/survey/publishsurvey`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ surveyId }),
+    })
+        .then(async response => {
+            if (response.ok) {
+                alert('Survey published successfully.');
+                populateSurveys(); // Refresh the survey list
+            } else {
+                // Handle non-2xx responses
+                const errorDetails = await response.json().catch(() => null); // Try parsing the error response
+                console.error('Failed to publish survey. Status Code:', response.status);
+                console.error('Error Details:', errorDetails || 'No additional error details provided by server.');
+                alert(`Failed to publish the survey. Error: ${errorDetails?.message || 'Unknown error occurred.'}`);
+            }
+        })
+        .catch(error => {
+            // Handle network errors or other unexpected issues
+            console.error('Network or server error occurred:', error);
+            alert('An unexpected error occurred while publishing the survey. Check console for details.');
+        });
+}
+
+function unpublishSurvey(surveyId) {
+    console.log('Attempting to unpublish Survey with ID:', surveyId); 
+
+    fetch(`/api/survey/unpublishsurvey`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ surveyId }),
+    })
+        .then(async response => {
+            if (response.ok) {
+                alert('Survey unpublished successfully.');
+                populateSurveys(); // Refresh the survey list
+            } else {
+                // Handle non-2xx responses
+                const errorDetails = await response.json().catch(() => null); // Try parsing the error response
+                console.error('Failed to unpublish survey. Status Code:', response.status);
+                console.error('Error Details:', errorDetails || 'No additional error details provided by server.');
+                alert(`Failed to unpublish the survey. Error: ${errorDetails?.message || 'Unknown error occurred.'}`);
+            }
+        })
+        .catch(error => {
+            // Handle network errors or other unexpected issues
+            console.error('Network or server error occurred:', error);
+            alert('An unexpected error occurred while unpublishing the survey. Check console for details.');
+        });
+}
+
+function archiveSurvey(surveyId) {
+    console.log('Attempting to archive Survey with ID:', surveyId); 
+
+    fetch(`/api/survey/archivesurvey`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ surveyId }),
+    })
+        .then(async response => {
+            if (response.ok) {
+                alert('Survey archived successfully.');
+                populateSurveys(); // Refresh the survey list
+            } else {
+                // Handle non-2xx responses
+                const errorDetails = await response.json().catch(() => null); // Try parsing the error response
+                console.error('Failed to archive survey. Status Code:', response.status);
+                console.error('Error Details:', errorDetails || 'No additional error details provided by server.');
+                alert(`Failed to archive the survey. Error: ${errorDetails?.message || 'Unknown error occurred.'}`);
+            }
+        })
+        .catch(error => {
+            // Handle network errors or other unexpected issues
+            console.error('Network or server error occurred:', error);
+            alert('An unexpected error occurred while archiving the survey. Check console for details.');
+        });
+}
+
+function unarchiveSurvey(surveyId) {
+    console.log('Attempting to archive Survey with ID:', surveyId); 
+
+    fetch(`/api/survey/unarchivesurvey`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ surveyId }),
+    })
+        .then(async response => {
+            if (response.ok) {
+                alert('Survey unarchived successfully.');
+                populateSurveys(); // Refresh the survey list
+            } else {
+                // Handle non-2xx responses
+                const errorDetails = await response.json().catch(() => null); // Try parsing the error response
+                console.error('Failed to unarchive survey. Status Code:', response.status);
+                console.error('Error Details:', errorDetails || 'No additional error details provided by server.');
+                alert(`Failed to unarchive the survey. Error: ${errorDetails?.message || 'Unknown error occurred.'}`);
+            }
+        })
+        .catch(error => {
+            // Handle network errors or other unexpected issues
+            console.error('Network or server error occurred:', error);
+            alert('An unexpected error occurred while unarchiving the survey. Check console for details.');
         });
 }
 
