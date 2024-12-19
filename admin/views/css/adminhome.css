@@ -10,6 +10,7 @@ body, html {
 }
 
 .sidebar {
+    z-index: 10;
     width: 250px;
     background-color: #E8AF30;
     color: white;
@@ -281,19 +282,15 @@ select, input[type="text"], textarea {
 }
 
 button {
-    margin-top: 15px;
-    padding: 10px 15px;
+    /* margin-top: 15px; */
+    /* padding: 10px 15px; */
     border: none;
-    background-color: #162F65;
-    color: white;
-    font-size: 16px;
+    background-color: transparent;
+    /* color: white; */
+    /* font-size: 16px; */
     cursor: pointer;
-    border-radius: 5px;
-    transition: background-color 0.3s ease;
-}
-
-button:hover {
-    background-color: rgb(133, 133, 160);
+    /* border-radius: 5px; */
+    /* transition: background-color 0.3s ease; */
 }
 
 hr {
@@ -344,13 +341,23 @@ hr {
     border-radius: 25px;
 }
 
+.search-filter-container {
+    display: flex; /* Align items horizontally */
+    align-items: center; /* Center vertically */
+    /* justify-content: space-between;  */
+    width: 250px;
+    /* gap: 10px; Add space between search and filter button */
+    /* margin-top: 20px; Adjust spacing as needed */
+}
+
 /* Search Form */
 .search-form {
     border-radius: 25px;
     display: flex;
     align-items: center;
     margin-left: 10px;
-    margin-right: 10px;
+    width: 200px;
+    /* margin-right: 10px; */
 }
 
 /* Search input field styling */
@@ -368,18 +375,6 @@ hr {
     align-items: center;
 }
 
-.refresh-btn {
-    width: 40px;
-    height: auto;
-    cursor: pointer;
-    position: relative;
-    background-size: contain; 
-    background-repeat: no-repeat;
-    background-position: center; 
-    padding: 0;
-    margin: 0;
-}
-
 .action-button {
     width: 35px; /* Adjust size */
     height: auto;
@@ -393,23 +388,46 @@ hr {
 }
 
 .filter-dropdown {
-    position: absolute; 
-    top: 5px; 
-    right: 40px; 
-    z-index: 1000;
-    margin-bottom: 5px;
-}
+    /* z-index: 5; */
+    position: relative; 
+    display: inline-block;
+    margin-top: 3px;
+    margin-right: 0;
+    /* width: 30px; 
+    height: 30px;*/
+} 
 
-
-.dropdown-button {
-    width: 150px; 
-    text-align: center;
-    background-color: #E8AF30;
-    border-radius: 8px;
+.filter-button {
+    width: auto; 
+    height: 30px;
     cursor: pointer;
-    transition: background-color 0.3s ease;
+    /* background: none; */
+    /* transition: background-color 0.3s ease; */
 }
 
+.filter-button img {
+    margin-left: 0;
+    margin-right: 0;
+    width: 30px;
+    height: 30px;
+    object-fit: contain; /* Ensures the image is properly scaled */
+    border-radius: 8px; /* Optional: add rounded corners */
+    content: url('../res/pictures/filter1.png'); /* Default filter image */
+    transition: transform 0.3s ease;
+}
+
+
+/* Hover state */
+.filter-button:hover img {
+    content: url('../res/pictures/filter2.png'); /* Hover filter image */
+    transform: scale(1.1); /* Optional: Slightly enlarge the image */
+}
+
+/* Active (clicked) state */
+.filter-button:active img {
+    content: url('../res/pictures/filter2.png'); /* Active filter image */
+    transform: scale(0.95); /* Optional: Slightly shrink the image */
+}
 
 .dropdown-menu {
     display: none; 
