@@ -167,7 +167,7 @@ async function deleteQuestion(questionId) {
         const data = await response.json();
         if (response.ok) {
             alert(data.message || 'Question deleted successfully.');
-            location.reload(); // Reload the page to reflect changes
+            location.reload(); 
         } else {
             alert(data.message || 'Failed to delete question.');
         }

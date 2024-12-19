@@ -564,16 +564,16 @@ textarea {
 
     
 .filter-container {
-    display: flex;
+    position: absolute; 
+    top: 60px;
+    right: 20px; 
     gap: 20px;
-    margin-top: 20px;
-    justify-content: end;
 }
 
 .filter-dropdown {
-    position: relative;
-    z-index: 1000;
     margin-bottom: 5px;
+    display: inline-block; 
+    text-align: center;
 }
 
 .dropdown-button1 {

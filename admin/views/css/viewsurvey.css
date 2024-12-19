@@ -528,17 +528,17 @@ textarea {
         display: none;
     }
 .filter-container {
-    display: flex;
+    position: absolute; /* Position it relative to the nearest positioned parent */
+    top: 60px; /* Adjust as needed to position below the title */
+    right: 20px; /* Adjust for horizontal alignment */
     gap: 20px;
-    margin-top: 20px;
-    justify-content: end;
 }
 
 .filter-dropdown {
-    position: relative;
-    z-index: 1000;
-    margin-bottom: 5px;
-}
+        margin-bottom: 5px;
+        display: inline-block; /* Keep the dropdowns inline */
+        text-align: center;
+    }
 
 .dropdown-button1 {
     width: 150px;

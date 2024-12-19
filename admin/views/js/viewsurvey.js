@@ -1,13 +1,13 @@
 document.addEventListener("DOMContentLoaded", async () => {
-    // Get the surveyId from localStorage
+    
     const urlParams = new URLSearchParams(window.location.search);
     const surveyId = urlParams.get('survey_id');
-    console.log(surveyId);  // Log the surveyId for debugging
+    console.log(surveyId);  
 
-    // Check if surveyId exists in localStorage
+
     if (!surveyId) {
         showAlert("Survey ID not found in localStorage.");
-        return;  // Exit if no surveyId is found
+        return;  
     }
 
     try {
@@ -18,14 +18,14 @@ document.addEventListener("DOMContentLoaded", async () => {
             },
         });
     
-        // Check if response is OK (status 200)
+        
         if (response.ok) {
-            const data = await response.json(); // Parse the JSON response body
+            const data = await response.json(); 
             populateSurveyDetails(data.survey);
             populateQuestions(data.questions);
-            console.log(data); // This will show the actual survey details
+            console.log(data); 
         } else {
-            const data = await response.json(); // Parse the error response
+            const data = await response.json(); 
             showAlert(data.message || "Failed to fetch survey details.");
         }
     } catch (error) {
@@ -108,7 +108,7 @@ function getQuestionTypeOptions(question) {
             </div>
         `;
     }
-    return ""; // No additional options
+    return "";
 }
 
 /**
