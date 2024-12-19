@@ -2,6 +2,7 @@
 const userId = localStorage.getItem('userId');
 const firstname = localStorage.getItem('firstname');
 
+
 document.addEventListener('DOMContentLoaded', () => {
     const startYearDropdown = document.getElementById('start-year');
     const endYearDropdown = document.getElementById('end-year');
@@ -11,18 +12,23 @@ document.addEventListener('DOMContentLoaded', () => {
         const endYear = parseInt(endYearDropdown.value, 10);
 
         if (isNaN(startYear) || isNaN(endYear)) {
-            return;
+            return; 
         }
 
         if (endYear !== startYear + 1) {
             alert('Academic year must have a one-year gap (e.g., 2021-2022).');
-            endYearDropdown.value = '';
+            endYearDropdown.value = ''; 
         }
     };
 
-    startYearDropdown.addEventListener('change', validateAcademicYear);
-    endYearDropdown.addEventListener('change', validateAcademicYear);
-});
+    startYearDropdown.addEventListener('change', () => {
+        validateAcademicYear();
+    });
+
+    endYearDropdown.addEventListener('change', () => {
+        validateAcademicYear();
+    });
+}); 
 
 function updatePlaceholders(container, inputClass, placeholderText) {
     const inputs = container.getElementsByClassName(inputClass);
@@ -34,6 +40,8 @@ function updatePlaceholders(container, inputClass, placeholderText) {
 
 function addRatingOption() {
     const container = document.getElementById("rating-options-list");
+
+
     const newOption = document.createElement("div");
     newOption.classList.add("rate-input");
     newOption.innerHTML = `
@@ -41,6 +49,9 @@ function addRatingOption() {
         <button type="button" class="remove-btn" onclick="removeOption(this, 'rate-input', 'Rate')">Remove</button>
     `;
     container.appendChild(newOption);
+
+
+
     updatePlaceholders(container, 'rate-input', 'Rate');
 }
 
@@ -61,20 +72,25 @@ function removeOption(button, inputClass, placeholderText) {
     button.parentElement.remove();
     updatePlaceholders(container, inputClass, placeholderText);
 }
-
 document.addEventListener('DOMContentLoaded', () => {
+
+
     const questionTypeDropdown = document.querySelector('#questionType');
     const categoryDropdown = document.querySelector('select[name="cat"]');
     const optionsContainer = document.getElementById('options-container');
     const ratingOptionsContainer = document.getElementById('rating-options');
     const checkboxOptionsContainer = document.getElementById('checkbox-options');
+
+
     const ratingContainer = document.createElement('div');
     const checkboxContainer = document.createElement('div');
     const essayContainer = document.createElement('div');
 
+
     ratingContainer.classList.add('question-list-container', 'rating-container');
     checkboxContainer.classList.add('question-list-container', 'checkbox-container');
     essayContainer.classList.add('question-list-container', 'essay-container');
+
 
     ratingContainer.classList.add('hidden');
     checkboxContainer.classList.add('hidden');
@@ -84,6 +100,7 @@ document.addEventListener('DOMContentLoaded', () => {
     document.querySelector('.survey-container').appendChild(checkboxContainer);
     document.querySelector('.survey-container').appendChild(essayContainer);
 
+
     const resetOptions = () => {
         optionsContainer.style.display = 'none';
         ratingOptionsContainer.style.display = 'none';
@@ -91,6 +108,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const inputs = optionsContainer.querySelectorAll('input');
         inputs.forEach(input => input.value = '');
     };
+
 
     questionTypeDropdown.addEventListener('change', () => {
         const selectedType = questionTypeDropdown.value;
@@ -104,7 +122,10 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
+
+
     const questions = [];
+
 
     const addQuestionBtn = document.querySelector('.save-btn');
     addQuestionBtn.addEventListener('click', () => {
@@ -112,10 +133,12 @@ document.addEventListener('DOMContentLoaded', () => {
         const questionType = questionTypeDropdown.value;
         const category = categoryDropdown.value;
 
+
         if (!questionText || !questionType || !category) {
             alert('Please fill out the question text, select a type, and choose a category.');
             return;
         }
+
 
         if (questionType === 'Rating') {
             ratingContainer.classList.remove('hidden');
@@ -125,12 +148,14 @@ document.addEventListener('DOMContentLoaded', () => {
             essayContainer.classList.remove('hidden');
         }
 
+
         const question = {
             question_text: questionText,
             question_type: questionType,
             category,
             options: {}
         };
+
 
         if (questionType === 'Rating') {
             const rateInputs = ratingOptionsContainer.querySelectorAll('input');
@@ -148,12 +173,16 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         }
 
+
+
         if (Object.keys(question.options).length === 0 && questionType !== 'Essay') {
             alert('Please fill out the options for the selected question type.');
             return;
         }
 
+
         questions.push(question);
+
 
         const questionItem = document.createElement('div');
         questionItem.classList.add('question-item');
@@ -162,35 +191,34 @@ document.addEventListener('DOMContentLoaded', () => {
             <p><strong>Type:</strong> ${questionType}</p>
             <p><strong>Category:</strong> ${question.category}</p>
             ${
-                Object.keys(question.options).length > 0
-                    ? `<p><strong>Options:</strong> ${Object.values(question.options).join(', ')}</p>`
-                    : ''
-            }
+            Object.keys(question.options).length > 0
+                ? `<p><strong>Options:</strong> ${Object.values(question.options).join(', ')}</p>`
+                : ''
+        }
         `;
 
-        const separator = document.createElement('hr');
-        separator.style.border = '1px solid #E8AF30';
-        separator.style.margin = '10px 0';
 
         if (questionType === 'Rating') {
             ratingContainer.appendChild(questionItem);
-            ratingContainer.appendChild(separator);
         } else if (questionType === 'Checkbox') {
             checkboxContainer.appendChild(questionItem);
-            checkboxContainer.appendChild(separator);
         } else if (questionType === 'Essay') {
             essayContainer.appendChild(questionItem);
-            essayContainer.appendChild(separator);
         }
+
 
         alert('Question added successfully.');
 
+
+        // Reset form fields
         document.querySelector('#question_text').value = '';
         questionTypeDropdown.value = '';
         categoryDropdown.value = '';
         resetOptions();
     });
 
+
+    // Handle form submission with Save Button
     const saveSurveyBtn = document.querySelector('.add-btn');
     saveSurveyBtn.addEventListener('click', async () => {
         const course = document.getElementById('course').value.trim();
@@ -204,7 +232,9 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
 
+
         const data = { userId, course, semester, ay, questions };
+
 
         try {
             const response = await fetch('/api/surveyadd/questions', {
@@ -214,6 +244,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 },
                 body: JSON.stringify(data)
             });
+
 
             const result = await response.json();
             if (response.ok) {
@@ -227,6 +258,7 @@ document.addEventListener('DOMContentLoaded', () => {
             alert('An error occurred while submitting the survey.');
         }
     });
+
 
     const logoutButton = document.getElementById('logoutButton');
     if (logoutButton) {
