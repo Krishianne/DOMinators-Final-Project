@@ -1,11 +1,8 @@
-// Retrieve user ID and firstname from local storage
 const userId = localStorage.getItem('userId');
 const firstname = localStorage.getItem('firstname');
 
-// Global variable to store surveys
 let allSurveys = [];
 
-// Function to fetch survey data based on user ID
 function fetchSurveyData(userId) {
     return fetch(`/api/survey/surveycards`, {
         method: 'POST',
@@ -23,7 +20,6 @@ function fetchSurveyData(userId) {
         });
 }
 
-// Function to get the course description
 function getCourseDescription(course) {
     switch (course) {
         case 'BSCS':
@@ -41,35 +37,32 @@ function getCourseDescription(course) {
     }
 }
 
-// Function to create a survey card
 function createSurveyCard(survey) {
     const surveyCard = document.createElement('div');
     surveyCard.className = 'survey-card';
-    surveyCard.style.position = 'relative'; // Ensure relative positioning for child elements
+    surveyCard.style.position = 'relative'; 
 
-    // Survey icon - set dynamically based on course
     const icon = document.createElement('img');
-    let iconSrc = ''; // Default icon path
+    let iconSrc = ''; 
 
-    // Set the icon source based on the course
     switch (survey.course) {
         case 'BSCS':
-            iconSrc = '../res/pictures/BSCS.gif'; // BSCS icon
+            iconSrc = '../res/pictures/BSCS.gif'; 
             break;
         case 'BSCE':
-            iconSrc = '../res/pictures/BSCE.gif'; // BSCE icon
+            iconSrc = '../res/pictures/BSCE.gif'; 
             break;
         case 'BSMLS':
-            iconSrc = '../res/pictures/BSMLS.gif'; // BSMLS icon
+            iconSrc = '../res/pictures/BSMLS.gif'; 
             break;
         case 'BSIT':
-            iconSrc = '../res/pictures/BSIT.gif'; // BSIT icon
+            iconSrc = '../res/pictures/BSIT.gif'; 
             break;
         case 'BSTM':
-            iconSrc = '../res/pictures/BSTM.gif'; // BSTM icon
+            iconSrc = '../res/pictures/BSTM.gif'; 
             break;
         default:
-            iconSrc = '../res/pictures/default.png'; // Default icon if no match
+            iconSrc = '../res/pictures/default.png'; 
             break;
     }
 
@@ -77,11 +70,9 @@ function createSurveyCard(survey) {
     icon.alt = `${survey.course} Icon`;
     icon.className = 'survey-icon';
 
-    // Survey info container
     const infoDiv = document.createElement('div');
     infoDiv.className = 'survey-info';
 
-    // Survey title link
     const link = document.createElement('a');
     link.href = `viewsurvey.html?survey_id=${survey.survey_id}`;
     link.className = 'survey-link';
@@ -89,12 +80,10 @@ function createSurveyCard(survey) {
     const title = document.createElement('h2');
     title.textContent = `${survey.course} Learning Outcomes `;
 
-    // Create a span for survey_status
     const statusSpan = document.createElement('span');
     statusSpan.textContent = `(${survey.survey_status})`;
     statusSpan.style.fontSize = '15px';
 
-    // Set the color based on the survey_status
     switch (survey.survey_status) {
         case 'published':
             statusSpan.style.color = 'green';
@@ -106,16 +95,13 @@ function createSurveyCard(survey) {
             statusSpan.style.color = 'blue';
             break;
         default:
-            statusSpan.style.color = 'black'; // Default color if no match
+            statusSpan.style.color = 'black';
     }
 
-    // Append the span to the title
     title.appendChild(statusSpan);
 
-    // Append the title to your desired container
-    document.body.appendChild(title); // Change `document.body` to your specific container
+    document.body.appendChild(title); 
 
-    // Footer and description
     const footer = document.createElement('p');
     footer.className = 'survey-footer';
     footer.textContent = `For ${survey.semester} Semester, AY ${survey.ay} Graduates`;
@@ -126,36 +112,30 @@ function createSurveyCard(survey) {
     description.style.textAlign = 'justify';
     description.style.textIndent = '2em';
 
-    // Add button container
     const buttonContainer = document.createElement('div');
     buttonContainer.className = 'button-container';
 
-    // View button
     const viewButton = document.createElement('img');
-    viewButton.src = '../res/pictures/view1.png'; // Default view icon
+    viewButton.src = '../res/pictures/view1.png';
     viewButton.alt = 'View';
     viewButton.className = 'action-button';
     viewButton.title = 'View Survey';
     viewButton.onclick = () => {
-        // Redirect to the view survey page
         window.location.href = `viewsurvey.html?survey_id=${survey.survey_id}`;
     };
 
-    // Hover and click effects for View button
     viewButton.addEventListener('mouseover', () => {
-        viewButton.src = '../res/pictures/view2.png'; // Hover state
+        viewButton.src = '../res/pictures/view2.png'; 
     });
     viewButton.addEventListener('mouseout', () => {
-        viewButton.src = '../res/pictures/view1.png'; // Reset to default
+        viewButton.src = '../res/pictures/view1.png';
     });
 
     buttonContainer.appendChild(viewButton);
 
-    // Add Edit and Delete buttons if the survey is unpublished
     if (survey.survey_status == 'unpublished') {
-        // Edit button
         const editButton = document.createElement('img');
-        editButton.src = '../res/pictures/edit1.png'; // Default edit icon
+        editButton.src = '../res/pictures/edit1.png'; 
         editButton.alt = 'Edit';
         editButton.className = 'action-button';
         editButton.title = 'Edit Survey';
@@ -163,17 +143,15 @@ function createSurveyCard(survey) {
             window.location.href = `editsurvey.html?survey_id=${survey.survey_id}`;
         };
 
-        // Hover and click effect for Edit button
         editButton.addEventListener('mouseover', () => {
-            editButton.src = '../res/pictures/edit2.png'; // Hover state
+            editButton.src = '../res/pictures/edit2.png';
         });
         editButton.addEventListener('mouseout', () => {
-            editButton.src = '../res/pictures/edit1.png'; // Reset to default
+            editButton.src = '../res/pictures/edit1.png'; 
         });
 
-        // Delete button
         const deleteButton = document.createElement('img');
-        deleteButton.src = '../res/pictures/delete1.png'; // Default delete icon
+        deleteButton.src = '../res/pictures/delete1.png';
         deleteButton.alt = 'Delete';
         deleteButton.className = 'action-button';
         deleteButton.title = 'Delete Survey';
@@ -183,15 +161,13 @@ function createSurveyCard(survey) {
             }
         };
 
-        // Hover and click effect for Delete button
         deleteButton.addEventListener('mouseover', () => {
-            deleteButton.src = '../res/pictures/delete2.png'; // Hover state
+            deleteButton.src = '../res/pictures/delete2.png'; 
         });
         deleteButton.addEventListener('mouseout', () => {
-            deleteButton.src = '../res/pictures/delete1.png'; // Reset to default
+            deleteButton.src = '../res/pictures/delete1.png'; 
         });
 
-        // Publish button
         const publishButton = document.createElement('img');
         publishButton.src = '../res/pictures/publish1.png'; 
         publishButton.alt = 'Publish';
@@ -203,12 +179,11 @@ function createSurveyCard(survey) {
             }
         };
 
-        // Hover and click effect for Delete button
         publishButton.addEventListener('mouseover', () => {
-            publishButton.src = '../res/pictures/publish2.png'; // Hover state
+            publishButton.src = '../res/pictures/publish2.png'; 
         });
         publishButton.addEventListener('mouseout', () => {
-            publishButton.src = '../res/pictures/publish1.png'; // Reset to default
+            publishButton.src = '../res/pictures/publish1.png';
         });
 
         buttonContainer.appendChild(editButton);
@@ -217,7 +192,6 @@ function createSurveyCard(survey) {
     }
 
     if (survey.survey_status == 'published') {
-        // Unpublish button
         const unpublishButton = document.createElement('img');
         unpublishButton.src = '../res/pictures/publish2.png'; 
         unpublishButton.alt = 'Unpublish';
@@ -229,21 +203,19 @@ function createSurveyCard(survey) {
             }
         };
 
-        // Hover and click effect for Delete button
         unpublishButton.addEventListener('mouseover', () => {
-            unpublishButton.src = '../res/pictures/publish1.png'; // Hover state
+            unpublishButton.src = '../res/pictures/publish1.png'; 
         });
         unpublishButton.addEventListener('mouseout', () => {
-            unpublishButton.src = '../res/pictures/publish2.png'; // Reset to default
+            unpublishButton.src = '../res/pictures/publish2.png'; 
         });
 
         buttonContainer.appendChild(unpublishButton);
     }
 
     if (survey.survey_status == 'archived') {
-        // Unarchive button
         const unarchiveButton = document.createElement('img');
-        unarchiveButton.src = '../res/pictures/archived2.png'; // Default delete icon
+        unarchiveButton.src = '../res/pictures/archived2.png'; 
         unarchiveButton.alt = 'Unarchive';
         unarchiveButton.className = 'action-button';
         unarchiveButton.title = 'Unarchive Survey';
@@ -253,17 +225,15 @@ function createSurveyCard(survey) {
             }
         };
 
-        // Hover and click effect for Delete button
         unarchiveButton.addEventListener('mouseover', () => {
-            unarchiveButton.src = '../res/pictures/archived1.png'; // Hover state
+            unarchiveButton.src = '../res/pictures/archived1.png'; 
         });
         unarchiveButton.addEventListener('mouseout', () => {
-            unarchiveButton.src = '../res/pictures/archived2.png'; // Reset to default
+            unarchiveButton.src = '../res/pictures/archived2.png'; 
         });
 
-        // Delete button
         const deleteButton = document.createElement('img');
-        deleteButton.src = '../res/pictures/delete1.png'; // Default delete icon
+        deleteButton.src = '../res/pictures/delete1.png';
         deleteButton.alt = 'Delete';
         deleteButton.className = 'action-button';
         deleteButton.title = 'Delete Survey';
@@ -273,24 +243,20 @@ function createSurveyCard(survey) {
             }
         };
 
-        // Hover and click effect for Delete button
         deleteButton.addEventListener('mouseover', () => {
-            deleteButton.src = '../res/pictures/delete2.png'; // Hover state
+            deleteButton.src = '../res/pictures/delete2.png'; 
         });
         deleteButton.addEventListener('mouseout', () => {
-            deleteButton.src = '../res/pictures/delete1.png'; // Reset to default
+            deleteButton.src = '../res/pictures/delete1.png';
         });
 
-
         buttonContainer.appendChild(unarchiveButton);
-
         buttonContainer.appendChild(deleteButton);
     }
 
     if (survey.survey_status !== 'archived') {
-        // Archive button
         const archiveButton = document.createElement('img');
-        archiveButton.src = '../res/pictures/archived1.png'; // Default delete icon
+        archiveButton.src = '../res/pictures/archived1.png'; 
         archiveButton.alt = 'Archive';
         archiveButton.className = 'action-button';
         archiveButton.title = 'Archive Survey';
@@ -300,12 +266,11 @@ function createSurveyCard(survey) {
             }
         };
 
-        // Hover and click effect for Delete button
         archiveButton.addEventListener('mouseover', () => {
-            archiveButton.src = '../res/pictures/archived2.png'; // Hover state
+            archiveButton.src = '../res/pictures/archived2.png'; 
         });
         archiveButton.addEventListener('mouseout', () => {
-            archiveButton.src = '../res/pictures/archived1.png'; // Reset to default
+            archiveButton.src = '../res/pictures/archived1.png'; 
         });
 
         buttonContainer.appendChild(archiveButton);
@@ -313,7 +278,6 @@ function createSurveyCard(survey) {
 
     surveyCard.appendChild(buttonContainer);
 
-    // Assemble survey card
     link.appendChild(title);
     infoDiv.appendChild(link);
     infoDiv.appendChild(description);
@@ -324,8 +288,6 @@ function createSurveyCard(survey) {
     return surveyCard;
 }
 
-
-// Function to delete a survey
 function deleteSurvey(surveyId) {
     fetch(`/api/deletesurvey`, {
         method: 'POST',
@@ -335,7 +297,7 @@ function deleteSurvey(surveyId) {
         .then(response => {
             if (response.ok) {
                 alert('Survey deleted successfully.');
-                populateSurveys(); // Refresh the survey list
+                populateSurveys(); 
             } else {
                 alert('Failed to delete the survey.');
             }
@@ -346,22 +308,19 @@ function deleteSurvey(surveyId) {
         });
 }
 
-
-// Function to create the header
 function createSurveyHeader() {
     const header = document.createElement('h1');
     header.textContent = `${firstname}'s Survey List`;
     return header;
 }
 
-// Function to populate surveys
 async function populateSurveys() {
     try {
-        allSurveys = await fetchSurveyData(userId); // Fetch surveys
+        allSurveys = await fetchSurveyData(userId); 
         const surveyContainer = document.getElementById('surveyContainer');
-        surveyContainer.innerHTML = ""; // Clear container
+        surveyContainer.innerHTML = ""; 
 
-        surveyContainer.appendChild(createSurveyHeader()); // Add header
+        surveyContainer.appendChild(createSurveyHeader()); 
 
         if (allSurveys.length > 0) {
             allSurveys.forEach(survey => surveyContainer.appendChild(createSurveyCard(survey)));
@@ -375,13 +334,12 @@ async function populateSurveys() {
     }
 }
 
-// Function to search surveys
 function searchSurveys() {
     const query = document.getElementById('searchQuery').value.toLowerCase();
     const surveyContainer = document.getElementById('surveyContainer');
-    surveyContainer.innerHTML = ""; // Clear the container
+    surveyContainer.innerHTML = ""; 
 
-    surveyContainer.appendChild(createSurveyHeader()); // Add header
+    surveyContainer.appendChild(createSurveyHeader()); 
 
     const filteredSurveys = allSurveys.filter(survey => {
         const title = `${survey.course} Learning Outcomes`.toLowerCase();
@@ -399,26 +357,21 @@ function searchSurveys() {
     }
 }
 
-// Event listener for search input
 document.getElementById('searchQuery').addEventListener('input', searchSurveys);
 
-// Populate surveys on page load
 document.addEventListener('DOMContentLoaded', populateSurveys);
 
-// Example for dynamically adding the active class
 document.querySelectorAll('.nav-link').forEach(function(link) {
     link.addEventListener('click', function() {
-        // Remove the active class from all links
         document.querySelectorAll('.nav-link').forEach(function(navLink) {
             navLink.classList.remove('active');
         });
-        // Add the active class to the clicked link
         this.classList.add('active');
     });
 });
 
 const logoutButton = document.getElementById('logoutButton');
-if (logoutButton) { // Ensure the button exists
+if (logoutButton) { 
     logoutButton.addEventListener('click', () => {
         window.location.href = '../html/login.html';
     });
