@@ -11,29 +11,28 @@ document.addEventListener("DOMContentLoaded", async () => {
     }
 
     try {
-        // Fetch survey details using the GET method with survey_id as a query parameter
         const response = await fetch(`/api/survey/details?survey_id=${surveyId}`, {
-            method: 'GET', // Using GET method instead of POST
+            method: 'GET',
             headers: {
-                'Content-Type': 'application/json'
-            }
+                'Content-Type': 'application/json',
+            },
         });
-
-        // Check if response is OK
+    
+        // Check if response is OK (status 200)
         if (response.ok) {
-            const data = await response.json(); // Parse the response body as JSON
+            const data = await response.json(); // Parse the JSON response body
             populateSurveyDetails(data.survey);
             populateQuestions(data.questions);
+            console.log(data); // This will show the actual survey details
         } else {
-            // If response is not OK, display an alert with the response message
-            const data = await response.json();
+            const data = await response.json(); // Parse the error response
             showAlert(data.message || "Failed to fetch survey details.");
         }
     } catch (error) {
-        // Catch any errors during the fetch request
         console.error("Error fetching survey details:", error);
         showAlert("An error occurred while fetching the survey details.");
     }
+    
 });
 
 /**
@@ -55,6 +54,15 @@ function populateQuestions(questions) {
     const questionContainer = document.querySelector(".question-container");
     questionContainer.innerHTML = ""; // Clear existing questions
 
+    if (questions.length === 0) {
+        // No questions found, display a message
+        const noQuestionsMessage = document.createElement('p');
+        noQuestionsMessage.textContent = "No questions have been created in this survey.";
+        noQuestionsMessage.style.textAlign = 'center'; // Optional: center the message
+        questionContainer.appendChild(noQuestionsMessage);
+        return; // Exit the function early as there are no questions
+    }
+    
     questions.forEach((question) => {
         const questionHTML = `
             <div class="essay-part">

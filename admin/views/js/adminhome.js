@@ -102,7 +102,7 @@ function createSurveyCard(survey) {
         case 'unpublished':
             statusSpan.style.color = 'red';
             break;
-        case 'saved':
+        case 'archived':
             statusSpan.style.color = 'blue';
             break;
         default:
@@ -143,15 +143,6 @@ function createSurveyCard(survey) {
     };
 
     // Hover and click effects for View button
-    viewButton.addEventListener('mouseover', () => {
-        viewButton.src = '../res/pictures/view2.png'; // Hover state
-    });
-    viewButton.addEventListener('mouseout', () => {
-        viewButton.src = '../res/pictures/view1.png'; // Reset to default
-    });
-
-
-    // Hover and click effect for View button
     viewButton.addEventListener('mouseover', () => {
         viewButton.src = '../res/pictures/view2.png'; // Hover state
     });

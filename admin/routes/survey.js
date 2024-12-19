@@ -27,7 +27,8 @@ router.post('/surveycards', async (req, res) => {
 // Backend (Express.js) - Fetch survey details
 router.get('/details', async (req, res) => {
     const { survey_id } = req.query;  // Get the survey_id from query parameters
-
+    console.log(survey_id);
+    
     try {
         // Step 1: Fetch survey details
         const surveyQuery = `

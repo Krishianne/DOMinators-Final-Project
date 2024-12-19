@@ -23,7 +23,7 @@ function filterUnpublishedSurveys() {
 
     surveyContainer.appendChild(createSurveyHeader()); 
 
-    const unpublishedSurveys = allSurveys.filter(survey => survey.survey_status !== 'published');
+    const unpublishedSurveys = allSurveys.filter(survey => survey.survey_status == 'unpublished');
 
     if (unpublishedSurveys.length > 0) {
         unpublishedSurveys.forEach(survey => surveyContainer.appendChild(createSurveyCard(survey)));
@@ -31,6 +31,23 @@ function filterUnpublishedSurveys() {
         const noUnpublishedMessage = document.createElement('p');
         noUnpublishedMessage.textContent = "No unpublished surveys found.";
         surveyContainer.appendChild(noUnpublishedMessage);
+    }
+}
+
+function filterArchivedSurveys() {
+    const surveyContainer = document.getElementById('surveyContainer');
+    surveyContainer.innerHTML = ""; 
+
+    surveyContainer.appendChild(createSurveyHeader()); 
+
+    const archivedSurveys = allSurveys.filter(survey => survey.survey_status == 'archived');
+
+    if (archivedSurveys.length > 0) {
+        archivedSurveys.forEach(survey => surveyContainer.appendChild(createSurveyCard(survey)));
+    } else {
+        const noArchiveddMessage = document.createElement('p');
+        noArchiveddMessage.textContent = "No archived surveys found.";
+        surveyContainer.appendChild(noArchiveddMessage);
     }
 }
 
@@ -59,6 +76,11 @@ document.getElementById('publishedSurveys').addEventListener('click', (event) =>
 document.getElementById('unpublishedSurveys').addEventListener('click', (event) => {
     event.preventDefault();
     filterUnpublishedSurveys();
+});
+
+document.getElementById('archivedSurveys').addEventListener('click', (event) => {
+    event.preventDefault();
+    filterArchivedSurveys();
 });
 
 document.getElementById('mixedSurveys').addEventListener('click', (event) => {
