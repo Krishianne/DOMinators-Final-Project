@@ -261,7 +261,30 @@ function createSurveyCard(survey) {
             unarchiveButton.src = '../res/pictures/archived2.png'; // Reset to default
         });
 
+        // Delete button
+        const deleteButton = document.createElement('img');
+        deleteButton.src = '../res/pictures/delete1.png'; // Default delete icon
+        deleteButton.alt = 'Delete';
+        deleteButton.className = 'action-button';
+        deleteButton.title = 'Delete Survey';
+        deleteButton.onclick = () => {
+            if (confirm('Are you sure you want to delete this survey?')) {
+                deleteSurvey(survey.survey_id);
+            }
+        };
+
+        // Hover and click effect for Delete button
+        deleteButton.addEventListener('mouseover', () => {
+            deleteButton.src = '../res/pictures/delete2.png'; // Hover state
+        });
+        deleteButton.addEventListener('mouseout', () => {
+            deleteButton.src = '../res/pictures/delete1.png'; // Reset to default
+        });
+
+
         buttonContainer.appendChild(unarchiveButton);
+
+        buttonContainer.appendChild(deleteButton);
     }
 
     if (survey.survey_status !== 'archived') {
