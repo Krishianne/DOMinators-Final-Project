@@ -1,7 +1,8 @@
 document.getElementById('saveAllBtn').addEventListener('click', saveSurvey);
 
 async function saveSurvey() {
-    const surveyId = localStorage.getItem('surveyId');
+    const urlParams = new URLSearchParams(window.location.search);
+    const surveyId = urlParams.get('survey_id');
     const questions = [];
     const questionElements = document.querySelectorAll('.essay-part');
     questionElements.forEach(questionElement => {

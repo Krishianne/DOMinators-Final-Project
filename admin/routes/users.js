@@ -264,7 +264,7 @@ router.post('/respondents', async (req, res) => {
 //ADMINRESULTS 2 - data for the answers per question depending on the course
 router.post('/results'), async (req, res) => {
     const { userId } = req.body; 
-
+};
     
 
 
