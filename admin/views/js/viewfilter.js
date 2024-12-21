@@ -74,7 +74,7 @@ document.addEventListener("DOMContentLoaded", () => {
             const typeMatch = selectedType === "all" || questionType === selectedType;
             const categoryMatch = selectedCategory === "all" || questionCategory === selectedCategory;
 
-            question.style.display = typeMatch && categoryMatch ? "block" : "none";
+            question.style.display = typeMatch && categoryMatch ? "flex" : "none";
         });
     }
 

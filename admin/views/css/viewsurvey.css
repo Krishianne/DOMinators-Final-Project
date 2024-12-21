@@ -319,6 +319,10 @@ button {
 }
 
 .question-container {
+    display: flex; /* Use flexbox for alignment */
+    flex-direction: column; /* Keep them stacked vertically */
+    gap: 10px; /* Maintain spacing between items */
+    align-items: stretch; /* Ensure elements stretch to full width */
     color: black;
     background: white;
     border-radius: 8px;
@@ -506,7 +510,7 @@ textarea {
     margin: 0;
 }
 
-.question-list-container {
+.question-container {
         border: 1px solid #ccc;
         padding: 10px;
         margin: 10px 0;
@@ -515,11 +519,8 @@ textarea {
         box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
-.question-list-container p strong{
-    color: #E8AF30;
-}
-    
-.question-list-container p {
+  
+.question-container p {
         margin: 5px 0;
         font-size: 14px;
         color: #333;
@@ -528,9 +529,9 @@ textarea {
         display: none;
     }
 .filter-container {
-    position: absolute; /* Position it relative to the nearest positioned parent */
-    top: 60px; /* Adjust as needed to position below the title */
-    right: 20px; /* Adjust for horizontal alignment */
+    position:absolute; 
+    top: 70px;
+    right: 20px; 
     gap: 20px;
 }
 
@@ -589,7 +590,7 @@ textarea {
 }
 
 .filter-dropdown:hover .dropdown-menu {
-    display: block;
+    display:block;
 }
 
 @keyframes fadeIn {
@@ -605,4 +606,11 @@ textarea {
 
 .dropdown-menu {
     animation: fadeIn 0.5s ease;
+}
+#surveyTitle {
+    margin-bottom: 50px;
+}
+.essay-part {
+    width: 100%; /* Ensure it takes full container width */
+    min-height: 50px; /* Optional: maintain a minimum height */
 }

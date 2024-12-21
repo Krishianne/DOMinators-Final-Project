@@ -39,7 +39,7 @@ document.addEventListener("DOMContentLoaded", () => {
             const categoryMatch = selectedCategory === "all" || questionCategory === selectedCategory;
 
             if (typeMatch && categoryMatch) {
-                question.style.display = "block";
+                question.style.display = "flex";
             } else {
                 question.style.display = "none";
             }
