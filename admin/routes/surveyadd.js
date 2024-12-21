@@ -19,7 +19,6 @@ async function generateIncrementalId(table, prefix, columnName) {
     return `${prefix}${nextNumber}`;
 }
 
-// Route to handle survey submission
 router.post('/questions', async (req, res) => {
     const { userId, course, semester, ay, questions } = req.body;
 
@@ -28,27 +27,22 @@ router.post('/questions', async (req, res) => {
     }
 
     try {
-        // Generate new survey ID based on the highest existing ID, ensuring uniqueness
         const surveyId = await generateIncrementalId('survey', 'S', 'survey_id');
 
-        // Insert survey data
         await db.query(
             `INSERT INTO survey (survey_id, user_id, course, semester, ay, survey_status) VALUES (?, ?, ?, ?, ?, ?)`,
             [surveyId, userId, course, semester, ay, 'unpublished']
         );
 
-        // Insert questions
         for (const question of questions) {
             const questionId = await generateIncrementalId('questions', 'Q', 'question_id');
             const { question_text, question_type, category, options } = question;
 
-            // Insert question data
             await db.query(
                 `INSERT INTO questions (question_id, survey_id, category, question_text, question_type) VALUES (?, ?, ?, ?, ?)`,
                 [questionId, surveyId, category, question_text, question_type]
             );
 
-            // Insert options based on question type
             if (question_type.toLowerCase() === 'rating' && options) {
                 const rateId = await generateIncrementalId('rate', 'R', 'rate_id');
                 const optionValues = [

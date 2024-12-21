@@ -25,7 +25,6 @@ body, html {
    width: 250px;
    background-color: #E8AF30;
    color: white;
-   /* box-shadow: 5px 5px 5px rgba(1, 1, 1, 0.537); */
    box-shadow: 5px 4px 8px rgba(0, 0, 0, 0.1);
    position: fixed;
    top: 0;
@@ -81,7 +80,6 @@ body, html {
    font-size: 1.1em;
    margin: 5px 0;
    background: none;
-   /* border: 2px solid white; */
    cursor: pointer;
    border-radius: 5px;
    transition: background-color 0.3s ease;
@@ -95,22 +93,19 @@ body, html {
    flex-shrink: 0; 
    margin-right: 10px; 
 }
-/* Default image for Home */
+
 .nav-link.home img {
    content: url('../res/pictures/home1.png');
 }
 
-/* Change image on hover for Home */
 .nav-link.home:hover img {
-   content: url('../res/pictures/home2.png');  /* Replace with hover image */
+   content: url('../res/pictures/home2.png'); 
 }
 
-/* Active state image for Home */
 .nav-link.home.active img {
-   content: url('../res/pictures/home3.png');  /* Replace with active image */
+   content: url('../res/pictures/home3.png');  
 }
 
-/* Repeat for other nav links */
 .nav-link.addsurvey img {
    content: url('../res/pictures/addsurvey1.png');
 }
@@ -165,26 +160,23 @@ body, html {
    margin-right: 10px;
 }
 
-/* Default image when not hovered or active */
 .logout-button img.default {
-   content: url('../res/pictures/logout1.png'); /* Replace with your default logout image */
+   content: url('../res/pictures/logout1.png');
 }
 
-/* Image when hovered */
 .logout-button:hover img {
-   content: url('../res/pictures/logout2.png'); /* Replace with your hover logout image */
+   content: url('../res/pictures/logout2.png'); 
 }
 
-/* Button hover effect */
 .logout-button:hover {
    background-color: rgba(255, 255, 255, 0.558);
    color: red;
 }
 .header-nav a img {
-   width: 20px;  /* Adjust icon size */
+   width: 20px;  
    height: 20px;
-   margin-right: 10px;  /* Space between image and text */
-   transition: opacity 0.3s ease; /* Smooth opacity change */
+   margin-right: 10px; 
+   transition: opacity 0.3s ease;
 }
 .header-nav button.logout-button:hover {
    background-color: rgba(255, 255, 255, 0.558);
@@ -228,7 +220,6 @@ main {
 }
 
 .btn:hover{
-   /* background-color: var(--blue); */
    border: 2px solid #E8AF30;
 }
 
@@ -237,13 +228,11 @@ main {
 }
 
 .refresh-btn1:hover{
-   /* background-color: var(--dark-red); */
    border: 2px solid #162F65;
 }
 
 .message{
    margin: 0 auto;
-   /* margin:10px 0; */
    width: fit-content;
    border-radius: 5px;
    padding:10px;
@@ -266,8 +255,8 @@ main {
 }
 
 .update-profile form{
-   max-width: 1200px; /* Reduced for a more compact layout */
-   margin: 20px auto 20px; /* Adjusted for better alignment with fixed header */
+   max-width: 1200px; 
+   margin: 20px auto 20px; 
    padding: 20px;
    background-color: #f9f9f9;
    border-radius: 8px;
@@ -293,7 +282,6 @@ main {
 .update-profile form .flex .inputBox{
    width: 49%;
 }
-
 
 .update-profile form .flex .inputBox span{
    text-align: left;
@@ -331,7 +319,6 @@ main {
    margin-right: 10px;
 }
 
-/* Container for image buttons */
 .image-buttons {
    display: flex;
    align-items: center;

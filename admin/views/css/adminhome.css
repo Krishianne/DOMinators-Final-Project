@@ -14,7 +14,6 @@ body, html {
     width: 250px;
     background-color: #E8AF30;
     color: white;
-    /* box-shadow: 5px 5px 5px rgba(1, 1, 1, 0.537); */
     box-shadow: 5px 4px 8px rgba(0, 0, 0, 0.1);
     position: fixed;
     top: 0;
@@ -59,10 +58,10 @@ body, html {
 }
 
 .header-nav a img {
-    width: 20px;  /* Adjust icon size */
+    width: 20px;  
     height: 20px;
-    margin-right: 10px;  /* Space between image and text */
-    transition: opacity 0.3s ease; /* Smooth opacity change */
+    margin-right: 10px;  
+    transition: opacity 0.3s ease; 
 }
 .header-nav a.active:hover {
     color: #E8AF30;
@@ -77,7 +76,6 @@ body, html {
     font-size: 1.1em;
     margin: 5px 0;
     background: none;
-    /* border: 2px solid white; */
     cursor: pointer;
     border-radius: 5px;
     transition: background-color 0.3s ease;
@@ -97,22 +95,19 @@ body, html {
     flex-shrink: 0; 
     margin-right: 10px; 
 }
-/* Default image for Home */
+
 .nav-link.home img {
     content: url('../res/pictures/home1.png');
 }
 
-/* Change image on hover for Home */
 .nav-link.home:hover img {
-    content: url('../res/pictures/home2.png');  /* Replace with hover image */
+    content: url('../res/pictures/home2.png');  
 }
 
-/* Active state image for Home */
 .nav-link.home.active img {
-    content: url('../res/pictures/home3.png');  /* Replace with active image */
+    content: url('../res/pictures/home3.png');  
 }
 
-/* Repeat for other nav links */
 .nav-link.addsurvey img {
     content: url('../res/pictures/addsurvey1.png');
 }
@@ -167,17 +162,14 @@ body, html {
     margin-right: 10px;
 }
 
-/* Default image when not hovered or active */
 .logout-button img.default {
-    content: url('../res/pictures/logout1.png'); /* Replace with your default logout image */
+    content: url('../res/pictures/logout1.png'); 
 }
 
-/* Image when hovered */
 .logout-button:hover img {
-    content: url('../res/pictures/logout2.png'); /* Replace with your hover logout image */
+    content: url('../res/pictures/logout2.png'); 
 }
 
-/* Button hover effect */
 .logout-button:hover {
     background-color: rgba(255, 255, 255, 0.558);
     color: red;
@@ -197,7 +189,7 @@ main {
 }
 
 .survey-card {
-    position: relative; /* Required for button positioning */
+    position: relative;
     padding: 20px;
     border: 1px solid #ddd;
     border-radius: 8px;
@@ -282,15 +274,9 @@ select, input[type="text"], textarea {
 }
 
 button {
-    /* margin-top: 15px; */
-    /* padding: 10px 15px; */
     border: none;
     background-color: transparent;
-    /* color: white; */
-    /* font-size: 16px; */
     cursor: pointer;
-    /* border-radius: 5px; */
-    /* transition: background-color 0.3s ease; */
 }
 
 hr {
@@ -342,44 +328,35 @@ hr {
 }
 
 .search-filter-container {
-    display: flex; /* Align items horizontally */
-    align-items: center; /* Center vertically */
-    /* justify-content: space-between;  */
+    display: flex; 
+    align-items: center; 
     width: 250px;
-    /* gap: 10px; Add space between search and filter button */
-    /* margin-top: 20px; Adjust spacing as needed */
 }
 
-/* Search Form */
 .search-form {
     border-radius: 25px;
     display: flex;
     align-items: center;
     margin-left: 10px;
     width: 200px;
-    /* margin-right: 10px; */
 }
 
-/* Search input field styling */
 .search-input {
-    width: 100%; /* Occupy full available width */
-    /* padding: 8px; */
+    width: 100%; 
     font-size: 16px;
     border: 1px solid #ccc;
     border-radius: 25px;
 }
 
-/* Container for image buttons */
 .image-buttons {
     display: flex;
     align-items: center;
 }
 
 .action-button {
-    width: 35px; /* Adjust size */
+    width: 35px;
     height: auto;
     cursor: pointer;
-    /* margin: 5px; */
 }
 
 .button-container {
@@ -388,21 +365,16 @@ hr {
 }
 
 .filter-dropdown {
-    /* z-index: 5; */
     position: relative; 
     display: inline-block;
     margin-top: 3px;
     margin-right: 0;
-    /* width: 30px; 
-    height: 30px;*/
 } 
 
 .filter-button {
     width: auto; 
     height: 30px;
     cursor: pointer;
-    /* background: none; */
-    /* transition: background-color 0.3s ease; */
 }
 
 .filter-button img {
@@ -410,23 +382,20 @@ hr {
     margin-right: 0;
     width: 30px;
     height: 30px;
-    object-fit: contain; /* Ensures the image is properly scaled */
-    border-radius: 8px; /* Optional: add rounded corners */
-    content: url('../res/pictures/filter1.png'); /* Default filter image */
+    object-fit: contain; 
+    border-radius: 8px; 
+    content: url('../res/pictures/filter1.png'); 
     transition: transform 0.3s ease;
 }
 
-
-/* Hover state */
 .filter-button:hover img {
-    content: url('../res/pictures/filter2.png'); /* Hover filter image */
-    transform: scale(1.1); /* Optional: Slightly enlarge the image */
+    content: url('../res/pictures/filter2.png'); 
+    transform: scale(1.1);
 }
 
-/* Active (clicked) state */
 .filter-button:active img {
-    content: url('../res/pictures/filter2.png'); /* Active filter image */
-    transform: scale(0.95); /* Optional: Slightly shrink the image */
+    content: url('../res/pictures/filter2.png'); 
+    transform: scale(0.95); 
 }
 
 .dropdown-menu {

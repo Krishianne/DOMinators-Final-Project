@@ -35,10 +35,6 @@ document.addEventListener("DOMContentLoaded", async () => {
     
 });
 
-/**
- * Populates the survey header details.
- * @param {Object} survey - The survey details object.
- */
 function populateSurveyDetails(survey) {
     document.getElementById("surveyTitle").innerText = `${survey.course} - ${survey.semester} Semester AY:${survey.ay} Survey Details`;
     document.getElementById("courseSelect").value = survey.course;
@@ -46,10 +42,6 @@ function populateSurveyDetails(survey) {
     document.getElementById("aySelect").value = survey.ay;
 }
 
-/**
- * Dynamically populates questions in the question container.
- * @param {Array} questions - The array of question objects.
- */
 function populateQuestions(questions) {
     const questionContainer = document.querySelector(".question-container");
     questionContainer.innerHTML = ""; // Clear existing questions
@@ -87,11 +79,6 @@ function populateQuestions(questions) {
     });
 }
 
-/**
- * Generates additional HTML based on the question type.
- * @param {Object} question - The question object.
- * @returns {string} - The HTML string for additional options.
- */
 function getQuestionTypeOptions(question) {
     if (question.rate) {
         return `
@@ -111,10 +98,6 @@ function getQuestionTypeOptions(question) {
     return "";
 }
 
-/**
- * Displays an alert message to the user.
- * @param {string} message - The alert message to display.
- */
 function showAlert(message) {
     alert(message);
 }

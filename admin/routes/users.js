@@ -2,20 +2,17 @@ const express = require('express');
 const multer = require('multer');
 const path = require('path');
 const moment = require('moment');
-const db = require('./db'); // Replace with your database connection logic
+const db = require('./db'); 
 
 const router = express.Router();
 const fs = require('fs');
 
-// Correct the target directory
 const profileImagesDir = path.join(__dirname, '../res/profile-images');
 
-// Ensure the directory exists before saving files
 if (!fs.existsSync(profileImagesDir)) {
     fs.mkdirSync(profileImagesDir, { recursive: true });
 }
 
-// Use this directory when configuring multer
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
         cb(null, profileImagesDir);
@@ -28,61 +25,50 @@ const storage = multer.diskStorage({
     }
 });
 
-// Initialize multer with custom storage settings
 const upload = multer({ storage });
 
-// Update user profile endpoint
 router.patch('/update-profile', upload.single('image'), async (req, res) => {
     const { userId, firstname, lastname, email, newPassword } = req.body;
-    const image = req.file; // File uploaded by user
+    const image = req.file; 
 
     try {
-        // Build the SQL update query dynamically
         let query = 'UPDATE users SET ';
         const updates = [];
         const params = [];
 
-        // Update firstname if provided
         if (firstname) {
             updates.push('firstname = ?');
             params.push(firstname);
         }
 
-        // Update lastname if provided
         if (lastname) {
             updates.push('lastname = ?');
             params.push(lastname);
         }
 
-        // Update email if provided
         if (email) {
             updates.push('email = ?');
             params.push(email);
         }
 
-        // Update password if provided
         if (newPassword) {
             updates.push('password = ?');
-            params.push(newPassword); // Consider hashing the password for security
+            params.push(newPassword); 
         }
 
-        // Update image if provided
         if (image) {
-            const imagePath = `../res/profile-images/${image.filename}`; // Relative path to the profile images folder
+            const imagePath = `../res/profile-images/${image.filename}`; 
             updates.push('images = ?');
             params.push(imagePath);
         }
 
-        // If no updates are provided, return a message
         if (updates.length === 0) {
             return res.status(400).json({ success: false, message: 'No changes to update' });
         }
 
-        // Add userId to the query for WHERE condition
         query += updates.join(', ') + ' WHERE user_id = ?';
         params.push(userId);
 
-        // Execute the query with the parameters
         await db.execute(query, params);
 
         res.json({
@@ -96,15 +82,14 @@ router.patch('/update-profile', upload.single('image'), async (req, res) => {
     }
 });
 
-// Express API route to check if the email is unique
 router.get('/check-email', async (req, res) => {
     const { email } = req.query;
     try {
         const result = await db.query('SELECT * FROM users WHERE email = ?', [email]);
         if (result.length > 0) {
-            res.json({ isUnique: false }); // Email already exists
+            res.json({ isUnique: false }); 
         } else {
-            res.json({ isUnique: true }); // Email is unique
+            res.json({ isUnique: true });
         }
     } catch (error) {
         console.error('Error checking email uniqueness:', error);
@@ -112,7 +97,6 @@ router.get('/check-email', async (req, res) => {
     }
 });
 
-// Login functionality with rate limiting (Unchanged)
 const loginAttempts = {};
 
 router.post('/login', async (req, res) => {
@@ -125,7 +109,6 @@ router.post('/login', async (req, res) => {
 
     const userLoginData = loginAttempts[email];
 
-    // Check if the user is locked out due to failed login attempts
     if (userLoginData.lockUntil && now < userLoginData.lockUntil) {
         const remainingTime = Math.ceil((userLoginData.lockUntil - now) / 1000);
         return res.status(403).json({ message: `Locked out. Try again in ${remainingTime} seconds.` });
@@ -135,19 +118,17 @@ router.post('/login', async (req, res) => {
         const user = await db.query('SELECT * FROM users WHERE email = ? AND password = ?', [email, password]);
 
         if (user.length > 0) {
-            const userType = user[0].user_type; // Assuming user_type is a column in your users table
-            const userId = user[0].user_id; // Assuming id is the column for user ID
+            const userType = user[0].user_type; 
+            const userId = user[0].user_id;
             const firstname = user[0].firstname;
             const lastname = user[0].lastname;
             const email = user[0].email;
             const password = user[0].password;
             const images = user[0].images;
 
-            // Reset login attempt data after successful login
             userLoginData.count = 0;
             userLoginData.lockUntil = null;
 
-            // Set session data
             req.session.userId = userId;
             req.session.firstname = firstname;
             req.session.lastname = lastname;
@@ -156,7 +137,6 @@ router.post('/login', async (req, res) => {
             req.session.password = password;
             req.session.images = images;
 
-            // Redirect based on user type
             if (userType === 'admin') {
                 res.json({
                     redirect: '/html/adminhome',
@@ -174,7 +154,6 @@ router.post('/login', async (req, res) => {
                 return res.status(400).json({ message: 'User type not recognized.' });
             }
         } else {
-            // Handle failed login attempts
             userLoginData.count += 1;
 
             if (userLoginData.count >= 3) {
@@ -191,28 +170,22 @@ router.post('/login', async (req, res) => {
     }
 });
 
-
-//ADMINRESULTS 1 - fetching the database for the GENERAL results section of the admin
 router.post('/respondents', async (req, res) => {
     const { userId } = req.body;
 
     try {
-        // Step 1: Check if the user is an admin by comparing userId with the database
         const adminUsers = await db.query(
             "SELECT user_id, user_type FROM users WHERE user_id = ? AND user_type = 'admin'",
             [userId]
         );
     
-        // If no admin user is found
         if (adminUsers.length === 0) {
             return res.status(404).json({ message: 'No admin users found or user is not an admin.' });
         }
     
-        // Extract the admin user_id
         const adminUserId = adminUsers[0].user_id;
         console.log('Verified Admin User ID:', adminUserId);
     
-        // Step 2: Track the admin's user_id in the survey table and get courses
         const surveyRecords = await db.query(
             "SELECT DISTINCT course FROM survey WHERE user_id = ?",
             [adminUserId]
@@ -222,11 +195,9 @@ router.post('/respondents', async (req, res) => {
             return res.status(404).json({ message: 'No courses found for the admin in the survey table.' });
         }
     
-        // Extract courses
         const courses = surveyRecords.map(record => record.course);
         console.log('Courses associated with the admin:', courses);
     
-        // Step 3: Track the courses in the class table and calculate total users per course
         const userCounts = await db.query(
             `
             SELECT course, COUNT(DISTINCT user_id) AS total_users
@@ -241,14 +212,11 @@ router.post('/respondents', async (req, res) => {
             return res.status(404).json({ message: 'No user data found for the admin\'s courses in the class table.' });
         }
     
-        // Display the total users per course
         console.log('Total users per course:', userCounts);
     
-        // Step 4: Calculate the total number of users across all courses
         const totalUsers = userCounts.reduce((sum, record) => sum + record.total_users, 0);
         console.log('Total users across all courses:', totalUsers);
     
-        // Step 5: Return the results
         res.json({
             admin_user_id: adminUserId,
             user_counts: userCounts,
@@ -260,19 +228,14 @@ router.post('/respondents', async (req, res) => {
     }  
 });
 
-
-//ADMINRESULTS 2 - data for the answers per question depending on the course
 router.post('/results'), async (req, res) => {
     const { userId } = req.body; 
 };
     
-
-
 router.post('/majorminor', async (req, res) => {
     try {
-        const { userId } = req.body; // Get userId from the request
+        const { userId } = req.body; 
 
-        // Step 1: Get all surveys associated with this user
         const surveys = await db.query(
             "SELECT survey_id FROM survey WHERE user_id = ?",
             [userId]
@@ -282,7 +245,6 @@ router.post('/majorminor', async (req, res) => {
             return res.status(404).json({ message: 'No surveys found for this user.' });
         }
 
-        // Step 2: Get all questions associated with these surveys
         const surveyIds = surveys.map(survey => survey.survey_id);
         const questions = await db.query(
             "SELECT question_id, question_type FROM questions WHERE survey_id IN (?)",
@@ -293,7 +255,6 @@ router.post('/majorminor', async (req, res) => {
             return res.status(404).json({ message: 'No questions found for these surveys.' });
         }
 
-        // Step 3: Get the responses for each question
         const questionIds = questions.map(question => question.question_id);
         const ratingResponses = await db.query(
             "SELECT question_id, AVG(rating) AS average_rating FROM rating_response WHERE question_id IN (?) GROUP BY question_id",
@@ -310,7 +271,6 @@ router.post('/majorminor', async (req, res) => {
             [questionIds]
         );
 
-        // Step 4: Organize responses by question type (Major vs Minor)
         const majorData = [];
         const minorData = [];
 
@@ -334,7 +294,6 @@ router.post('/majorminor', async (req, res) => {
             }
         });
 
-        // Step 5: Return data for both Major and Minor questions
         res.json({
             majorData,
             minorData

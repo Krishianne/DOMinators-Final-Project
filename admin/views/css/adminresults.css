@@ -13,7 +13,6 @@ body, html {
     width: 250px;
     background-color: #E8AF30;
     color: white;
-    /* box-shadow: 5px 5px 5px rgba(1, 1, 1, 0.537); */
     box-shadow: 5px 4px 8px rgba(0, 0, 0, 0.1);
     position: fixed;
     top: 0;
@@ -58,10 +57,10 @@ body, html {
 }
 
 .header-nav a img {
-    width: 20px;  /* Adjust icon size */
+    width: 20px;  
     height: 20px;
-    margin-right: 10px;  /* Space between image and text */
-    transition: opacity 0.3s ease; /* Smooth opacity change */
+    margin-right: 10px;  
+    transition: opacity 0.3s ease; 
 }
 .header-nav a.active:hover {
     color: #E8AF30;
@@ -76,7 +75,6 @@ body, html {
     font-size: 1.1em;
     margin: 5px 0;
     background: none;
-    /* border: 2px solid white; */
     cursor: pointer;
     border-radius: 5px;
     transition: background-color 0.3s ease;
@@ -96,22 +94,19 @@ body, html {
     flex-shrink: 0; 
     margin-right: 10px; 
 }
-/* Default image for Home */
+
 .nav-link.home img {
     content: url('../res/pictures/home1.png');
 }
 
-/* Change image on hover for Home */
 .nav-link.home:hover img {
-    content: url('../res/pictures/home2.png');  /* Replace with hover image */
+    content: url('../res/pictures/home2.png');  
 }
 
-/* Active state image for Home */
 .nav-link.home.active img {
-    content: url('../res/pictures/home3.png');  /* Replace with active image */
+    content: url('../res/pictures/home3.png');  
 }
 
-/* Repeat for other nav links */
 .nav-link.addsurvey img {
     content: url('../res/pictures/addsurvey1.png');
 }
@@ -166,17 +161,14 @@ body, html {
     margin-right: 10px;
 }
 
-/* Default image when not hovered or active */
 .logout-button img.default {
-    content: url('../res/pictures/logout1.png'); /* Replace with your default logout image */
+    content: url('../res/pictures/logout1.png'); 
 }
 
-/* Image when hovered */
 .logout-button:hover img {
-    content: url('../res/pictures/logout2.png'); /* Replace with your hover logout image */
+    content: url('../res/pictures/logout2.png'); 
 }
 
-/* Button hover effect */
 .logout-button:hover {
     background-color: rgba(255, 255, 255, 0.558);
     color: red;
@@ -195,7 +187,7 @@ label {
 }
 
 select {
-    width: 150px; /* Set a consistent width for all dropdowns */
+    width: 150px; 
     border-radius: 5px;
     padding: 5px;
     background-color: #E8AF30;
@@ -433,7 +425,7 @@ textarea {
 }
 
 .add-btn {
-    display: flex; /* Use Flexbox */
+    display: flex; 
     justify-content: flex-end;
     background-color: #E8AF30;
     color: black;
@@ -443,7 +435,7 @@ textarea {
 }
 
 .save-btn {
-    display: flex; /* Use Flexbox */
+    display: flex; 
     justify-content: flex-end;
     background-color: rgb(0, 172, 0);
     color: black;
@@ -453,7 +445,7 @@ textarea {
 }
 
 .delete-btn {
-    display: flex; /* Use Flexbox */
+    display: flex; 
     justify-content: flex-end;
     background-color: #c0392b;
     color: black;
@@ -488,23 +480,19 @@ textarea {
     border-radius: 25px;
 }
 
-/* Search Form */
 .search-form {
     display: flex;
     align-items: center;
     margin-left: 10px;
 }
 
-/* Search input field styling */
 .search-input {
-    width: 100%; /* Occupy full available width */
-    /* padding: 8px; */
+    width: 100%; 
     font-size: 16px;
     border: 1px solid #ccc;
     border-radius: 25px;
 }
 
-/* Container for image buttons */
 .image-buttons {
     display: flex;
     align-items: center;

@@ -1,22 +1,20 @@
 const express = require('express');
 const router = express.Router();
-const db = require('./db'); // Assuming db.js handles database connections
+const db = require('./db'); 
 const { v4: uuidv4 } = require('uuid');
 
-// Route to get surveys based on userId (POST method)
 router.post('/surveycards', async (req, res) => {
-    const { userId } = req.body; // Retrieve userId from the request body
+    const { userId } = req.body; 
 
     try {
-        // Adjust this query according to your database schema
         const surveys = await db.query('SELECT survey_id, course, semester, ay, survey_status FROM survey WHERE user_id = ?', [userId]);
 
-        req.session.surveys = surveys; // Optionally store surveys in session
+        req.session.surveys = surveys; 
 
         if (surveys.length > 0) {
-            res.json(surveys); // Return surveys as JSON if they exist
+            res.json(surveys); 
         } else {
-            res.json([]); // Return empty array if no surveys are found
+            res.json([]); 
         }
     } catch (error) {
         console.error(error);
@@ -24,13 +22,11 @@ router.post('/surveycards', async (req, res) => {
     }
 });
 
-// Backend (Express.js) - Fetch survey details
 router.get('/details', async (req, res) => {
-    const { survey_id } = req.query;  // Get the survey_id from query parameters
+    const { survey_id } = req.query;  
     console.log(survey_id);
     
     try {
-        // Step 1: Fetch survey details
         const surveyQuery = `
             SELECT survey_id, course, semester, ay, survey_status
             FROM survey
@@ -42,7 +38,6 @@ router.get('/details', async (req, res) => {
             return res.status(404).json({ message: 'Survey not found' });
         }
 
-        // Step 2: Fetch all questions related to the survey
         const questionsQuery = `
             SELECT question_id, category, question_text, question_type
             FROM questions
@@ -50,9 +45,7 @@ router.get('/details', async (req, res) => {
         `;
         const questions = await db.query(questionsQuery, [survey_id]);
 
-        // Step 3: Fetch RATE and CHECKBOX options for each question
         for (const question of questions) {
-            // Fetch rating options for the question
             const rateQuery = `
                 SELECT \`1\`, \`2\`, \`3\`, \`4\`, \`5\`
                 FROM rate
@@ -61,7 +54,6 @@ router.get('/details', async (req, res) => {
             const [rate] = await db.query(rateQuery, [question.question_id]);
             question.rate = rate || null;
 
-            // Fetch checkbox options for the question
             const checkboxQuery = `
                 SELECT choice1, choice2, choice3, choice4, choice5
                 FROM checkbox
@@ -71,7 +63,6 @@ router.get('/details', async (req, res) => {
             question.checkbox = checkbox || null;
         }
 
-        // Step 4: Structure the response for the frontend
         const response = {
             survey: {
                 survey_id: survey.survey_id,
@@ -83,19 +74,17 @@ router.get('/details', async (req, res) => {
             questions,
         };
 
-        res.json(response);  // Send the response
+        res.json(response);  
     } catch (error) {
         console.error('Error fetching survey details:', error);
         res.status(500).json({ message: 'Internal server error' });
     }
 });
 
-// Backend (Express.js) - Fetch survey details
 router.patch('/editdetails', async (req, res) => {
-    const { survey_id } = req.query;  // Get the survey_id from query parameters
+    const { survey_id } = req.query; 
 
     try {
-        // Step 1: Fetch survey details
         const surveyQuery = `
             SELECT survey_id, course, semester, ay, survey_status
             FROM survey
@@ -107,7 +96,6 @@ router.patch('/editdetails', async (req, res) => {
             return res.status(404).json({ message: 'Survey not found' });
         }
 
-        // Step 2: Fetch all questions related to the survey
         const questionsQuery = `
             SELECT question_id, category, question_text, question_type
             FROM questions
@@ -115,9 +103,7 @@ router.patch('/editdetails', async (req, res) => {
         `;
         const questions = await db.query(questionsQuery, [survey_id]);
 
-        // Step 3: Fetch RATE and CHECKBOX options for each question
         for (const question of questions) {
-            // Fetch rating options for the question
             const rateQuery = `
                 SELECT \`1\`, \`2\`, \`3\`, \`4\`, \`5\`
                 FROM rate
@@ -126,7 +112,6 @@ router.patch('/editdetails', async (req, res) => {
             const [rate] = await db.query(rateQuery, [question.question_id]);
             question.rate = rate || null;
 
-            // Fetch checkbox options for the question
             const checkboxQuery = `
                 SELECT choice1, choice2, choice3, choice4, choice5
                 FROM checkbox
@@ -136,7 +121,6 @@ router.patch('/editdetails', async (req, res) => {
             question.checkbox = checkbox || null;
         }
 
-        // Step 4: Structure the response for the frontend
         const response = {
             survey: {
                 survey_id: survey.survey_id,
@@ -148,7 +132,7 @@ router.patch('/editdetails', async (req, res) => {
             questions,
         };
 
-        res.json(response);  // Send the response
+        res.json(response);  
     } catch (error) {
         console.error('Error fetching survey details:', error);
         res.status(500).json({ message: 'Internal server error' });
@@ -163,12 +147,10 @@ router.post('/save', async (req, res) => {
     }
 
     try {
-        // Process each question
         for (const question of questions) {
             let { question_id, question_text, question_type, category, options } = question;
 
             if (question_id) {
-                // Update existing question
                 await db.query(
                     `UPDATE questions SET question_text = ?, question_type = ?, category = ? WHERE question_id = ? AND survey_id = ?`,
                     [question_text, question_type, category, question_id, survey_id]
@@ -224,7 +206,6 @@ router.delete('/deletesurvey', async (req, res) => {
     }
 
     try {
-        // Fetch all question_ids for the given survey_id
         const questionIdsResult = await db.query(`SELECT question_id FROM questions WHERE survey_id = ?`, [surveyId]);
         const questionIds = questionIdsResult.map(row => row.question_id);
 
@@ -233,7 +214,6 @@ router.delete('/deletesurvey', async (req, res) => {
             return res.status(400).json({ message: 'Invalid input data.' });
         }
 
-        // Check if any of the question_ids have responses in rating_response, checkbox_response, or essay_response
         const responseCheckQueries = [
             `SELECT COUNT(*) AS count FROM rating_response WHERE question_id IN (?)`,
             `SELECT COUNT(*) AS count FROM checkbox_response WHERE question_id IN (?)`,
@@ -249,7 +229,6 @@ router.delete('/deletesurvey', async (req, res) => {
             }
         }
 
-        // If no responses exist, delete related data and the survey
         await db.query(`DELETE FROM rate WHERE question_id IN (?)`, [questionIds]);
         await db.query(`DELETE FROM checkbox WHERE question_id IN (?)`, [questionIds]);
         await db.query(`DELETE FROM questions WHERE survey_id = ?`, [surveyId]);
@@ -264,16 +243,14 @@ router.delete('/deletesurvey', async (req, res) => {
 
 
 router.put('/publishsurvey', async (req, res) => {
-    const { surveyId } = req.body; // Extract surveyId from the request body
+    const { surveyId } = req.body; 
     console.log('Survey ID to update:', surveyId);
 
-    // Validate input
     if (!surveyId) {
         return res.status(400).json({ message: 'Invalid input data. Survey ID is required.' });
     }
 
     try {
-        // Execute the SQL query to update the survey_status column
         await db.query(
             `UPDATE survey SET survey_status = 'published' WHERE survey_id = ?`, 
             [surveyId]
@@ -287,16 +264,14 @@ router.put('/publishsurvey', async (req, res) => {
 });
 
 router.put('/unpublishsurvey', async (req, res) => {
-    const { surveyId } = req.body; // Extract surveyId from the request body
+    const { surveyId } = req.body; 
     console.log('Survey ID to update:', surveyId);
 
-    // Validate input
     if (!surveyId) {
         return res.status(400).json({ message: 'Invalid input data. Survey ID is required.' });
     }
 
     try {
-        // Execute the SQL query to update the survey_status column
         await db.query(
             `UPDATE survey SET survey_status = 'unpublished' WHERE survey_id = ?`, 
             [surveyId]
@@ -310,16 +285,14 @@ router.put('/unpublishsurvey', async (req, res) => {
 });
 
 router.put('/archivesurvey', async (req, res) => {
-    const { surveyId } = req.body; // Extract surveyId from the request body
+    const { surveyId } = req.body; 
     console.log('Survey ID to update:', surveyId);
 
-    // Validate input
     if (!surveyId) {
         return res.status(400).json({ message: 'Invalid input data. Survey ID is required.' });
     }
 
     try {
-        // Execute the SQL query to update the survey_status column
         await db.query(
             `UPDATE survey SET survey_status = 'archived' WHERE survey_id = ?`, 
             [surveyId]
@@ -333,16 +306,14 @@ router.put('/archivesurvey', async (req, res) => {
 });
 
 router.put('/unarchivesurvey', async (req, res) => {
-    const { surveyId } = req.body; // Extract surveyId from the request body
+    const { surveyId } = req.body; 
     console.log('Survey ID to update:', surveyId);
 
-    // Validate input
     if (!surveyId) {
         return res.status(400).json({ message: 'Invalid input data. Survey ID is required.' });
     }
 
     try {
-        // Execute the SQL query to update the survey_status column
         await db.query(
             `UPDATE survey SET survey_status = 'unpublished' WHERE survey_id = ?`, 
             [surveyId]
@@ -354,7 +325,6 @@ router.put('/unarchivesurvey', async (req, res) => {
         return res.status(500).json({ message: 'An error occurred while updating the survey status.' });
     }
 });
-
 
 router.delete('/deleteQuestion', async (req, res) => {
     console.log(req.body);
