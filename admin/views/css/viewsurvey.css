@@ -529,15 +529,20 @@ textarea {
         display: none;
     }
 .filter-container {
+    display: flex; 
+    justify-content: flex-start; 
+    align-items: center; 
+    gap: 20px; 
     position:absolute; 
     top: 70px;
     right: 20px; 
-    gap: 20px;
+    
 }
 
 .filter-dropdown {
         margin-bottom: 5px;
-        display: inline-block; /* Keep the dropdowns inline */
+        position: relative;
+        display: inline-block; 
         text-align: center;
     }
 
@@ -573,6 +578,7 @@ textarea {
     border-radius: 8px;
     margin-top: 5px;
     width: 180px;
+    
 }
 
 .dropdown-menu a {
@@ -581,6 +587,8 @@ textarea {
     text-decoration: none;
     display: block;
     font-size: medium;
+    
+    
 }
 
 .dropdown-menu a:hover {
@@ -611,6 +619,6 @@ textarea {
     margin-bottom: 50px;
 }
 .essay-part {
-    width: 100%; /* Ensure it takes full container width */
-    min-height: 50px; /* Optional: maintain a minimum height */
+    width: 100%;
+    min-height: 50px; 
 }
