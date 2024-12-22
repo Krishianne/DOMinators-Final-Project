@@ -486,8 +486,25 @@ document.querySelectorAll('.nav-link').forEach(function(link) {
 });
 
 const logoutButton = document.getElementById('logoutButton');
-if (logoutButton) { 
+if (logoutButton) {
     logoutButton.addEventListener('click', () => {
-        window.location.href = '../html/login.html';
+        fetch('/api/logout', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+            .then(response => {
+                if (response.ok) {
+                    localStorage.clear(); // Clear local storage
+                    window.location.href = '../html/login.html';
+                } else {
+                    alert('Failed to log out');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('An error occurred while logging out');
+            });
     });
 }

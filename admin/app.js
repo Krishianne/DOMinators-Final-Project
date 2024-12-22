@@ -23,28 +23,55 @@ app.use(session({
     cookie: { secure: false } // Set to true if using HTTPS
 }));
 
+
+function isAuthenticated(req, res, next) {
+    console.log('Checking authentication for route:', req.originalUrl);
+    if (req.session.userId) {
+        console.log('User is authenticated');
+        return next();
+    } else {
+        console.log('User is not authenticated, redirecting to login');
+        res.redirect('/');
+    }
+}
+
 // Register routes
 app.use('/api', userRoutes);
-app.use('/api/survey', surveyRoutes);
-app.use('/api/users', respondentsRoute);
-app.use('/api/surveyadd', addSurveyRoute);
+app.use('/api/survey', isAuthenticated, surveyRoutes);
+app.use('/api/users', isAuthenticated, respondentsRoute);
+app.use('/api/surveyadd', isAuthenticated, addSurveyRoute);
 
 // Route Login
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'views/html/login.html'));
 });
 
-
 // HTML routes
-app.get('/html/adminhome', (req, res) => {
+app.get('/html/adminhome', isAuthenticated, (req, res) => {
     res.sendFile(path.join(__dirname, 'views/html/adminhome.html'));
 });
 
-app.get('/studenthome', (req, res) => {
-    res.sendFile(path.join(__dirname, 'student/php/home.php'));
+
+app.get('/html/addsurvey', isAuthenticated, (req, res) => {
+    res.sendFile(path.join(__dirname, 'views/html/addsurvey.html'));
 });
 
-// Error handling middleware
+app.get('/html/adminresults', isAuthenticated, (req, res) => {
+    res.sendFile(path.join(__dirname, 'views/html/adminresults.html'));
+});
+
+app.get('/html/adminprofile', isAuthenticated, (req, res) => {
+    res.sendFile(path.join(__dirname, 'views/html/adminprofile.html'));
+});
+
+app.get('/html/editsurvey', isAuthenticated, (req, res) => {
+    res.sendFile(path.join(__dirname, 'views/html/editsurvey.html'));
+});
+
+app.get('/html/viewsurvey', isAuthenticated, (req, res) => {
+    res.sendFile(path.join(__dirname, 'views/html/viewsurvey.html'));
+});
+
 app.use((err, req, res, next) => {
     console.error(err.stack);
     res.status(500).send('Something broke!');
@@ -52,4 +79,14 @@ app.use((err, req, res, next) => {
 
 app.listen(PORT, () => {
     console.log(`Server is running on http://localhost:${PORT}`);
+});
+
+app.post('/api/logout', (req, res) => {
+    req.session.destroy(err => {
+        if (err) {
+            return res.status(500).json({ message: 'Failed to log out' });
+        }
+        res.clearCookie('connect.sid');
+        res.json({ message: 'Logged out successfully' });
+    });
 });
