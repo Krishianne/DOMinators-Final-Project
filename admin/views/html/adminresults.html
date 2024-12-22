@@ -42,18 +42,78 @@
 
 <main>
     <div id="course-results" class="results-container">
-        <h2>Course User Counts</h2>
+        <h2>Course Student Counts</h2>
     </div>
 
     <div id="total-users-count-container">
-        <h3>Total Users Across All Courses:</h3>
+        <h3>Total Students Across All Courses:</h3>
         <p id="total-users-count"></p>
     </div>
 
     <div id="bar-chart-container">
-        <h2>Total Users per Course</h2>
+        <h2>Total Students per Course</h2>
         <canvas id="barChart"></canvas>
     </div>
+
+    <div id="student-details-container" style="position: relative;">
+        <h2>Student Details</h2>
+        <!-- Filter button in the top-right corner -->
+        <button id="filter-button" style="position: absolute; top: 10px; right: 10px; padding: 10px 15px; background-color: #4CAF50; color: white; border: none; cursor: pointer;">
+            Filter
+        </button>
+    
+        <div id="filter-popup" style="display: none; padding: 20px; border: 1px solid #ccc; background: #f9f9f9; border-radius: 5px;">
+            <div class="filter-section">
+                <h3>Course</h3>
+                <label><input type="checkbox" value="BSIT" class="filter-course"> BSIT</label><br>
+                <label><input type="checkbox" value="BSCS" class="filter-course"> BSCS</label><br>
+                <label><input type="checkbox" value="BSMLS" class="filter-course"> BSMLS</label><br>
+                <label><input type="checkbox" value="BSTM" class="filter-course"> BSTM</label><br>
+                <label><input type="checkbox" value="BSCE" class="filter-course"> BSCE</label>
+            </div>
+            <div class="filter-section">
+                <h3>Semester</h3>
+                <label><input type="checkbox" value="1st" class="filter-semester"> 1st</label><br>
+                <label><input type="checkbox" value="2nd" class="filter-semester"> 2nd</label><br>
+                <label><input type="checkbox" value="3rd" class="filter-semester"> 3rd</label>
+            </div>
+            <div class="filter-section">
+                <h3>Academic Year (AY)</h3>
+                <label><input type="checkbox" value="2020-2021" class="filter-ay"> 2020-2021</label><br>
+                <label><input type="checkbox" value="2021-2022" class="filter-ay"> 2021-2022</label><br>
+                <label><input type="checkbox" value="2022-2023" class="filter-ay"> 2022-2023</label><br>
+                <label><input type="checkbox" value="2023-2024" class="filter-ay"> 2023-2024</label><br>
+                <label><input type="checkbox" value="2024-2025" class="filter-ay"> 2024-2025</label>
+            </div>
+            <div class="filter-section">
+                <h3>Status</h3>
+                <label><input type="checkbox" value="Responded" class="filter-status"> Responded</label><br>
+                <label><input type="checkbox" value="No response" class="filter-status"> No response</label>
+            </div>
+            <button id="apply-filters" class="btn btn-primary">Apply Filters</button>
+        </div>
+        
+        
+        
+    
+        <table id="student-details-table" style="border-collapse: collapse; width: 100%; border: 1px solid #ddd;">
+            <thead>
+                <tr>
+                    <th style="border: 1px solid #ddd; padding: 8px; text-align: left;">Firstname</th>
+                    <th style="border: 1px solid #ddd; padding: 8px; text-align: left;">Lastname</th>
+                    <th style="border: 1px solid #ddd; padding: 8px; text-align: left;">Email</th>
+                    <th style="border: 1px solid #ddd; padding: 8px; text-align: left;">Course</th>
+                    <th style="border: 1px solid #ddd; padding: 8px; text-align: left;">Semester</th>
+                    <th style="border: 1px solid #ddd; padding: 8px; text-align: left;">AY</th>
+                    <th style="border: 1px solid #ddd; padding: 8px; text-align: left;">Status</th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+    </div>
+    
+    
 </main>
 
 

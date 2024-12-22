@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Dec 19, 2024 at 05:41 AM
+-- Generation Time: Dec 22, 2024 at 01:05 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -2237,10 +2237,10 @@ CREATE TABLE `status` (
 INSERT INTO `status` (`status_id`, `class_id`, `answer_status`, `date_submitted`) VALUES
 ('T1', 'C1', 'no response', ''),
 ('T10', 'C10', 'no response', ''),
-('T11', 'C11', 'saved', '07-30-2023'),
-('T12', 'C12', 'saved', '07-31-2023'),
-('T13', 'C13', 'saved', '12-31-2023'),
-('T14', 'C14', 'saved', '12-31-2023'),
+('T11', 'C11', 'submitted', '07-30-2023'),
+('T12', 'C12', 'submitted', '07-31-2023'),
+('T13', 'C13', 'submitted', '12-31-2023'),
+('T14', 'C14', 'submitted', '12-31-2023'),
 ('T15', 'C15', 'no response', ''),
 ('T16', 'C16', 'no response', ''),
 ('T17', 'C17', 'no response', ''),
@@ -2252,14 +2252,14 @@ INSERT INTO `status` (`status_id`, `class_id`, `answer_status`, `date_submitted`
 ('T22', 'C22', 'no response', ''),
 ('T23', 'C23', 'submitted', '07-27-2023'),
 ('T24', 'C24', 'submitted', '07-27-2023'),
-('T25', 'C25', 'saved', '12-19-2023'),
+('T25', 'C25', 'submitted', '12-19-2023'),
 ('T26', 'C26', 'submitted', '12-22-2023'),
 ('T27', 'C27', 'no response', ''),
 ('T28', 'C28', 'no response', ''),
 ('T29', 'C29', 'no response', ''),
 ('T3', 'C3', 'no response', ''),
 ('T30', 'C30', 'no response', ''),
-('T31', 'C31', 'saved', '12-28-2022'),
+('T31', 'C31', 'submitted', '12-28-2022'),
 ('T32', 'C32', 'submitted', '12-28-2022'),
 ('T33', 'C33', 'saved', '05-20-2023'),
 ('T34', 'C34', 'saved', '05-31-2023'),

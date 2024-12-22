@@ -305,4 +305,34 @@ router.post('/majorminor', async (req, res) => {
     }
 });
 
+router.post('/table-status', async (req, res) => {
+    const { userId } = req.body;
+
+    try {
+        const students = await db.query(
+            `
+            SELECT u.firstname, u.lastname, u.email, c.course, c.semester, c.ay, s.status_id, s.answer_status AS status
+            FROM users u
+            INNER JOIN class c ON u.user_id = c.user_id
+            INNER JOIN status s ON c.class_id = s.class_id
+            WHERE c.course IN (
+                SELECT course
+                FROM survey
+                WHERE user_id = ?
+            )
+            `,
+            [userId]
+        );
+
+        if (students.length === 0) {
+            return res.status(404).json({ message: 'No students found.' });
+        }
+
+        res.json({ students });
+    } catch (error) {
+        console.error('Error fetching table status:', error);
+        res.status(500).json({ message: 'Internal server error.' });
+    }
+});
+
 module.exports = router;
