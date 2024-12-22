@@ -158,11 +158,6 @@ document.addEventListener('DOMContentLoaded', () => {
     function filterStudents(filters) {
         const rows = document.querySelectorAll('#student-details-table tbody tr');
     
-        if (!rows.length) {
-            console.error('No rows found in the student table.');
-            return;
-        }
-    
         rows.forEach(row => {
             const course = row.querySelector('td:nth-child(4)').innerText.trim().toLowerCase();
             const semester = row.querySelector('td:nth-child(5)').innerText.trim().toLowerCase();
@@ -171,22 +166,23 @@ document.addEventListener('DOMContentLoaded', () => {
     
             let showRow = true;
     
-            if (filters.course.length > 0 && !filters.course.some(value => value.toLowerCase() === course)) {
+            if (filters.course.length > 0 && !filters.course.some(value => course.includes(value.toLowerCase()))) {
                 showRow = false;
             }
-            if (filters.semester.length > 0 && !filters.semester.some(value => value.toLowerCase() === semester)) {
+            if (filters.semester.length > 0 && !filters.semester.some(value => semester.includes(value.toLowerCase()))) {
                 showRow = false;
             }
-            if (filters.ay.length > 0 && !filters.ay.some(value => value.toLowerCase() === ay)) {
+            if (filters.ay.length > 0 && !filters.ay.some(value => ay.includes(value.toLowerCase()))) {
                 showRow = false;
             }
-            if (filters.status.length > 0 && !filters.status.some(value => value.toLowerCase() === status)) {
+            if (filters.status.length > 0 && !filters.status.some(value => status.includes(value.toLowerCase()))) {
                 showRow = false;
             }
     
             row.style.display = showRow ? '' : 'none';
         });
     }
+    
 
     // Fetch student table status data
     fetch('/api/users/table-status', {
@@ -223,17 +219,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 const statusId = event.target.dataset.statusId;
                 fetchSurveyDetails(statusId);
             });
-        });
-
-        // Attach filter functionality after rows are loaded
-        document.getElementById('apply-filters').addEventListener('click', () => {
-            const filters = {
-                course: getCheckedValues('filter-course'),
-                semester: getCheckedValues('filter-semester'),
-                ay: getCheckedValues('filter-ay'),
-                status: getCheckedValues('filter-status')
-            };
-            filterStudents(filters);
         });
     })
     .catch(error => {
