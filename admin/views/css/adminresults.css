@@ -609,5 +609,15 @@ textarea {
 }
 
 
+.email-link {
+    color: inherit; /* Matches surrounding text color */
+    text-decoration: none; /* Removes underline */
+    cursor: pointer; /* Shows a pointer cursor */
+}
+.email-link:hover {
+    text-decoration: underline; /* Optionally add underline on hover */
+}
+
+
 
 

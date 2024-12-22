@@ -204,7 +204,7 @@ document.addEventListener('DOMContentLoaded', () => {
             row.innerHTML = `
                 <td>${student.firstname}</td>
                 <td>${student.lastname}</td>
-                <td>${student.email}</td>
+                <td><a href="mailto:${student.email}" class="email-link">${student.email}</a></td>
                 <td>${student.course}</td>
                 <td>${student.semester}</td>
                 <td>${student.ay}</td>
@@ -212,6 +212,7 @@ document.addEventListener('DOMContentLoaded', () => {
             `;
             studentDetailsTableBody.appendChild(row);
         });
+        
 
         // Add event listeners to status buttons
         document.querySelectorAll('.status-button').forEach(button => {
