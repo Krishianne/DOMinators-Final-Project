@@ -375,7 +375,7 @@ router.delete('/deleteQuestion', async (req, res) => {
         res.status(200).json({ message: 'Question deleted successfully!' });
     } catch (error) {
         console.error('Error deleting question:', error);
-        res.status(500).json({ message: 'An error occurred while deleting the question.' });
+        res.status(500).json({ message: 'This question cannot be deleted because it has been answered by respondents.' });
     }
 });
 
