@@ -140,7 +140,9 @@ function createSurveyCard(survey) {
         editButton.className = 'action-button';
         editButton.title = 'Edit Survey';
         editButton.onclick = () => {
-            window.location.href = `editsurvey.html?survey_id=${survey.survey_id}`;
+            if (confirm('Are you sure you want to edit this survey?')) {
+                editSurvey(survey.survey_id);
+            }
         };
 
         editButton.addEventListener('mouseover', () => {
@@ -312,6 +314,34 @@ function deleteSurvey(surveyId) {
             alert('An unexpected error occurred while deleting the survey. Check console for details.');
         });
 }
+
+function editSurvey(survey_id) {
+    console.log('Attempting to edit Survey with ID:', survey_id);
+
+    // Fetch responses for the survey to check if it's already been answered
+    fetch(`/api/survey/getresponses`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ survey_id })
+    })
+    .then(async response => {
+        console.log('Response Status Code:', response.status);  // Log the status
+        if (response.ok) {
+            window.location.href = `editsurvey.html?survey_id=${survey_id}`;
+        } else {
+            const errorDetails = await response.json().catch(() => null); 
+            console.error('Failed to edit survey. Status Code:', response.status);
+            console.error('Error Details:', errorDetails || 'No additional error details provided by server.');
+            alert(`Failed to edit the survey. Error: ${errorDetails?.message || 'Unknown error occurred.'}`);
+        }
+    })
+    .catch(error => {
+        console.error('Network or server error occurred:', error);
+        alert('An unexpected error occurred while editing the survey. Check console for details.');
+    });
+    
+}
+
 
 function publishSurvey(surveyId) {
     console.log('Attempting to publish Survey with ID:', surveyId); 

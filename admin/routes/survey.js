@@ -100,6 +100,7 @@ router.get('/details', async (req, res) => {
 
 router.patch('/editdetails', async (req, res) => {
     const { survey_id } = req.query; 
+    console.log('Survey ID to edit:', surveyId);
 
     try {
         const surveyQuery = `
@@ -155,6 +156,43 @@ router.patch('/editdetails', async (req, res) => {
         res.status(500).json({ message: 'Internal server error' });
     }
 });
+
+router.post('/getresponses', async (req, res) => {
+    const { survey_id } = req.body;
+    try {
+        const questionIdsResult = await db.query(`SELECT question_id FROM questions WHERE survey_id = ?`, [survey_id]);
+        const questionIds = questionIdsResult.map(row => row.question_id);
+
+        if (!survey_id) {
+            console.error('Survey ID is missing');
+            return res.status(400).json({ message: 'Invalid input data.' });
+        }
+
+        console.log('Survey ID:', survey_id);  // Log for debugging
+
+        const responseCheckQueries = [
+            `SELECT COUNT(*) AS count FROM rating_response WHERE question_id IN (?)`,
+            `SELECT COUNT(*) AS count FROM checkbox_response WHERE question_id IN (?)`,
+            `SELECT COUNT(*) AS count FROM essay_response WHERE question_id IN (?)`
+        ];
+
+        for (const query of responseCheckQueries) {
+            const responseCheckResult = await db.query(query, [questionIds]);
+            if (responseCheckResult[0].count > 0) {
+                console.log('Survey has responses, cannot be edited');
+                return res.status(400).json({ 
+                    message: 'This survey cannot be edited because it has been answered by students.' 
+                });
+            }
+        }
+
+        res.status(200).json({ message: 'Survey can be edited.' });  // Ensure this response is successful
+    } catch (error) {
+        console.error('Error fetching responses:', error);
+        res.status(500).json({ message: 'Error fetching responses' });
+    }
+});
+
 
 router.post('/save', async (req, res) => {
     const { survey_id, questions } = req.body;
