@@ -163,12 +163,15 @@ router.post('/getresponses', async (req, res) => {
         const questionIdsResult = await db.query(`SELECT question_id FROM questions WHERE survey_id = ?`, [survey_id]);
         const questionIds = questionIdsResult.map(row => row.question_id);
 
+        // If no questions in the survey, proceed to the edit page
+        if (questionIds.length === 0) {
+            return res.status(200).json({ message: 'Survey has no questions, but can still be edited.' });
+        }
+
         if (!survey_id) {
             console.error('Survey ID is missing');
             return res.status(400).json({ message: 'Invalid input data.' });
         }
-
-        console.log('Survey ID:', survey_id);  // Log for debugging
 
         const responseCheckQueries = [
             `SELECT COUNT(*) AS count FROM rating_response WHERE question_id IN (?)`,
@@ -179,20 +182,18 @@ router.post('/getresponses', async (req, res) => {
         for (const query of responseCheckQueries) {
             const responseCheckResult = await db.query(query, [questionIds]);
             if (responseCheckResult[0].count > 0) {
-                console.log('Survey has responses, cannot be edited');
                 return res.status(400).json({ 
                     message: 'This survey cannot be edited because it has been answered by students.' 
                 });
             }
         }
 
-        res.status(200).json({ message: 'Survey can be edited.' });  // Ensure this response is successful
+        res.status(200).json({ message: 'Survey can be edited.' });  // If no responses, allow editing
     } catch (error) {
         console.error('Error fetching responses:', error);
         res.status(500).json({ message: 'Error fetching responses' });
     }
 });
-
 
 router.post('/save', async (req, res) => {
     const { survey_id, questions } = req.body;
