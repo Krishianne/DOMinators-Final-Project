@@ -618,6 +618,19 @@ textarea {
     text-decoration: underline; /* Optionally add underline on hover */
 }
 
+#response-bar-chart-container {
+    margin-top: 30px;
+    padding: 20px;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.view-button:hover {
+    transform: scale(1.2); /* Optional: Adds a slight zoom effect */
+    content: url("../res/pictures/view2.png"); /* Changes the image on hover */
+}
 
 
 

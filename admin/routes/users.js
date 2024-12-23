@@ -228,9 +228,56 @@ router.post('/respondents', async (req, res) => {
     }  
 });
 
-router.post('/results'), async (req, res) => {
+router.post('/results', async (req, res) => {
     const { userId } = req.body; 
-};
+
+    try {
+        // Get the surveys created by the user (admin)
+        const surveys = await db.query(
+            "SELECT survey_id FROM survey WHERE user_id = ?",
+            [userId]
+        );
+
+        if (surveys.length === 0) {
+            return res.status(404).json({ message: 'No surveys found for this user.' });
+        }
+
+        const surveyIds = surveys.map(survey => survey.survey_id);
+
+        // Get the total number of respondents for each survey
+        const totalRespondents = await db.query(
+            "SELECT survey_id, COUNT(DISTINCT user_id) AS respondents FROM rating_response WHERE survey_id IN (?) GROUP BY survey_id",
+            [surveyIds]
+        );
+
+        // Get the number of no responses for each survey
+        const noResponses = await db.query(
+            "SELECT survey_id, COUNT(*) AS no_response FROM class WHERE survey_id IN (?) AND user_id NOT IN (SELECT user_id FROM rating_response WHERE survey_id IN (?)) GROUP BY survey_id",
+            [surveyIds, surveyIds]
+        );
+
+        // Map the survey data to the format we need for the chart
+        const surveyData = surveys.map(survey => {
+            const respondents = totalRespondents.find(res => res.survey_id === survey.survey_id);
+            const noResponse = noResponses.find(res => res.survey_id === survey.survey_id);
+
+            return {
+                survey_id: survey.survey_id,
+                survey_name: `Survey ${survey.survey_id}`, // Customize as needed
+                total_respondents: respondents ? respondents.respondents : 0,
+                no_response: noResponse ? noResponse.no_response : 0
+            };
+        });
+
+        res.json({
+            survey_data: surveyData
+        });
+    } catch (error) {
+        console.error('Error fetching survey results:', error);
+        res.status(500).json({ message: 'Internal server error.' });
+    }
+});
+
     
 router.post('/majorminor', async (req, res) => {
     try {
@@ -311,7 +358,7 @@ router.post('/table-status', async (req, res) => {
     try {
         const students = await db.query(
             `
-            SELECT u.firstname, u.lastname, u.email, c.course, c.semester, c.ay, s.status_id, s.answer_status AS status
+            SELECT u.user_id, u.firstname, u.lastname, u.email, c.class_id, c.course, c.semester, c.ay, s.answer_status AS status
             FROM users u
             INNER JOIN class c ON u.user_id = c.user_id
             INNER JOIN status s ON c.class_id = s.class_id
@@ -334,5 +381,113 @@ router.post('/table-status', async (req, res) => {
         res.status(500).json({ message: 'Internal server error.' });
     }
 });
+
+router.post('/student-response', async (req, res) => {
+    const { studentClassId } = req.body;
+
+    try {
+        // Fetch class details
+        const [classDetails] = await db.query(
+            `
+            SELECT c.course, c.semester, c.ay, u.firstname, u.lastname
+            FROM CLASS c
+            INNER JOIN USERS u ON c.user_id = u.user_id
+            WHERE c.class_id = ?
+            `,
+            [studentClassId]
+        );
+
+        if (!classDetails) {
+            return res.status(404).json({ message: 'Class not found.' });
+        }
+
+        const { course, semester, ay, firstname, lastname } = classDetails;
+
+        // Fetch survey ID from SURVEY table
+        const [survey] = await db.query(
+            `
+            SELECT survey_id 
+            FROM SURVEY
+            WHERE course = ? AND semester = ? AND ay = ?
+            `,
+            [course, semester, ay]
+        );
+
+        if (!survey) {
+            return res.status(404).json({ message: 'Survey not found for the given course, semester, and academic year.' });
+        }
+
+        const surveyId = survey.survey_id;
+
+        // Fetch questions from QUESTIONS table
+        const questions = await db.query(
+            `
+            SELECT question_id, category, question_type, question_text
+            FROM QUESTIONS
+            WHERE survey_id = ?
+            `,
+            [surveyId]
+        );
+
+        if (!questions.length) {
+            return res.status(404).json({ message: 'No questions found for the survey.' });
+        }
+
+        // Fetch responses from RATING_RESPONSE, ESSAY_RESPONSE, and CHECKBOX_RESPONSE tables
+        const ratingResponses = await db.query(
+            `
+            SELECT question_id, answer
+            FROM RATING_RESPONSE
+            WHERE class_id = ?
+            `,
+            [studentClassId]
+        );
+
+        const essayResponses = await db.query(
+            `
+            SELECT question_id, answer
+            FROM ESSAY_RESPONSE
+            WHERE class_id = ?
+            `,
+            [studentClassId]
+        );
+
+        const checkboxResponses = await db.query(
+            `
+            SELECT question_id, answer
+            FROM CHECKBOX_RESPONSE
+            WHERE class_id = ?
+            `,
+            [studentClassId]
+        );
+
+        // Map responses by question ID for easy lookup
+        const responsesMap = {};
+        [...ratingResponses, ...essayResponses, ...checkboxResponses].forEach(response => {
+            responsesMap[response.question_id] = response.answer;
+        });
+
+        // Construct the response
+        const responseData = questions.map(question => ({
+            question_text: question.question_text,
+            category: question.category,
+            question_type: question.question_type,
+            answer: responsesMap[question.question_id] || 'No response'
+        }));
+
+        res.json({
+            firstname,
+            lastname,
+            course,
+            semester,
+            ay,
+            responses: responseData
+        });
+    } catch (error) {
+        console.error('Error fetching student responses:', error);
+        res.status(500).json({ message: 'Internal server error.' });
+    }
+});
+
 
 module.exports = router;

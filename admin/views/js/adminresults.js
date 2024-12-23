@@ -75,116 +75,6 @@ document.addEventListener('DOMContentLoaded', () => {
         alert('Error fetching the data.');
     });
 
-    // Show filter options on button click
-    document.getElementById('filter-button').addEventListener('click', function () {
-        const filterPopup = document.getElementById('filter-popup');
-        filterPopup.style.display = filterPopup.style.display === 'block' ? 'none' : 'block';
-    });
-    
-    // Fetch distinct filter values and populate the checklist
-    fetch('/api/users/distinct-filters', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' }
-    })
-    .then(response => response.json())
-    .then(data => {
-        if (data.message) {
-            alert(data.message);
-            return;
-        }
-        populateFilterOptions(data);
-    })
-    .catch(error => {
-        console.error('Error fetching distinct filters:', error);
-    });
-
-    function populateFilterOptions(filters) {
-        const filterPopup = document.getElementById('filter-popup');
-        filterPopup.innerHTML = ''; // Clear any existing filters
-    
-        function createFilterSection(title, items, id) {
-            const section = document.createElement('div');
-            section.classList.add('filter-section');
-            section.id = id; // Assign ID to section
-    
-            const heading = document.createElement('h3');
-            heading.textContent = title;
-            section.appendChild(heading);
-    
-            items.forEach(item => {
-                const label = document.createElement('label');
-                label.innerHTML = `<input type="checkbox" value="${item}"> ${item}`;
-                section.appendChild(label);
-                section.appendChild(document.createElement('br'));
-            });
-    
-            return section;
-        }
-    
-        // Create sections with IDs for each filter
-        const courseSection = createFilterSection('Course', filters.courses, 'filter-course');
-        const semesterSection = createFilterSection('Semester', filters.semesters, 'filter-semester');
-        const aySection = createFilterSection('Academic Year (AY)', filters.ays, 'filter-ay');
-        const statusSection = createFilterSection('Status', filters.statuses, 'filter-status');
-    
-        filterPopup.appendChild(courseSection);
-        filterPopup.appendChild(semesterSection);
-        filterPopup.appendChild(aySection);
-        filterPopup.appendChild(statusSection);
-    }
-    
-
-    // Apply filters to the table
-    document.getElementById('apply-filters').addEventListener('click', function () {
-        const filters = {
-            course: getCheckedValues('filter-course'),
-            semester: getCheckedValues('filter-semester'),
-            ay: getCheckedValues('filter-ay'),
-            status: getCheckedValues('filter-status')
-        };
-    
-        console.log('Filters applied:', filters); // Debugging log
-        filterStudents(filters);
-    });
-    
-
-    function getCheckedValues(filterId) {
-        const checkedValues = [];
-        const checkboxes = document.querySelectorAll(`#${filterId} input:checked`);
-        checkboxes.forEach(checkbox => checkedValues.push(checkbox.value));
-        return checkedValues;
-    }
-
-    function filterStudents(filters) {
-        const rows = document.querySelectorAll('#student-details-table tbody tr');
-    
-        rows.forEach(row => {
-            const course = row.querySelector('td:nth-child(4)').innerText.trim().toLowerCase();
-            const semester = row.querySelector('td:nth-child(5)').innerText.trim().toLowerCase();
-            const ay = row.querySelector('td:nth-child(6)').innerText.trim().toLowerCase();
-            const status = row.querySelector('td:nth-child(7)').innerText.trim().toLowerCase();
-    
-            let showRow = true;
-    
-            if (filters.course.length > 0 && !filters.course.some(value => course.includes(value.toLowerCase()))) {
-                showRow = false;
-            }
-            if (filters.semester.length > 0 && !filters.semester.some(value => semester.includes(value.toLowerCase()))) {
-                showRow = false;
-            }
-            if (filters.ay.length > 0 && !filters.ay.some(value => ay.includes(value.toLowerCase()))) {
-                showRow = false;
-            }
-            if (filters.status.length > 0 && !filters.status.some(value => status.includes(value.toLowerCase()))) {
-                showRow = false;
-            }
-    
-            row.style.display = showRow ? '' : 'none';
-        });
-    }
-    
-
-    // Fetch student table status data
     fetch('/api/users/table-status', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -193,14 +83,34 @@ document.addEventListener('DOMContentLoaded', () => {
     .then(response => response.json())
     .then(data => {
         if (data.message) {
+            console.log(userId);
+            console.log(data);
             alert(data.message);
             return;
         }
+
+        console.log('Fetched student data:', data);
 
         const studentDetailsTableBody = document.querySelector('#student-details-table tbody');
 
         data.students.forEach(student => {
             const row = document.createElement('tr');
+
+            // Generate the status cell
+            let statusCellContent = student.status;
+            if (student.status === 'submitted') {
+                statusCellContent += `
+                    <img 
+                        src="../res/pictures/view1.png" 
+                        alt="View" 
+                        title="View"
+                        class="view-button" 
+                        data-id="${student.class_id}" 
+                        style="cursor: pointer; width: 20px; margin-left: 10px;"
+                    />
+                `;
+            }
+
             row.innerHTML = `
                 <td>${student.firstname}</td>
                 <td>${student.lastname}</td>
@@ -208,25 +118,26 @@ document.addEventListener('DOMContentLoaded', () => {
                 <td>${student.course}</td>
                 <td>${student.semester}</td>
                 <td>${student.ay}</td>
-                <td><button class="status-button" data-status-id="${student.status_id}">${student.status}</button></td>
+                <td>${statusCellContent}</td>
             `;
             studentDetailsTableBody.appendChild(row);
         });
-        
 
-        // Add event listeners to status buttons
-        document.querySelectorAll('.status-button').forEach(button => {
-            button.addEventListener('click', event => {
-                const statusId = event.target.dataset.statusId;
-                fetchSurveyDetails(statusId);
+        // Add event listener to dynamically created "View" buttons
+        document.querySelectorAll('.view-button').forEach(button => {
+            button.addEventListener('click', (event) => {
+                const studentClassId = event.target.getAttribute('data-id');
+                // Redirect to another page with studentClassId as a query parameter
+                window.location.href = `../html/responses.html?studentClassId=${studentClassId}`;
             });
         });
+        
     })
     .catch(error => {
         console.error('Error fetching table status:', error);
     });
-
-    // Logout functionality
+    
+    
     const logoutButton = document.getElementById('logoutButton');
     if (logoutButton) {
         logoutButton.addEventListener('click', () => {
