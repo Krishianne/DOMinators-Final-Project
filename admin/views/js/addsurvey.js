@@ -1,7 +1,6 @@
 const userId = localStorage.getItem('userId');
 const firstname = localStorage.getItem('firstname');
 
-
 document.addEventListener('DOMContentLoaded', () => {
     const startYearDropdown = document.getElementById('start-year');
     const endYearDropdown = document.getElementById('end-year');
@@ -11,12 +10,12 @@ document.addEventListener('DOMContentLoaded', () => {
         const endYear = parseInt(endYearDropdown.value, 10);
 
         if (isNaN(startYear) || isNaN(endYear)) {
-            return; 
+            return;
         }
 
         if (endYear !== startYear + 1) {
             alert('Academic year must have a one-year gap (e.g., 2021-2022).');
-            endYearDropdown.value = ''; 
+            endYearDropdown.value = '';
         }
     };
 
@@ -29,6 +28,14 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 }); 
 
+// Function to sanitize HTML input to prevent HTML injection
+function escapeHtml(str) {
+    if (!str) return str;  // Return empty strings as they are.
+    const element = document.createElement('div');
+    element.innerText = str;
+    return element.innerHTML;  // This escapes any harmful HTML tags.
+}
+
 function updatePlaceholders(container, inputClass, placeholderText) {
     const inputs = container.getElementsByClassName(inputClass);
     for (let i = 0; i < inputs.length; i++) {
@@ -40,7 +47,6 @@ function updatePlaceholders(container, inputClass, placeholderText) {
 function addRatingOption() {
     const container = document.getElementById("rating-options-list");
 
-
     const newOption = document.createElement("div");
     newOption.classList.add("rate-input");
     newOption.innerHTML = `
@@ -48,9 +54,6 @@ function addRatingOption() {
         <button type="button" class="remove-btn" onclick="removeOption(this, 'rate-input', 'Rate')">Remove</button>
     `;
     container.appendChild(newOption);
-
-
-
     updatePlaceholders(container, 'rate-input', 'Rate');
 }
 
@@ -71,25 +74,21 @@ function removeOption(button, inputClass, placeholderText) {
     button.parentElement.remove();
     updatePlaceholders(container, inputClass, placeholderText);
 }
+
 document.addEventListener('DOMContentLoaded', () => {
-
-
     const questionTypeDropdown = document.querySelector('#questionType');
     const categoryDropdown = document.querySelector('select[name="cat"]');
     const optionsContainer = document.getElementById('options-container');
     const ratingOptionsContainer = document.getElementById('rating-options');
     const checkboxOptionsContainer = document.getElementById('checkbox-options');
 
-
     const ratingContainer = document.createElement('div');
     const checkboxContainer = document.createElement('div');
     const essayContainer = document.createElement('div');
 
-
     ratingContainer.classList.add('question-list-container', 'rating-container');
     checkboxContainer.classList.add('question-list-container', 'checkbox-container');
     essayContainer.classList.add('question-list-container', 'essay-container');
-
 
     ratingContainer.classList.add('hidden');
     checkboxContainer.classList.add('hidden');
@@ -99,7 +98,6 @@ document.addEventListener('DOMContentLoaded', () => {
     document.querySelector('.survey-container').appendChild(checkboxContainer);
     document.querySelector('.survey-container').appendChild(essayContainer);
 
-
     const resetOptions = () => {
         optionsContainer.style.display = 'none';
         ratingOptionsContainer.style.display = 'none';
@@ -107,7 +105,6 @@ document.addEventListener('DOMContentLoaded', () => {
         const inputs = optionsContainer.querySelectorAll('input');
         inputs.forEach(input => input.value = '');
     };
-
 
     questionTypeDropdown.addEventListener('change', () => {
         const selectedType = questionTypeDropdown.value;
@@ -121,23 +118,18 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-
-
     const questions = [];
-
 
     const addQuestionBtn = document.querySelector('.save-btn');
     addQuestionBtn.addEventListener('click', () => {
-        const questionText = document.querySelector('#question_text').value.trim();
+        const questionText = escapeHtml(document.querySelector('#question_text').value.trim());
         const questionType = questionTypeDropdown.value;
         const category = categoryDropdown.value;
-
 
         if (!questionText || !questionType || !category) {
             alert('Please fill out the question text, select a type, and choose a category.');
             return;
         }
-
 
         if (questionType === 'Rating') {
             ratingContainer.classList.remove('hidden');
@@ -147,7 +139,6 @@ document.addEventListener('DOMContentLoaded', () => {
             essayContainer.classList.remove('hidden');
         }
 
-
         const question = {
             question_text: questionText,
             question_type: questionType,
@@ -155,33 +146,28 @@ document.addEventListener('DOMContentLoaded', () => {
             options: {}
         };
 
-
         if (questionType === 'Rating') {
             const rateInputs = ratingOptionsContainer.querySelectorAll('input');
             rateInputs.forEach((input, index) => {
                 if (input.value.trim()) {
-                    question.options[`rate${index + 1}`] = input.value;
+                    question.options[`rate${index + 1}`] = escapeHtml(input.value);
                 }
             });
         } else if (questionType === 'Checkbox') {
             const checkboxInputs = checkboxOptionsContainer.querySelectorAll('input');
             checkboxInputs.forEach((input, index) => {
                 if (input.value.trim()) {
-                    question.options[`choice${index + 1}`] = input.value;
+                    question.options[`choice${index + 1}`] = escapeHtml(input.value);
                 }
             });
         }
-
-
 
         if (Object.keys(question.options).length === 0 && questionType !== 'Essay') {
             alert('Please fill out the options for the selected question type.');
             return;
         }
 
-
         questions.push(question);
-
 
         const questionItem = document.createElement('div');
         questionItem.classList.add('question-item');
@@ -196,7 +182,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         `;
 
-
         if (questionType === 'Rating') {
             ratingContainer.appendChild(questionItem);
         } else if (questionType === 'Checkbox') {
@@ -204,7 +189,6 @@ document.addEventListener('DOMContentLoaded', () => {
         } else if (questionType === 'Essay') {
             essayContainer.appendChild(questionItem);
         }
-
 
         alert('Question added successfully.');
 
@@ -216,8 +200,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const saveSurveyBtn = document.querySelector('.add-btn');
     saveSurveyBtn.addEventListener('click', async () => {
-        const course = document.getElementById('course').value.trim();
-        const semester = document.getElementById('semester').value.trim();
+        const course = escapeHtml(document.getElementById('course').value.trim());
+        const semester = escapeHtml(document.getElementById('semester').value.trim());
         const startYearDropdown = document.getElementById('start-year');
         const endYearDropdown = document.getElementById('end-year');
         const ay = `${startYearDropdown.value}-${endYearDropdown.value}`;
@@ -227,9 +211,7 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
 
-
         const data = { userId, course, semester, ay, questions };
-
 
         try {
             const response = await fetch('/api/surveyadd/questions', {
@@ -239,7 +221,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 },
                 body: JSON.stringify(data)
             });
-
 
             const result = await response.json();
             if (response.ok) {
@@ -253,7 +234,6 @@ document.addEventListener('DOMContentLoaded', () => {
             alert('An error occurred while submitting the survey.');
         }
     });
-
 
     const logoutButton = document.getElementById('logoutButton');
     if (logoutButton) {
