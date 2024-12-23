@@ -1,4 +1,3 @@
-// Function to filter published surveys
 function filterPublishedSurveys() {
     const surveyContainer = document.getElementById('surveyContainer');
     surveyContainer.innerHTML = ""; 

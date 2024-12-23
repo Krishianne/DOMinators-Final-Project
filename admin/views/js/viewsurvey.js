@@ -44,15 +44,14 @@ function populateSurveyDetails(survey) {
 
 function populateQuestions(questions) {
     const questionContainer = document.querySelector(".question-container");
-    questionContainer.innerHTML = ""; // Clear existing questions
+    questionContainer.innerHTML = "";
 
     if (questions.length === 0) {
-        // No questions found, display a message
         const noQuestionsMessage = document.createElement('p');
         noQuestionsMessage.textContent = "No questions have been created in this survey.";
-        noQuestionsMessage.style.textAlign = 'center'; // Optional: center the message
+        noQuestionsMessage.style.textAlign = 'center'; 
         questionContainer.appendChild(noQuestionsMessage);
-        return; // Exit the function early as there are no questions
+        return; 
     }
     
     questions.forEach((question) => {

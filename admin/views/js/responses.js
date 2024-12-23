@@ -1,11 +1,10 @@
 document.addEventListener('DOMContentLoaded', () => {
     const urlParams = new URLSearchParams(window.location.search);
-    const studentClassId = urlParams.get('studentClassId'); // Matches the query param name in the URL
+    const studentClassId = urlParams.get('studentClassId'); 
 
     if (studentClassId) {
         console.log('Student Class ID:', studentClassId);
 
-        // Fetch the student response details using the studentClassId
         fetch(`/api/users/student-response`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
@@ -36,7 +35,6 @@ document.addEventListener('DOMContentLoaded', () => {
             table.style.borderCollapse = 'collapse';
             table.style.textAlign = 'left';
 
-            // Create table header
             const thead = document.createElement('thead');
             const headerRow = document.createElement('tr');
 
@@ -52,7 +50,6 @@ document.addEventListener('DOMContentLoaded', () => {
             thead.appendChild(headerRow);
             table.appendChild(thead);
 
-            // Create table body
             const tbody = document.createElement('tbody');
             data.responses.forEach(response => {
                 const row = document.createElement('tr');
@@ -65,13 +62,11 @@ document.addEventListener('DOMContentLoaded', () => {
                     row.appendChild(td);
                 });
 
-                // Process the answer field for checkbox type
                 const answerTd = document.createElement('td');
                 answerTd.style.padding = '10px';
                 answerTd.style.borderBottom = '1px solid #ddd';
                 
                 if (response.question_type === 'checkbox' && response.answer) {
-                    // Split answers and create new lines
                     const answers = response.answer.split(',').map(answer => answer.trim().replace(/^"|"$/g, ''));
                     answerTd.innerHTML = answers.join('<br>');
                 } else {

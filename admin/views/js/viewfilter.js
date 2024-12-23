@@ -43,7 +43,6 @@ document.addEventListener("DOMContentLoaded", () => {
     let selectedType = "all";
     let selectedCategory = "all";
 
-    // Add event listeners for question type dropdown
     typeDropdownMenu.querySelectorAll("a").forEach((link) => {
         link.addEventListener("click", (event) => {
             event.preventDefault();
@@ -53,7 +52,6 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     });
 
-    // Add event listeners for category dropdown
     categoryDropdownMenu.querySelectorAll("a").forEach((link) => {
         link.addEventListener("click", (event) => {
             event.preventDefault();
@@ -63,7 +61,6 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     });
 
-    // Filtering logic
     function filterQuestions() {
         const questions = document.querySelectorAll(".essay-part");
 
@@ -78,6 +75,5 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    // Initial filter to display all questions
     filterQuestions();
 });

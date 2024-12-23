@@ -289,7 +289,7 @@ function createSurveyCard(survey) {
 }
 
 function deleteSurvey(surveyId) {
-    console.log('Attempting to delete Survey with ID:', surveyId); // Log the survey ID being deleted
+    console.log('Attempting to delete Survey with ID:', surveyId); 
 
     fetch(`/api/survey/deletesurvey`, {
         method: 'DELETE',
@@ -299,17 +299,15 @@ function deleteSurvey(surveyId) {
         .then(async response => {
             if (response.ok) {
                 alert('Survey deleted successfully.');
-                populateSurveys(); // Refresh the survey list
+                populateSurveys(); 
             } else {
-                // Handle non-2xx responses
-                const errorDetails = await response.json().catch(() => null); // Try parsing the error response
+                const errorDetails = await response.json().catch(() => null); 
                 console.error('Failed to delete survey. Status Code:', response.status);
                 console.error('Error Details:', errorDetails || 'No additional error details provided by server.');
                 alert(`Failed to delete the survey. Error: ${errorDetails?.message || 'Unknown error occurred.'}`);
             }
         })
         .catch(error => {
-            // Handle network errors or other unexpected issues
             console.error('Network or server error occurred:', error);
             alert('An unexpected error occurred while deleting the survey. Check console for details.');
         });
@@ -326,17 +324,15 @@ function publishSurvey(surveyId) {
         .then(async response => {
             if (response.ok) {
                 alert('Survey published successfully.');
-                populateSurveys(); // Refresh the survey list
+                populateSurveys();
             } else {
-                // Handle non-2xx responses
-                const errorDetails = await response.json().catch(() => null); // Try parsing the error response
+                const errorDetails = await response.json().catch(() => null); 
                 console.error('Failed to publish survey. Status Code:', response.status);
                 console.error('Error Details:', errorDetails || 'No additional error details provided by server.');
                 alert(`Failed to publish the survey. Error: ${errorDetails?.message || 'Unknown error occurred.'}`);
             }
         })
         .catch(error => {
-            // Handle network errors or other unexpected issues
             console.error('Network or server error occurred:', error);
             alert('An unexpected error occurred while publishing the survey. Check console for details.');
         });
@@ -353,17 +349,15 @@ function unpublishSurvey(surveyId) {
         .then(async response => {
             if (response.ok) {
                 alert('Survey unpublished successfully.');
-                populateSurveys(); // Refresh the survey list
+                populateSurveys(); 
             } else {
-                // Handle non-2xx responses
-                const errorDetails = await response.json().catch(() => null); // Try parsing the error response
+                const errorDetails = await response.json().catch(() => null); 
                 console.error('Failed to unpublish survey. Status Code:', response.status);
                 console.error('Error Details:', errorDetails || 'No additional error details provided by server.');
                 alert(`Failed to unpublish the survey. Error: ${errorDetails?.message || 'Unknown error occurred.'}`);
             }
         })
         .catch(error => {
-            // Handle network errors or other unexpected issues
             console.error('Network or server error occurred:', error);
             alert('An unexpected error occurred while unpublishing the survey. Check console for details.');
         });
@@ -380,17 +374,15 @@ function archiveSurvey(surveyId) {
         .then(async response => {
             if (response.ok) {
                 alert('Survey archived successfully.');
-                populateSurveys(); // Refresh the survey list
+                populateSurveys(); 
             } else {
-                // Handle non-2xx responses
-                const errorDetails = await response.json().catch(() => null); // Try parsing the error response
+                const errorDetails = await response.json().catch(() => null); 
                 console.error('Failed to archive survey. Status Code:', response.status);
                 console.error('Error Details:', errorDetails || 'No additional error details provided by server.');
                 alert(`Failed to archive the survey. Error: ${errorDetails?.message || 'Unknown error occurred.'}`);
             }
         })
         .catch(error => {
-            // Handle network errors or other unexpected issues
             console.error('Network or server error occurred:', error);
             alert('An unexpected error occurred while archiving the survey. Check console for details.');
         });
@@ -407,17 +399,16 @@ function unarchiveSurvey(surveyId) {
         .then(async response => {
             if (response.ok) {
                 alert('Survey unarchived successfully.');
-                populateSurveys(); // Refresh the survey list
+                populateSurveys(); 
             } else {
-                // Handle non-2xx responses
-                const errorDetails = await response.json().catch(() => null); // Try parsing the error response
+                const errorDetails = await response.json().catch(() => null); 
                 console.error('Failed to unarchive survey. Status Code:', response.status);
                 console.error('Error Details:', errorDetails || 'No additional error details provided by server.');
                 alert(`Failed to unarchive the survey. Error: ${errorDetails?.message || 'Unknown error occurred.'}`);
             }
         })
         .catch(error => {
-            // Handle network errors or other unexpected issues
+
             console.error('Network or server error occurred:', error);
             alert('An unexpected error occurred while unarchiving the survey. Check console for details.');
         });
@@ -496,7 +487,7 @@ if (logoutButton) {
         })
             .then(response => {
                 if (response.ok) {
-                    localStorage.clear(); // Clear local storage
+                    localStorage.clear(); 
                     window.location.href = '../html/login.html';
                 } else {
                     alert('Failed to log out');

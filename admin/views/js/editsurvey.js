@@ -1,7 +1,7 @@
 document.addEventListener("DOMContentLoaded", async () => {
     const urlParams = new URLSearchParams(window.location.search);
     const surveyId = urlParams.get('survey_id');
-    console.log(surveyId);  // Log the surveyId for debugging
+    console.log(surveyId);  
 
 
     if (!surveyId) {
@@ -43,7 +43,7 @@ function populateSurveyDetails(survey) {
 
 function populateQuestions(questions) {
     const questionContainer = document.querySelector(".question-container");
-    questionContainer.innerHTML = ""; // Clear existing questions
+    questionContainer.innerHTML = ""; 
 
     questions.forEach((question) => {
         const questionHTML = `
@@ -81,13 +81,11 @@ function toggleOptions(selectElement) {
     const parentDiv = selectElement.closest('.essay-part');
     const optionsContainer = parentDiv.querySelector('.options-container');
 
-    // Clear options when changing question type
     if (optionsContainer) {
         optionsContainer.innerHTML = '';
-        optionsContainer.style.display = 'none';  // Hide options if no valid type
+        optionsContainer.style.display = 'none';  
     }
 
-    // Show and create options based on selected question type
     if (selectElement.value === 'rating' || selectElement.value === 'checkbox') {
         if (optionsContainer) {
             optionsContainer.style.display = 'block';

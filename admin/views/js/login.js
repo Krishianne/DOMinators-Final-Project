@@ -29,8 +29,7 @@ document.getElementById('loginForm').addEventListener('submit', function (event)
         })
         .then(data => {
             console.log(data);
-            // Check user type
-            const expectedUserType = "admin"; // Replace with the user type allowed to log in
+            const expectedUserType = "admin"; 
             if (data.userType !== expectedUserType) {
                 alert(`Access denied. Only ${expectedUserType} users can log in here.`);
                 throw new Error('Unauthorized user type');
@@ -43,7 +42,7 @@ document.getElementById('loginForm').addEventListener('submit', function (event)
             localStorage.setItem('userType', data.userType);
             localStorage.setItem('password', data.password);
             localStorage.setItem('images', data.images);
-            window.location.href = data.redirect; // Redirect based on user type
+            window.location.href = data.redirect; 
         })
         .catch(error => {
             if (error.message.includes('Locked out')) {

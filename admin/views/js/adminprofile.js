@@ -1,13 +1,11 @@
-// Get user information from localStorage
 const userId = localStorage.getItem('userId');
 const firstname = localStorage.getItem('firstname');
 const lastname = localStorage.getItem('lastname');
 const email = localStorage.getItem('email');
 const userType = localStorage.getItem('userType');
-const password = localStorage.getItem('password'); // Avoid storing passwords here for security reasons
+const password = localStorage.getItem('password'); 
 const images = localStorage.getItem('images');
 
-// Log current user data for debugging
 console.log(userId, firstname, lastname, email, userType, images);
 
 document.addEventListener("DOMContentLoaded", function () {
@@ -29,9 +27,9 @@ document.addEventListener("DOMContentLoaded", function () {
     emailInput.value = localStorage.getItem('email');
 
     if (userImagePath && userImagePath.trim() !== '') {
-        userImage.src = userImagePath;  // Set the user's profile image from localStorage
+        userImage.src = userImagePath;  
     } else {
-        userImage.src = '../res/profile-images/default-avatar.jpg';  // Set the default profile image if none is found
+        userImage.src = '../res/profile-images/default-avatar.jpg';  
     }
     imageInput.addEventListener('change', function (event) {
         const file = event.target.files[0];
@@ -65,7 +63,6 @@ document.addEventListener("DOMContentLoaded", function () {
         const newPassword = newPasswordInput.value.trim();
         const confirmPassword = confirmPasswordInput.value.trim();
 
-        // Check password strength: 8-12 characters, alphanumeric, at least one uppercase letter
         const passwordRegex = /^(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{8,12}$/;
 
         if ((newPassword && !confirmPassword) || (!newPassword && confirmPassword)) {
@@ -78,7 +75,6 @@ document.addEventListener("DOMContentLoaded", function () {
             return false;
         }
 
-        // Validate password format
         if (newPassword && !passwordRegex.test(newPassword)) {
             showMessage("Password must be between 8-12 characters, contain at least one uppercase letter, and be alphanumeric.", "error");
             return false;
@@ -156,7 +152,6 @@ document.addEventListener("DOMContentLoaded", function () {
                     localStorage.setItem('images', data.newImagePath);
                 }
         
-                // Update the image with the new image path from the server
                 userImage.src = data.newImagePath || '../res/profile-images/default-avatar.jpg';
                 
                 form.reset();
@@ -190,7 +185,7 @@ function checkEmailUniqueness(email, callback) {
 }
 
 const logoutButton = document.getElementById('logoutButton');
-if (logoutButton) { // Ensure the button exists
+if (logoutButton) { 
     logoutButton.addEventListener('click', () => {
         window.location.href = '../html/login.html';
     });

@@ -1,4 +1,3 @@
-// JavaScript for handling question addition and display
 const userId = localStorage.getItem('userId');
 const firstname = localStorage.getItem('firstname');
 
@@ -209,16 +208,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
         alert('Question added successfully.');
 
-
-        // Reset form fields
         document.querySelector('#question_text').value = '';
         questionTypeDropdown.value = '';
         categoryDropdown.value = '';
         resetOptions();
     });
 
-
-    // Handle form submission with Save Button
     const saveSurveyBtn = document.querySelector('.add-btn');
     saveSurveyBtn.addEventListener('click', async () => {
         const course = document.getElementById('course').value.trim();

@@ -7,7 +7,6 @@ document.addEventListener('DOMContentLoaded', () => {
         return;
     }
 
-    // Fetch student data
     fetch('/api/users/respondents', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -60,7 +59,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 responsive: true,
                 plugins: {
                     legend: {
-                        display: false  // Removed the legend label
+                        display: false  
                     }
                 },
                 scales: {
@@ -96,7 +95,6 @@ document.addEventListener('DOMContentLoaded', () => {
         data.students.forEach(student => {
             const row = document.createElement('tr');
 
-            // Generate the status cell
             let statusCellContent = student.status;
             if (student.status === 'submitted') {
                 statusCellContent += `
@@ -123,11 +121,9 @@ document.addEventListener('DOMContentLoaded', () => {
             studentDetailsTableBody.appendChild(row);
         });
 
-        // Add event listener to dynamically created "View" buttons
         document.querySelectorAll('.view-button').forEach(button => {
             button.addEventListener('click', (event) => {
                 const studentClassId = event.target.getAttribute('data-id');
-                // Redirect to another page with studentClassId as a query parameter
                 window.location.href = `../html/responses.html?studentClassId=${studentClassId}`;
             });
         });

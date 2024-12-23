@@ -610,12 +610,12 @@ textarea {
 
 
 .email-link {
-    color: inherit; /* Matches surrounding text color */
-    text-decoration: none; /* Removes underline */
-    cursor: pointer; /* Shows a pointer cursor */
+    color: inherit; 
+    text-decoration: none; 
+    cursor: pointer; 
 }
 .email-link:hover {
-    text-decoration: underline; /* Optionally add underline on hover */
+    text-decoration: underline;  
 }
 
 #response-bar-chart-container {
@@ -628,8 +628,8 @@ textarea {
 }
 
 .view-button:hover {
-    transform: scale(1.2); /* Optional: Adds a slight zoom effect */
-    content: url("../res/pictures/view2.png"); /* Changes the image on hover */
+    transform: scale(1.2); 
+    content: url("../res/pictures/view2.png");
 }
 
 

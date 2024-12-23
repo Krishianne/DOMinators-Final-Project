@@ -12,15 +12,15 @@ const app = express();
 const PORT = process.env.PORT || 8000;
 
 app.use(bodyParser.json());
-app.use(express.static(path.join(__dirname, 'views'))); // Serve static files
-// Serve the profile images from a dedicated 'profile-images' folder
+app.use(express.static(path.join(__dirname, 'views'))); 
+
 app.use('/res/profile-images', express.static(path.join(__dirname, 'res/profile-images')));
-// Session configuration
+
 app.use(session({
     secret: 'your-secret-key',
     resave: false,
     saveUninitialized: false,
-    cookie: { secure: false } // Set to true if using HTTPS
+    cookie: { secure: false } 
 }));
 
 
@@ -35,22 +35,18 @@ function isAuthenticated(req, res, next) {
     }
 }
 
-// Register routes
 app.use('/api', userRoutes);
 app.use('/api/survey', isAuthenticated, surveyRoutes);
 app.use('/api/users', isAuthenticated, respondentsRoute);
 app.use('/api/surveyadd', isAuthenticated, addSurveyRoute);
 
-// Route Login
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'views/html/login.html'));
 });
 
-// HTML routes
 app.get('/html/adminhome', isAuthenticated, (req, res) => {
     res.sendFile(path.join(__dirname, 'views/html/adminhome.html'));
 });
-
 
 app.get('/html/addsurvey', isAuthenticated, (req, res) => {
     res.sendFile(path.join(__dirname, 'views/html/addsurvey.html'));
@@ -66,6 +62,10 @@ app.get('/html/adminprofile', isAuthenticated, (req, res) => {
 
 app.get('/html/editsurvey', isAuthenticated, (req, res) => {
     res.sendFile(path.join(__dirname, 'views/html/editsurvey.html'));
+});
+
+app.get('/html/responses', isAuthenticated, (req, res) => {
+    res.sendFile(path.join(__dirname, 'views/html/responses.html'));
 });
 
 app.get('/html/viewsurvey', isAuthenticated, (req, res) => {
