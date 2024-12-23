@@ -34,7 +34,15 @@ function addQuestion() {
             <div class="options-container" style="display:none; width: 200px;">
                 <label>Options</label>
             </div>
+            <button type="button" class="delete-question-btn">Delete</button>
         </div>
     `;
     questionContainer.insertAdjacentHTML('beforeend', questionHTML);
-}
+     const newlyAddedQuestion = questionContainer.lastElementChild;
+     const deleteButton = newlyAddedQuestion.querySelector('.delete-question-btn');
+ 
+     deleteButton.addEventListener('click', () => {
+         questionContainer.removeChild(newlyAddedQuestion);
+         console.log("Question deleted.");
+     });
+ }
