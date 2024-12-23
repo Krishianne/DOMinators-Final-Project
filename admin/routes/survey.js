@@ -394,20 +394,6 @@ router.delete('/deleteQuestion', async (req, res) => {
     }
 
     try {
-        const responseCheckQueries = [
-            `SELECT COUNT(*) AS count FROM rating_response WHERE question_id = ?`,
-            `SELECT COUNT(*) AS count FROM checkbox_response WHERE question_id = ?`,
-            `SELECT COUNT(*) AS count FROM essay_response WHERE question_id = ?`
-        ];
-
-        for (const query of responseCheckQueries) {
-            const responseCheckResult = await db.query(query, [questionId]);
-            if (responseCheckResult[0].count > 0) {
-                return res.status(400).json({
-                    message: 'This question cannot be deleted because it has been answered by respondents.'
-                });
-            }
-        }
         await db.query(`DELETE FROM questions WHERE question_id = ?`, [question_id]);
         await db.query(`DELETE FROM rate WHERE question_id = ?`, [question_id]);
         await db.query(`DELETE FROM checkbox WHERE question_id = ?`, [question_id]);
