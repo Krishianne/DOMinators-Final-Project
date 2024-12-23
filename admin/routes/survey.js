@@ -1,7 +1,24 @@
 const express = require('express');
 const router = express.Router();
 const db = require('./db'); 
-const { v4: uuidv4 } = require('uuid');
+
+
+async function generateIncrementalId(table, prefix, columnName) {
+    const query = `
+        SELECT ${columnName} 
+        FROM ${table} 
+        WHERE ${columnName} LIKE '${prefix}%' 
+        ORDER BY CAST(SUBSTRING(${columnName}, LENGTH('${prefix}') + 1) AS UNSIGNED) DESC 
+        LIMIT 1;
+    `;
+
+    const result = await db.query(query);
+    const lastId = result[0]?.[columnName] || `${prefix}0`;
+    const lastNumber = parseInt(lastId.replace(prefix, ''), 10) || 0;
+    const nextNumber = lastNumber + 1;
+
+    return `${prefix}${nextNumber}`;
+}
 
 router.post('/surveycards', async (req, res) => {
     const { userId } = req.body; 
@@ -168,20 +185,20 @@ router.post('/save', async (req, res) => {
                     );
                 }
             } else {
-                question_id = uuidv4();
+                question_id = await generateIncrementalId('questions', 'Q', 'question_id');
                 await db.query(
                     `INSERT INTO questions (question_id, survey_id, category, question_text, question_type) VALUES (?, ?, ?, ?, ?)`,
                     [question_id, survey_id, category, question_text, question_type]
                 );
 
                 if (question_type === 'rating' && options) {
-                   const rateId = uuidv4();
+                    const rateId = await generateIncrementalId('rate', 'R', 'rate_id');
                     await db.query(
                         `INSERT INTO rate (rate_id, question_id, \`1\`, \`2\`, \`3\`, \`4\`, \`5\`) VALUES (?, ?, ?, ?, ?, ?, ?)`,
                         [rateId, question_id, options[0], options[1], options[2], options[3], options[4]]
                     );
                 } else if (question_type === 'checkbox' && options) {
-                    const checkboxId = uuidv4();
+                    const checkboxId = await generateIncrementalId('checkbox', 'B', 'checkbox_id');
                     await db.query(
                         `INSERT INTO checkbox (checkbox_id, question_id, choice1, choice2, choice3, choice4, choice5) VALUES (?, ?, ?, ?, ?, ?, ?)`,
                         [checkboxId, question_id, options[0], options[1], options[2], options[3], options[4]]
@@ -255,6 +272,9 @@ router.put('/publishsurvey', async (req, res) => {
             `UPDATE survey SET survey_status = 'published' WHERE survey_id = ?`, 
             [surveyId]
         );
+    /*try {
+        const surveyStatusUpdate = `UPDATE survey SET survey_status = 'published' WHERE survey_id = ?`;
+        await db.query(surveyStatusUpdate, [surveyId]);*/
 
         return res.status(200).json({ message: 'Survey status updated to "published" successfully!' });
     } catch (error) {
